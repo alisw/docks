@@ -13,11 +13,14 @@ CcacheDirHost="${HOME}/alisw/ccache/slc5-builder"
 CcacheDirGuest='/ccache'
 BuilderHost="${PWD}/wrap-gar-build.sh"
 BuilderGuest='/wrap-gar-build.sh'
+RecipeSvnCredsHost="${PWD}/recipe-svn-creds.txt"
+RecipeSvnCredsGuest='/recipe-svn-creds.txt'
 
 mkdir -p "$PackagesDirHost" "$CcacheDirHost"
 
 exec time docker run -it --rm \
   -v "${BuilderHost}:${BuilderGuest}:ro" \
+  -v "${RecipeSvnCredsHost}:${RecipeSvnCredsGuest}:ro" \
   -v "${PackagesDirHost}:${PackagesDirGuest}:rw" \
   -v "${CcacheDirHost}:${CcacheDirGuest}:rw" \
   -e 'PS1=`[ $? == 0 ] || echo $?\|`'$Container' ~ \w \u@\h \$> ' \
@@ -26,6 +29,4 @@ exec time docker run -it --rm \
   "$Container" \
   "$BuilderGuest" \
     --software root \
-    --recipe-version v5-06-25-01 \
-    --recipe-svn-user alibits \
-    --recipe-svn-password xxxxxxxx
+    --recipe-version v5-06-25-01

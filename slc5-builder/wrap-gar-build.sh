@@ -6,8 +6,11 @@
 # Usage:
 #   wrap-gar-build.sh --software <software_name> \
 #                     --recipe-version <recipe_version> \
-#                     --recipe-svn-user <recipe_svn_user> \
-#                     --recipe-svn-password <recipe_svn_password>
+#                     [--recipe-svn-user <recipe_svn_user>] \
+#                     [--recipe-svn-password <recipe_svn_password>]
+#
+# If credentials are not provided via command-line arguments, they are read from
+# the /recipe-svn-creds.txt file.
 #
 # Example:
 #   wrap-gar-build.sh --software root --recipe-version v5-06-25 \
@@ -32,6 +35,14 @@ while [[ $# -gt 0 ]] ; do
   esac
 done
 
+# Read SVN credentials for accessing GAR from a file [user:password]
+if [[ "$RecipeSvnUser" == '' || "$RecipeSvnPassword" == '' ]] ; then
+  RecipeCredsFile='/recipe-svn-creds.txt'
+  RecipeSvnRaw="$( cat "$RecipeCredsFile" )"
+  RecipeSvnUser=${RecipeSvnRaw%%:*}
+  RecipeSvnPassword=${RecipeSvnRaw#*:}
+fi
+
 # Mandatory input variables
 [[ "$RecipeVer" == '' || "$RecipeSw" == '' ]] && false
 [[ "$RecipeSvnUser" == '' || "$RecipeSvnPassword" == '' ]] && false
@@ -52,7 +63,7 @@ rm -rf "$BuildScratchDir" "$RecipeDir" "$AltTarballsDir"
 # Directories expected by the build system
 mkdir -p "$RegisterTarballsDir" "$FinalTarballsDir"
 
-# Work around hardcoded paths
+# Work around hardcoded paths in recipes
 ln -nfs "$WwwDir" "$AltWwwDir"
 
 # Download recipe
@@ -66,9 +77,6 @@ cd "$RecipeDir"
 ./bootstrap
 ./configure --prefix="$BuildScratchDir"
 
-# Build AliRoot Core
-cd "${RecipeDir}/apps/aliroot/aliroot"
-
-# Build a specific software on all possible cores
+# Build a specific software on all possible cores (override hardcoded values)
 cd "${RecipeDir}/apps/${RecipeSw}/${RecipeSw}"
 exec time make -j"$MakeCores" install AUTOREGISTER=0 BUILD_ARGS=-j"$MakeCores"
