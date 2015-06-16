@@ -6,7 +6,7 @@
 
 cd "$(dirname "$0")"
 
-Container='slc5-builder'
+Container='alisw/slc5-builder:latest'
 PackagesDirHost="${HOME}/alisw/packages"
 PackagesDirGuest='/opt/aliroot/www/tarballs'
 CcacheDirHost="${HOME}/alisw/ccache/slc5-builder"
