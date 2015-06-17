@@ -3,6 +3,9 @@ FROM centos:5
 # Patch uname
 COPY mock-uname-slc5.sh /bin/uname
 
+# Patch redhat-release
+COPY mock-redhat-release-slc5.txt /etc/redhat-release
+
 # Operations:
 # - Install RPMforge (needed for git)
 # - Install some required packages
