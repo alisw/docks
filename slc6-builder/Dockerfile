@@ -1,5 +1,11 @@
 FROM centos:centos6
 
+# Patch redhat-release: pretend to be SLC6
+COPY mock-redhat-release-slc6.txt /etc/redhat-release
+
+# Patch uname
+COPY mock-uname-slc6.sh /bin/uname
+
 #ADD RPM-GPG-KEY-cern /etc/pki/rpm-gpg/RPM-GPG-KEY-cern
 #ADD HEP_OSlibs.repo /etc/yum.repos.d/HEP_OSlibs.repo
 
