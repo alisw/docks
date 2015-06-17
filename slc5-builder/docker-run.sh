@@ -8,7 +8,7 @@ cd "$(dirname "$0")"
 
 Container='alisw/slc5-builder:latest'
 PackagesDirHost="${HOME}/alisw/packages"
-PackagesDirGuest='/opt/aliroot/www/tarballs'
+PackagesDirGuest='/packages_spool'
 CcacheDirHost="${HOME}/alisw/ccache/slc5-builder"
 CcacheDirGuest='/ccache'
 BuilderHost="$( cd ${PWD}/../.. ; pwd )/ali-bot/build-ib.sh"
@@ -23,7 +23,7 @@ exec time docker run -it --rm \
   -v "${BuilderHost}:${BuilderGuest}:ro" \
   -v "${PackagesDirHost}:${PackagesDirGuest}:rw" \
   -v "${CcacheDirHost}:${CcacheDirGuest}:rw" \
-  -e 'PS1=`[ $? == 0 ] || echo $?\|`'$Container' ~ \w \u@\h \$> ' \
+  -e 'PS1=`[ $? == 0 ] || echo $?\|`'$Container' ~ \u@\h \w \$> ' \
   -e "CCACHE_DIR=${CcacheDirGuest}" \
   -e "HOME=/root" \
   -e "DEFAULT_RECIPE_USER=${RecipeSvnUser}" \
