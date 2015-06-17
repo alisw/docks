@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Fake uname: emulate uname output of SLC5.
+# Mock uname: emulate uname output of SLC5.
 #
 
 opt_s='Linux'

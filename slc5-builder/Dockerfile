@@ -1,7 +1,7 @@
 FROM centos:5
 
 # Patch uname
-COPY fake-uname-slc5.sh /bin/uname
+COPY mock-uname-slc5.sh /bin/uname
 
 # Operations:
 # - Install RPMforge (needed for git)
