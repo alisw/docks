@@ -1,3 +1,5 @@
+# alisw/slc6-builder:v8
+
 FROM centos:centos6
 
 # Patch redhat-release: pretend to be SLC6
@@ -13,7 +15,7 @@ RUN \
   cvs e2fsprogs e2fsprogs-libs file gcc-c++ gcc-gfortran git gmp gmp-devel java-1.7.0-openjdk \
   libX11-devel libXext-devel libXft-devel libXmu libXpm libXpm-devel libtool libxml2-devel make \
   mesa-libGLU-devel mpfr mpfr-devel openssl-devel perl-ExtUtils-Embed perl-libwww-perl python-devel \
-  redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh && \
+  python-yaml redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh && \
   yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \

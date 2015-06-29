@@ -1,3 +1,5 @@
+# alisw/ubuntu1404-builder:v2
+
 FROM ubuntu:14.04
 
 # Patch uname

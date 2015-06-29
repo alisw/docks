@@ -1,3 +1,5 @@
+# alisw/slc5-builder:v4
+
 FROM centos:5
 
 # Patch uname
@@ -22,7 +24,7 @@ RUN \
   yum install -y subversion install autoconf automake libtool zlib-devel libxml2-devel \
     openssl-devel gcc-c++ gcc-gfortran make libX11-devel libXpm-devel libXft-devel libXext-devel \
     mesa-libGLU-devel git curl bzip2 which file redhat-lsb bzip2-devel python-devel gmp gmp-devel \
-    ccache java-1.7.0-openjdk && \
+    ccache java-1.7.0-openjdk python-yaml && \
   yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
