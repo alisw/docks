@@ -1,10 +1,21 @@
 FROM centos:centos6
 
-#ADD RPM-GPG-KEY-cern /etc/pki/rpm-gpg/RPM-GPG-KEY-cern
-#ADD HEP_OSlibs.repo /etc/yum.repos.d/HEP_OSlibs.repo
+# Patch redhat-release: pretend to be SLC6
+COPY mock-redhat-release-slc6.txt /etc/redhat-release
 
-#RUN yum update -y && yum install -y HEP_OSlibs_SL6
+# Patch uname
+COPY mock-uname-slc6.sh /bin/uname
 
-RUN yum install -y bc compat-libstdc++-33 e2fsprogs e2fsprogs-libs git java-1.7.0-openjdk libXmu libXpm perl-ExtUtils-Embed rpm-build screen tcl tcsh tk wget which zsh
-
-RUN yum install -y zip perl-libwww-perl svn cvs
+# We need RPMforge for ccache
+RUN \
+  yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && \
+  yum install -y autoconf automake bc bzip2 bzip2-devel ccache cmake compat-libstdc++-33 curl \
+  cvs e2fsprogs e2fsprogs-libs file gcc-c++ gcc-gfortran git gmp gmp-devel java-1.7.0-openjdk \
+  libX11-devel libXext-devel libXft-devel libXmu libXpm libXpm-devel libtool libxml2-devel make \
+  mesa-libGLU-devel mpfr mpfr-devel openssl-devel perl-ExtUtils-Embed perl-libwww-perl python-devel \
+  redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh && \
+  yum clean all && \
+  ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
+  ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
+  ln -nfs /usr/bin/ccache /usr/local/bin/cc && \
+  ln -nfs /usr/bin/ccache /usr/local/bin/c++
