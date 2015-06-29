@@ -5,6 +5,7 @@ COPY mock-uname-ubuntu1404.sh /bin/uname
 
 # No extra repos needed
 RUN \
+  sed -i -e 's|http://archive.ubuntu.com/ubuntu/|mirror://mirrors.ubuntu.com/mirrors.txt|g' /etc/apt/sources.list && \
   apt-get --yes --force-yes update && \
   apt-get install --yes --force-yes curl build-essential gfortran subversion cmake ccache wget \
     libmysqlclient-dev xorg-dev libglu1-mesa-dev libfftw3-dev libssl-dev libxml2-dev libtool \
