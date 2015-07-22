@@ -19,8 +19,11 @@ RUN \
   mesa-libGLU-devel mpfr mpfr-devel openssl-devel perl-ExtUtils-Embed perl-libwww-perl python-devel \
   python-yaml redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh \
   compat-libgfortran-41 python-argparse && \
-  yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
   ln -nfs /usr/bin/ccache /usr/local/bin/cc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/c++
+
+RUN yum update -y && yum install -y libcurl-devel
+
+RUN yum clean all
