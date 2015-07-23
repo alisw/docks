@@ -1,4 +1,4 @@
-# alisw/slc6-builder:v9
+# alisw/slc6-builder:v10
 
 FROM centos:centos6
 
@@ -18,9 +18,18 @@ RUN \
   libX11-devel libXext-devel libXft-devel libXmu libXpm libXpm-devel libtool libxml2-devel make \
   mesa-libGLU-devel mpfr mpfr-devel openssl-devel perl-ExtUtils-Embed perl-libwww-perl python-devel \
   python-yaml redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh \
-  compat-libgfortran-41 python-argparse && \
+  compat-libgfortran-41 python-argparse zip flex bison texinfo glibc-devel.i686 libgcc.i686 \
+  glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel && \
   yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
   ln -nfs /usr/bin/ccache /usr/local/bin/cc && \
-  ln -nfs /usr/bin/ccache /usr/local/bin/c++
+  ln -nfs /usr/bin/ccache /usr/local/bin/c++ && \
+  mkdir /tmp/cmake && \
+  cd /tmp/cmake && \
+  wget http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz && \
+  tar xzf *.tar.gz && \
+  cd cmake-2.8.12 && \
+  ./bootstrap && \
+  make -j$( grep -c bogomips /proc/cpuinfo ) install && \
+  rm -rf /tmp/cmake
