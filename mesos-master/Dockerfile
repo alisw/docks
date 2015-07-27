@@ -1,4 +1,4 @@
-FROM alisw/mesos-base
+FROM alisw/mesos-base:0.23.0
 
 ADD run.sh /run.sh
 EXPOSE 5050
