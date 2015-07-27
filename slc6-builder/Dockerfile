@@ -1,4 +1,4 @@
-# alisw/slc6-builder:v11
+# alisw/slc6-builder:v12
 
 FROM centos:centos6
 
@@ -19,7 +19,7 @@ RUN \
   mesa-libGLU-devel mpfr mpfr-devel openssl-devel perl-ExtUtils-Embed perl-libwww-perl python-devel \
   python-yaml redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh \
   compat-libgfortran-41 python-argparse zip flex bison texinfo glibc-devel.i686 libgcc.i686 \
-  glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel libcurl-devel && \
+  glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel libcurl-devel expat expat-devel && \
   yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
@@ -32,4 +32,5 @@ RUN \
   cd cmake-2.8.12 && \
   ./bootstrap && \
   make -j$( grep -c bogomips /proc/cpuinfo ) install && \
+  cd / && \
   rm -rf /tmp/cmake

@@ -1,4 +1,4 @@
-# alisw/slc5-builder:v5
+# alisw/slc5-builder:v7
 
 FROM centos:5
 
@@ -27,7 +27,8 @@ RUN \
     openssl-devel gcc-c++ gcc-gfortran make libX11-devel libXpm-devel libXft-devel libXext-devel \
     mesa-libGLU-devel git curl bzip2 which file redhat-lsb bzip2-devel python-devel gmp gmp-devel \
     ccache java-1.7.0-openjdk python-yaml zip flex bison texinfo glibc-devel.i686 \
-    glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel && \
+    glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel expat expat-devel libcurl-devel \
+    python-setuptools python-hashlib && \
   yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
@@ -40,4 +41,6 @@ RUN \
   cd cmake-2.8.12 && \
   ./bootstrap && \
   make -j$( grep -c bogomips /proc/cpuinfo ) install && \
-  rm -rf /tmp/cmake
+  cd / && \
+  rm -rf /tmp/cmake && \
+  easy_install argparse
