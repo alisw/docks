@@ -1,4 +1,4 @@
-# alisw/slc5-builder:v9
+# alisw/slc5-builder:v10
 
 FROM centos:5
 
@@ -28,7 +28,7 @@ RUN \
     mesa-libGLU-devel git curl bzip2 which file redhat-lsb bzip2-devel python-devel gmp gmp-devel \
     ccache java-1.7.0-openjdk python-yaml zip flex bison texinfo glibc-devel.i686 \
     glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel expat expat-devel curl-devel \
-    python-setuptools python-hashlib && \
+    python-setuptools python-hashlib tcl valgrind gdb vim-enhanced && \
   yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
