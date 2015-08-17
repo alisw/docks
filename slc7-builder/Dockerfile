@@ -1,4 +1,4 @@
-# alisw/slc7-builder:v5
+# alisw/slc7-builder:v6
 
 FROM centos:centos7
 
@@ -16,7 +16,7 @@ RUN \
     gcc-c++ libX11-devel libXpm-devel libXft-devel libXext-devel redhat-lsb libtool automake \
     autoconf libxml2-devel ccache openssl-devel libcurl-devel bzip2-devel mesa-libGLU-devel zip \
     perl-libwww-perl svn cvs flex bison texinfo glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 \
-    libgcc.x86_64 ncurses-devel && \
+    libgcc.x86_64 ncurses-devel vim-enhanced gdb valgrind && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
   ln -nfs /usr/bin/ccache /usr/local/bin/cc && \
