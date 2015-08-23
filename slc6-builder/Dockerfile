@@ -1,4 +1,4 @@
-# alisw/slc6-builder:v13
+# alisw/slc6-builder:v14
 
 FROM centos:centos6
 
@@ -20,7 +20,7 @@ RUN \
   python-yaml redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh \
   compat-libgfortran-41 python-argparse zip flex bison texinfo glibc-devel.i686 libgcc.i686 \
   glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel libcurl-devel expat expat-devel \
-  vim-enhanced valgrind gdb && \
+  vim-enhanced valgrind gdb swig && \
   yum clean all && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
