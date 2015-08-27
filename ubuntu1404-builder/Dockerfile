@@ -1,4 +1,4 @@
-# alisw/ubuntu1404-builder:v2
+# alisw/ubuntu1404-builder:v3
 
 FROM ubuntu:14.04
 
@@ -12,7 +12,8 @@ RUN \
   apt-get install --yes --force-yes curl build-essential gfortran subversion cmake ccache wget \
     libmysqlclient-dev xorg-dev libglu1-mesa-dev libfftw3-dev libssl-dev libxml2-dev libtool \
     automake git unzip libcgal-dev libmpfr4 libmpfr-dev libcgal10 libcgal-dev openjdk-7-jre \
-    bc time libbz2-dev python-dev python-yaml libcurl4-openssl-dev && \
+    bc time libbz2-dev python-dev python-yaml libcurl4-openssl-dev \
+    flex bison swig screen tcl tk zip unzip zsh texinfo libncurses5-dev vim-nox valgrind gdb && \
   apt-get --yes --force-yes clean && \
   ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
   ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
