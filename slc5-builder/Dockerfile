@@ -1,4 +1,4 @@
-# alisw/slc5-builder:v11
+# alisw/slc5-builder:v12
 
 FROM centos:5
 
@@ -11,8 +11,6 @@ COPY mock-redhat-release-slc5.txt /etc/redhat-release
 # Operations:
 # - Install RPMforge (needed for git)
 # - Install some required packages
-# - Make ccache used by default
-# - Install CMake v2.8 (only v2.6 is available from repos)
 RUN \
   rpmdb --rebuilddb && \
   yum clean all && \
@@ -25,7 +23,7 @@ RUN \
   yum install -y subversion install autoconf automake libtool zlib-devel libxml2-devel \
     openssl-devel gcc-c++ gcc-gfortran make libX11-devel libXpm-devel libXft-devel libXext-devel \
     mesa-libGLU-devel git curl bzip2 which file redhat-lsb bzip2-devel python-devel gmp gmp-devel \
-    ccache java-1.7.0-openjdk python-yaml zip flex bison texinfo glibc-devel.i686 \
+    java-1.7.0-openjdk python-yaml zip flex bison texinfo glibc-devel.i686 \
     glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel expat expat-devel curl-devel \
     python-setuptools python-hashlib tcl valgrind gdb vim-enhanced libaio libaio-devel doxygen && \
   mkdir /tmp/rpmswig && cd /tmp/rpmswig && \
@@ -33,17 +31,4 @@ RUN \
   yum localinstall -y --nogpgcheck swig-3.0.2-5.1.x86_64.rpm && \
   cd / && rm -rf /tmp/rpmswig && \
   yum clean all && \
-  ln -nfs /usr/bin/ccache /usr/local/bin/gcc && \
-  ln -nfs /usr/bin/ccache /usr/local/bin/g++ && \
-  ln -nfs /usr/bin/ccache /usr/local/bin/cc && \
-  ln -nfs /usr/bin/ccache /usr/local/bin/c++ && \
-  mkdir /tmp/cmake && \
-  cd /tmp/cmake && \
-  wget http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz && \
-  tar xzf *.tar.gz && \
-  cd cmake-2.8.12 && \
-  ./bootstrap && \
-  make -j$( grep -c bogomips /proc/cpuinfo ) install && \
-  cd / && \
-  rm -rf /tmp/cmake && \
   easy_install argparse
