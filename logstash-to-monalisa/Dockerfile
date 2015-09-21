@@ -6,6 +6,5 @@ RUN yum update -y && yum install -y logstash which java-1.8.0-openjdk-headless g
 ADD mesos-patterns.conf /opt/logstash/patterns/mesos
 ADD run.sh /
 RUN /opt/logstash/bin/plugin install logstash-input-http_poller
-RUN /opt/logstash/bin/plugin install logstash-filter-prune
 
 CMD /usr/bin/java -version && sh -e -x /run.sh
