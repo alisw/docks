@@ -4,8 +4,9 @@
 #
 # Notice that in case of a frontend, we expose port 53 as well
 # as a valid resource.
-mesos-slave --master=${MESOS_MASTER_ZK-zk://localhost:2181/mesos} \
-             --work_dir=${MESOS_MASTER_WORKDIR-/var/lib/mesos} \
+mesos-slave --master=${MESOS_MASTER_ZK-zk://localhost:2181/mesos}                \
+             --work_dir=${MESOS_MASTER_WORKDIR-/var/lib/mesos}                   \
              ${MESOS_SLAVE_FRONTEND+--resources='ports(*):[31000-32000, 53-53]'} \
-             --containerizers=docker,mesos \
+             --containerizers=docker,mesos                                       \
+             ${MESOS_ATTRIBUTES+--attributes=$MESOS_ATTRIBUTES}                  \
              --port=${MESOS_SLAVE_PORT-5051}
