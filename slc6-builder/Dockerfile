@@ -20,3 +20,5 @@ RUN \
   glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel libcurl-devel expat expat-devel \
   vim-enhanced valgrind gdb swig && \
   yum clean all
+RUN yum install -y rubygems ruby-devel
+RUN gem install --no-ri --no-rdoc fpm

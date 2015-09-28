@@ -15,3 +15,6 @@ RUN \
     bc time libbz2-dev python-dev python-yaml libcurl4-openssl-dev \
     flex bison swig screen tcl tk zip unzip zsh texinfo libncurses5-dev vim-nox valgrind gdb && \
   apt-get --yes --force-yes clean
+
+RUN apt-get --yes install ruby-dev build-essential
+RUN gem install --no-ri --no-rdoc fpm
