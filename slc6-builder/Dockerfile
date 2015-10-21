@@ -26,3 +26,4 @@ RUN rpm --rebuilddb && \
     rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt && \
     yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && \
     yum install -y git --enablerepo=rpmforge-extras
+RUN yum install -y environment-modules
