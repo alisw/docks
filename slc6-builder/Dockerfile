@@ -20,5 +20,9 @@ RUN \
   glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel libcurl-devel expat expat-devel \
   vim-enhanced valgrind gdb swig && \
   yum clean all
-RUN yum install -y rubygems ruby-devel
+RUN rpm --rebuilddb && yum install -y rubygems ruby-devel
 RUN gem install --no-ri --no-rdoc fpm
+RUN rpm --rebuilddb && \
+    rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt && \
+    yum install -y http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && \
+    yum install -y git --enablerepo=rpmforge-extras
