@@ -19,3 +19,4 @@ RUN \
     libgcc.x86_64 ncurses-devel vim-enhanced gdb valgrind swig
 RUN yum install -y rubygems ruby-devel
 RUN gem install --no-ri --no-rdoc fpm
+RUN yum install -y environment-modules

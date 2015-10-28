@@ -32,3 +32,4 @@ RUN \
   cd / && rm -rf /tmp/rpmswig && \
   yum clean all && \
   easy_install argparse
+RUN yum install -y environment-modules
