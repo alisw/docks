@@ -17,5 +17,6 @@ RUN \
     autoconf libxml2-devel openssl-devel libcurl-devel bzip2-devel mesa-libGLU-devel zip \
     perl-libwww-perl svn cvs flex bison texinfo glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 \
     libgcc.x86_64 ncurses-devel vim-enhanced gdb valgrind swig
-RUN yum install -y rubygems ruby-devel
+RUN rpmdb --rebuilddb && yum install -y rubygems ruby-devel
 RUN gem install --no-ri --no-rdoc fpm
+RUN rpmdb --rebuilddb && yum install -y environment-modules
