@@ -20,3 +20,4 @@ RUN \
 RUN rpmdb --rebuilddb && yum install -y rubygems ruby-devel
 RUN gem install --no-ri --no-rdoc fpm
 RUN rpmdb --rebuilddb && yum install -y environment-modules
+RUN rpmdb --rebuilddb && yum install -y python-requests
