@@ -19,3 +19,4 @@ RUN \
 RUN apt-get --yes install ruby-dev build-essential
 RUN gem install --no-ri --no-rdoc fpm
 RUN apt-get update && apt-get install -y environment-modules
+RUN apt-get update && apt-get install -y uuid-dev
