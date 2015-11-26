@@ -8,15 +8,16 @@ COPY mock-redhat-release-slc7.txt /etc/redhat-release
 # Patch uname
 COPY mock-uname-slc7.sh /bin/uname
 
-RUN \
-  rpmdb --rebuilddb && \
-  yum clean all && \
-  yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs e2fsprogs-libs git java-1.7.0-openjdk \
-    libXmu libXpm perl-ExtUtils-Embed rpm-build screen tcl tcsh tk wget which zsh gcc gcc-gfortran \
-    gcc-c++ libX11-devel libXpm-devel libXft-devel libXext-devel redhat-lsb libtool automake \
-    autoconf libxml2-devel openssl-devel libcurl-devel bzip2-devel mesa-libGLU-devel zip \
-    perl-libwww-perl svn cvs flex bison texinfo glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 \
-    libgcc.x86_64 ncurses-devel vim-enhanced gdb valgrind swig
+RUN                                                                                                 \
+  rpmdb --rebuilddb &&                                                                              \
+  yum clean all &&                                                                                  \
+  yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs e2fsprogs-libs git java-1.7.0-openjdk      \
+    libXmu libXpm perl-ExtUtils-Embed rpm-build screen tcl tcsh tk wget which zsh gcc gcc-gfortran  \
+    gcc-c++ libX11-devel libXpm-devel libXft-devel libXext-devel redhat-lsb libtool automake        \
+    autoconf libxml2-devel openssl-devel libcurl-devel bzip2-devel mesa-libGLU-devel zip            \
+    perl-libwww-perl svn cvs flex bison texinfo glibc-devel.i686 glibc-devel.x86_64 libgcc.i686     \
+    libgcc.x86_64 ncurses-devel vim-enhanced gdb valgrind swig                                      \
+    apr-devel subversion-devel cyrus-sasl-md5
 RUN rpmdb --rebuilddb && yum install -y rubygems ruby-devel
 RUN gem install --no-ri --no-rdoc fpm
 RUN rpmdb --rebuilddb && yum install -y environment-modules
