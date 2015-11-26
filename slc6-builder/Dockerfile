@@ -28,3 +28,8 @@ RUN rpm --rebuilddb && \
     yum install -y git --enablerepo=rpmforge-extras
 RUN rpm --rebuilddb && yum install -y environment-modules
 RUN rpm --rebuilddb && yum install -y libuuid-devel
+
+ENV CCTOOLS_VER 5.3.0
+RUN curl http://ccl.cse.nd.edu/software/files/cctools-$CCTOOLS_VER-x86_64-redhat6.tar.gz | \
+    tar -C / --strip-components=1 -xzf - && \
+    ldconfig
