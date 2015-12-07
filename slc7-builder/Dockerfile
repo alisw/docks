@@ -19,3 +19,5 @@ RUN                                                                             
     libgcc.x86_64 ncurses-devel vim-enhanced gdb valgrind swig                                      \
     apr-devel subversion-devel cyrus-sasl-md5 rubygems ruby-devel fpm environment-modules           \
     python-requests libuuid-devel createrepo
+
+RUN gem install --no-ri --no-rdoc fpm
