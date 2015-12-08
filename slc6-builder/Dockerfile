@@ -18,7 +18,7 @@ RUN                                                                             
   python-yaml redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip zlib-devel zsh       \
   compat-libgfortran-41 python-argparse flex bison texinfo glibc-devel.i686 libgcc.i686              \
   glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel libcurl-devel expat expat-devel         \
-  apr-devel subversion-devel cyrus-sasl-md5                                                          \
+  apr-devel subversion-devel cyrus-sasl-md5 file-devel                                               \
   vim-enhanced valgrind gdb swig &&                                                                  \
   yum clean all
 RUN rpm --rebuilddb && yum install -y rubygems ruby-devel
