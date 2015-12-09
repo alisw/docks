@@ -1,0 +1,13 @@
+riemann:
+  build: riemann
+  net: host
+#  expose:
+#  - 5555
+#  - 5556
+dashboard:
+  build: riemann-dash
+  net: host
+#  expose: 
+#  - 4567 
+#  links:
+#  - riemann
