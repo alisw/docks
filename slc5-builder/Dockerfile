@@ -33,3 +33,4 @@ RUN \
   yum clean all && \
   easy_install argparse
 RUN rpm --rebuilddb && yum install -y environment-modules
+RUN rm -f /var/lib/rpm/Pubkeys && rpm --rebuilddb && yum install -y mysql-devel
