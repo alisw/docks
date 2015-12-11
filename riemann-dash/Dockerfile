@@ -1,6 +1,6 @@
 FROM alisw/riemann-tools
 
 RUN gem install riemann-dash
-ADD config.rb /config.rb
+ADD run.sh /run.sh
 
-CMD RIEMANN_DASH_CONFIG=/config.rb riemann-dash
+CMD /run.sh
