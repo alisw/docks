@@ -3,4 +3,9 @@
 if [ ! -d /config ]; then
   git clone ${ALI_BOT_BRANCH:+-b $ALI_BOT_BRANCH} https://github.com/${ALI_BOT_REPO:-alisw/ali-bot} /config
 fi
-/riemann-0.2.10/bin/riemann /config/riemann/riemann.config
+RIEMANN_HOME=/riemann-0.2.10
+RIEMANN_ELASTIC=/riemann-elasticsearch-plugin
+test -f ${RIEMANN_HOME}/lib/riemann.jar
+ls /riemann-elasticsearch-plugin/target/
+test -f ${RIEMANN_ELASTIC}/target/riemann-elasticsearch-output-0.1.1-SNAPSHOT-standalone.jar
+java -server -cp ${RIEMANN_HOME}/lib/riemann.jar:${RIEMANN_ELASTIC}/target/riemann-elasticsearch-output-0.1.1-SNAPSHOT-standalone.jar clojure.main -m riemann.bin /config/riemann/riemann.config
