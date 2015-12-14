@@ -35,6 +35,7 @@ RUN                                                                             
   ln -s /usr/bin/python2.6 /usr/local/bin/python                                                                                   &&  \
   curl https://bootstrap.pypa.io/get-pip.py | python                                                                               &&  \
   pip install bernhard                                                                                                             &&  \
+  pip install pyyaml                                                                                                               &&  \
   yum clean all                                                                                                                    &&  \
   easy_install argparse
 RUN rpm --rebuilddb && yum install -y environment-modules
