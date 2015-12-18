@@ -21,7 +21,7 @@ RUN                                                                             
       redhat-lsb rpm-build screen subversion tcl tcsh tk wget which zip                     \
       zlib-devel zsh compat-libgfortran-41 python-argparse flex bison                       \
       texinfo glibc-devel.i686 libgcc.i686 glibc-devel.x86_64 libgcc.i686                   \
-      libgcc.x86_64 ncurses-devel libcurl-devel expat expat-devel                           \
+      libgcc.x86_64 ncurses-devel libcurl-devel expat uuid-devel expat-devel                \
       apr-devel subversion-devel cyrus-sasl-md5 file-devel vim-enhanced                     \
       valgrind gdb swig python-pip protobuf-devel rubygems ruby-devel                    && \
   yum clean all                                                                          && \

@@ -22,7 +22,7 @@ RUN                                                                             
         perl-libwww-perl svn cvs flex bison texinfo glibc-devel.i686                              \
         glibc-devel.x86_64 libgcc.i686 libgcc.x86_64 ncurses-devel                                \
         vim-enhanced gdb valgrind swig apr-devel subversion-devel                                 \
-        cyrus-sasl-md5 rubygems ruby-devel fpm environment-modules                                \
+        cyrus-sasl-md5 rubygems ruby-devel fpm uuid-devel environment-modules                     \
         python-requests libuuid-devel createrepo protobuf-devel python-pip                    &&  \
   yum clean all
 
