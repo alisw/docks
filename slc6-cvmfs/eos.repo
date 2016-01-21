@@ -1,0 +1,6 @@
+[eos]
+name=EOS
+baseurl=http://dss-ci-repo.web.cern.ch/dss-ci-repo/eos/citrine/tag/el-6/$basearch
+gpgcheck=0
+enabled=1
+protect=0
