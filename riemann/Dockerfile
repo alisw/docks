@@ -10,6 +10,9 @@ RUN cd riemann-elasticsearch-plugin                           && \
     LEIN_ROOT=1 lein uberjar                                  && \
     cd /                                                      && \
     tar xjvf /riemann.tbz2
+RUN mkdir /jars
+ADD https://clojars.org/repo/clj-time/clj-time/0.11.0/clj-time-0.11.0.jar /jars
+ADD https://repo1.maven.org/maven2/joda-time/joda-time/2.8.2/joda-time-2.8.2.jar /jars
 ADD run.sh /run.sh
 
 CMD /run.sh
