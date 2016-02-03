@@ -1,0 +1,5 @@
+[alisw-el7]
+name=ALICE Software - EL7
+baseurl=https://ali-ci.cern.ch/repo/RPMS/el7.x86_64/
+enabled=1
+gpgcheck=0
