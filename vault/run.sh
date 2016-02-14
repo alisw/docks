@@ -1,3 +1,8 @@
+if [[ ! $TLS_CERT_FILE ]]; then
+  export TLS_DISABLE=1
+fi
+export Q=\"
+
 cat <<EOF >/vault.config
 backend "zookeeper" {
   address = "127.0.0.1:2181"
@@ -7,9 +12,9 @@ backend "zookeeper" {
 
 listener "tcp" {
   address = "0.0.0.0:8200"
-  ${TLS_CERT_FILE:-tls_disable = 1}
-  ${TLS_CERT_FILE:+tls_cert_file = "${TLS_CERT_FILE}"}
-  ${TLS_KEY_FILE:+tls_key_file = "${TLS_KEY_FILE}"}
+  ${TLS_DISABLE:+tls_disable = 1}
+  ${TLS_CERT_FILE:+tls_cert_file = $Q${TLS_CERT_FILE}$Q}
+  ${TLS_KEY_FILE:+tls_key_file = $Q${TLS_KEY_FILE}$Q}
 }
 EOF
 
