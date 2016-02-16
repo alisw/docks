@@ -1,6 +1,6 @@
-FROM alisw/mesos-base:0.24.0
+FROM alisw/mesos-base:0.25.0
 
-RUN yum update -y && yum install -y iptables ca-certificates lxc e2fsprogs docker-io
+RUN yum install -y iptables ca-certificates lxc e2fsprogs
 
 EXPOSE 5051
 
