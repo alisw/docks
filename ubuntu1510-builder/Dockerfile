@@ -10,3 +10,5 @@ RUN \
     libcurl4-openssl-dev flex bison screen tcl tk zip unzip zsh texinfo libncurses5-dev vim-nox \
     valgrind gdb inetutils-ping libperl-dev && \
   apt-get --yes --force-yes clean
+ADD https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip vault.zip
+RUN unzip vault.zip && mv ./vault /usr/bin/vault

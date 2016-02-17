@@ -28,3 +28,5 @@ RUN                                                                             
 
 RUN pip install --upgrade pip six && pip install bernhard
 RUN gem install --no-ri --no-rdoc fpm
+ADD https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip vault.zip
+RUN unzip vault.zip && mv ./vault /usr/bin/vault
