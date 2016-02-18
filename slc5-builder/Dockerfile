@@ -28,7 +28,7 @@ RUN                                                                             
   zip flex bison texinfo glibc-devel.i686 glibc-devel.x86_64                                                                           \
   libgcc.i686 libgcc.x86_64 ncurses-devel expat expat-devel curl-devel                                                                 \
   python-setuptools python-hashlib tcl valgrind gdb vim-enhanced                                                                       \
-  libaio libaio-devel doxygen                                                                                                      &&  \
+  libaio libaio-devel doxygen unzip                                                                                                &&  \
   wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-5.noarch.rpm                                                      &&  \
   rpm -Uvh epel-release*                                                                                                           &&  \
   yum install -y python26                                                                                                          &&  \
@@ -40,3 +40,5 @@ RUN                                                                             
   easy_install argparse
 RUN rpm --rebuilddb && yum install -y environment-modules
 RUN rm -f /var/lib/rpm/Pubkeys && rpm --rebuilddb && yum install -y mysql-devel
+ADD https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip vault.zip
+RUN unzip vault.zip && mv ./vault /usr/bin/vault

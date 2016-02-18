@@ -38,3 +38,6 @@ ENV CCTOOLS_VER 5.3.0
 RUN curl http://ccl.cse.nd.edu/software/files/cctools-$CCTOOLS_VER-x86_64-redhat6.tar.gz |  \
     tar -C / --strip-components=1 -xzf - &&                                                 \
     ldconfig
+
+ADD https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip vault.zip
+RUN unzip vault.zip && mv ./vault /usr/bin/vault
