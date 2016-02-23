@@ -7,7 +7,7 @@ cat <<EOF >/vault.config
 backend "zookeeper" {
   address = "127.0.0.1:2181"
   path = "vault"
-  advertise_addr = "${ZOOKEEPER_ADDRESS:-zk://127.0.0.1:2181}"
+  advertise_addr = "https://${HOSTNAME}:8200"
 }
 
 listener "tcp" {
