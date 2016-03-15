@@ -28,5 +28,8 @@ RUN                                                                             
 
 RUN pip install --upgrade pip six && pip install bernhard
 RUN gem install --no-ri --no-rdoc fpm
-ADD https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip vault.zip
-RUN unzip vault.zip && mv ./vault /usr/bin/vault
+RUN curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip && \
+    unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip
+RUN curl -L http://repo1.maven.org/maven2/com/madgag/bfg/1.12.8/bfg-1.12.8.jar -o /usr/local/lib/bfg.jar && \
+    printf "#!/bin/sh\nexec java -jar /usr/local/lib/bfg.jar\n" > /usr/local/bin/bfg                     && \
+    chmod +x /usr/local/bin/bfg
