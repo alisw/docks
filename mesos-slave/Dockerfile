@@ -1,4 +1,4 @@
-FROM alisw/mesos-base:0.26.0
+FROM alisw/mesos-base:0.27.2
 
 RUN yum install -y iptables ca-certificates lxc e2fsprogs
 
