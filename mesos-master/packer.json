@@ -1,0 +1,38 @@
+{
+  "_comment": "Build a Mesos master image",
+  "variables": {
+    "centos_major": "7",
+    "centos_minor": "2",
+    "mesos_version": "0.27.2",
+    "docker_version": "1.10.3",
+    "project": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "{{user `project`}}/mesos-base:{{user `mesos_version`}}",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "mesos-master/run.sh",
+      "destination": "/run.sh"
+    },
+    {
+      "type": "shell",
+      "inline": ["yum install -y iptables ca-certificates lxc e2fsprogs && yum clean all -y"]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `project`}}/mesos-master",
+        "tag": "{{user `mesos_version`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
