@@ -1,0 +1,34 @@
+{
+  "_comment": "Build a Mesos base image",
+  "variables": {
+    "centos_major": "7",
+    "centos_minor": "2",
+    "mesos_version": "0.27.2",
+    "docker_version": "1.10.3",
+    "project": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "centos:centos{{user `centos_major`}}",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": ["rpm -Uvh http://repos.mesosphere.com/el/{{user `centos_major`}}/noarch/RPMS/mesosphere-el-repo-{{user `centos_major`}}-{{user `centos_minor`}}.noarch.rpm",
+                 "yum update -y && yum install -y mesos-{{user `mesos_version`}} docker-engine-{{user `docker_version`}} && yum clean all -y"]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `project`}}/mesos-base",
+        "tag": "{{user `mesos_version`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
