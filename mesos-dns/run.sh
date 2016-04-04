@@ -25,4 +25,5 @@ cat << EOF > /config.json
 }
 EOF
 
+export GOPATH=/usr/local/go
 /usr/local/go/bin/mesos-dns ${VERBOSE+-v} -config /config.json

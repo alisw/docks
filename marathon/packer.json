@@ -1,0 +1,40 @@
+{
+  "_comment": "Marathon",
+  "variables": {
+    "mesos_version": "0.27.2",
+    "docker_version": "1.10.3",
+    "marathon_version": "0.15.3",
+    "project": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "{{user `project`}}/mesos-base:{{user `mesos_version`}}",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "marathon/run.sh",
+      "destination": "/run.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "yum search marathon",
+        "yum -y install marathon-{{user `marathon_version`}} nc",
+        "yum clean all -y"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `project`}}/marathon",
+        "tag": "{{user `marathon_version`}}"
+      }
+    ]
+  ]
+}
