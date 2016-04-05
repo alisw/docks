@@ -12,9 +12,11 @@ for x in `echo ${MESOS_DNS_RESOLVERS-8.8.8.8} | tr , \\ `; do
 done
 RESOLVERS=`echo $RESOLVERS | sed -e 's/^, //'`
 
+ZK="\"zk\": \"$MESOS_DNS_ZK\","
+
 cat << EOF > /config.json
 {
-  "masters": [${MASTERS}],
+  ${MESOS_DNS_ZK+$ZK}
   "refreshSeconds": ${MESOS_DNS_REFRESH-60},
   "ttl": ${MESOS_DNS_TTL-60},
   "domain": "${MESOS_DNS_DOMAIN-mesos}",

@@ -35,7 +35,8 @@
         "type": "docker-tag",
         "repository": "{{user `project`}}/mesos-dns",
         "tag": "{{user `mesos_dns_version`}}"
-      }
+      },
+      "docker-push"
     ]
   ]
 }
