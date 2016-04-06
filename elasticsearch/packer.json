@@ -1,7 +1,7 @@
 {
   "_comment": "Build an elasticsearch image",
   "variables": {
-    "elasticsearch_version": "1.7",
+    "elasticsearch_version": "2.3",
     "project": "alisw"
   },
   "builders": [
@@ -15,8 +15,7 @@
     {
       "type": "shell",
       "inline": [
-                  "/usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head/latest",
-                  "/usr/share/elasticsearch/bin/plugin install elastic/elasticsearch-migration/latest"
+                  "/usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head/latest"
                 ]
     }
   ],
