@@ -1,0 +1,42 @@
+{
+  "_comment": "Mesos DNS image",
+  "variables": {
+    "centos_major": "7",
+    "centos_minor": "2",
+    "mesos_dns_version": "0.5.2",
+    "project": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "centos:centos{{user `centos_major`}}",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "mesos-dns/run.sh",
+      "destination": "/run.sh"
+    },
+    {
+      "type": "shell",
+      "inline": ["yum clean all",
+                 "yum install -y http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm",
+                 "yum install -y golang git",
+                 "GOPATH=/usr/local/go go get github.com/miekg/dns",
+                 "GOPATH=/usr/local/go go get github.com/mesosphere/mesos-dns"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `project`}}/mesos-dns",
+        "tag": "{{user `mesos_dns_version`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
