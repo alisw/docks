@@ -1,0 +1,33 @@
+{
+  "_comment": "Build an elasticsearch image",
+  "variables": {
+    "elasticsearch_version": "1.7",
+    "project": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "elasticsearch:{{user `elasticsearch_version`}}",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+                  "/usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head/latest",
+                  "/usr/share/elasticsearch/bin/plugin install elastic/elasticsearch-migration/latest"
+                ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `project`}}/elasticsearch",
+        "tag": "{{user `elasticsearch_version`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
