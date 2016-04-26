@@ -14,12 +14,12 @@ RUN                                                                             
     libfftw3-dev libssl-dev libxml2-dev libtool automake git unzip                                                    \
     libcgal-dev libmpfr4 libmpfr-dev libcgal10 libcgal-dev openjdk-7-jre                                              \
     bc time libbz2-dev python-dev python-yaml libcurl4-openssl-dev flex                                               \
-    bison swig screen tcl tk zip unzip zsh texinfo libncurses5-dev                                                    \
+    bison swig screen tcl libtcl8.5 tk zip unzip zsh texinfo libncurses5-dev                                          \
     environment-modules libperl-dev                                                                                   \
     vim-nox valgrind gdb python-pip ruby-dev build-essential                                                       && \
   apt-get --yes --force-yes clean                                                                                  && \
   pip install bernhard
 
 RUN gem install --no-ri --no-rdoc fpm
-ADD https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip vault.zip
-RUN unzip vault.zip && mv ./vault /usr/bin/vault
+RUN curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip && \
+    unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip
