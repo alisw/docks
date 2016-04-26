@@ -15,3 +15,5 @@ RUN                                                                            \
 RUN gem install --no-ri --no-rdoc fpm
 RUN curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip && \
     unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip
+
+RUN ln -nfs libtcl8.5.so.0 /usr/lib/libtcl8.5.so
