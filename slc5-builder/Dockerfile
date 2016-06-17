@@ -28,7 +28,7 @@ RUN                                                                             
   zip flex bison texinfo glibc-devel.i686 glibc-devel.x86_64                                                                           \
   libgcc.i686 libgcc.x86_64 ncurses-devel expat expat-devel curl-devel                                                                 \
   python-setuptools python-hashlib tcl valgrind gdb vim-enhanced                                                                       \
-  libaio libaio-devel doxygen unzip                                                                                                &&  \
+  libaio libaio-devel doxygen unzip libtermcap-devel                                                                               &&  \
   wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-5.noarch.rpm                                                      &&  \
   rpm -Uvh epel-release*                                                                                                           &&  \
   yum install -y python26                                                                                                          &&  \
