@@ -16,7 +16,7 @@ node {
 
   stage "Build containers"
   withEnv([
-        "BRANCH_NAME=${env.BRANCH_NAME}",  
+        "BRANCH_NAME=${env.BRANCH_NAME}",
         "CHANGE_TARGET=${env.CHANGE_TARGET}"]) {
     dir ("docks") {
       checkout scm
@@ -25,11 +25,14 @@ node {
 
         case $BRANCH_NAME in
           master) DOCKER_TAG=latest ;;
-          *) DOCKER_TAG=devel ;;
+          *)      DOCKER_TAG=devel  ;;
         esac
 
         for x in $IMAGES ; do
-          if grep docker_tag "$x/packer.json" ; then
+          if ! test -f $x/packer.json ; then
+            echo "Image $x does not use Packer, skipping test."
+            continue
+          elif grep docker_tag "$x/packer.json" ; then
             packer build -var "docker_tag=${DOCKER_TAG}" "$x/packer.json"
           else
             echo "$x/packer.json does not use docker_tag"
