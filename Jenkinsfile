@@ -24,18 +24,18 @@ node {
         IMAGES=`git diff --name-only origin/${CHANGE_TARGET}.. | grep '/' | sed -e 's|/.*||' | uniq`
 
         case $BRANCH_NAME in
-          master) DOCKER_TAG=latest ;;
-          *)      DOCKER_TAG=devel  ;;
+          master) DOCKER_HUB_REPO=alisw    ;;
+          *)      DOCKER_HUB_REPO=aliswdev ;;
         esac
 
         for x in $IMAGES ; do
           if ! test -f $x/packer.json ; then
             echo "Image $x does not use Packer, skipping test."
             continue
-          elif grep docker_tag "$x/packer.json" ; then
-            packer build -var "docker_tag=${DOCKER_TAG}" "$x/packer.json"
+          elif grep DOCKER_HUB_REPO "$x/packer.json" ; then
+            packer build -var "DOCKER_HUB_REPO=${DOCKER_HUB_REPO}" "$x/packer.json"
           else
-            echo "$x/packer.json does not use docker_tag"
+            echo "$x/packer.json does not use DOCKER_HUB_REPO."
             exit 1
           fi
         done
