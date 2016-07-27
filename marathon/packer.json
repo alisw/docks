@@ -1,9 +1,9 @@
 {
   "_comment": "Marathon",
   "variables": {
-    "mesos_version": "0.27.2",
-    "docker_version": "1.10.3",
-    "marathon_version": "0.15.3",
+    "mesos_version": "0.28.2",
+    "docker_version": "1.11.3",
+    "marathon_version": "1.1.1",
     "project": "alisw"
   },
   "builders": [
