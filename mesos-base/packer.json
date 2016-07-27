@@ -3,8 +3,8 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
-    "mesos_version": "0.27.2",
-    "docker_version": "1.10.3",
+    "mesos_version": "0.28.2",
+    "docker_version": "1.11.2",
     "project": "alisw"
   },
   "builders": [
@@ -15,6 +15,11 @@
     }
   ],
   "provisioners": [
+    {
+      "type": "file",
+      "source": "mesos-base/docker.repo",
+      "destination": "/etc/yum.repos.d/docker.repo"
+    },
     {
       "type": "shell",
       "inline": ["rpm -Uvh http://repos.mesosphere.com/el/{{user `centos_major`}}/noarch/RPMS/mesosphere-el-repo-{{user `centos_major`}}-{{user `centos_minor`}}.noarch.rpm",

@@ -3,8 +3,8 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
-    "mesos_version": "0.27.2",
-    "docker_version": "1.10.3",
+    "mesos_version": "0.28.2",
+    "docker_version": "1.11.3",
     "project": "alisw"
   },
   "builders": [
