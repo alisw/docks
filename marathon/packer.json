@@ -34,7 +34,8 @@
         "type": "docker-tag",
         "repository": "{{user `project`}}/marathon",
         "tag": "{{user `marathon_version`}}"
-      }
+      },
+      "docker-push"
     ]
   ]
 }
