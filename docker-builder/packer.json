@@ -3,9 +3,9 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
-    "mesos_version": "0.27.2",
-    "docker_version": "1.10.3",
-    "project": "alisw"
+    "mesos_version": "0.28.2",
+    "docker_version": "1.12.0",
+    "packer_version": "0.10.1"
   },
   "builders": [
     {
@@ -23,12 +23,11 @@
     {
       "type": "shell",
       "inline": [
-                 "yum install -y http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm",
                  "yum update -y",
                  "yum install -y docker-engine-{{user `docker_version`}} unzip",
                  "yum install -y git java-1.8.0-openjdk-headless",
                  "yum clean all -y",
-                 "curl -O https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip",
+                 "curl -L -O https://releases.hashicorp.com/packer/{{user `packer_version`}}/packer_{{user `packer_version`}}_linux_amd64.zip",
                  "unzip packer*.zip",
                  "mv packer /usr/bin/packer",
                  "chmod +x /usr/bin/packer"]
@@ -38,7 +37,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `project`}}/docker-builder",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/docker-builder",
         "tag": "latest"
       },
       "docker-push"
