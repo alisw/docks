@@ -1,9 +1,9 @@
 AURORA_MESOS_MASTER=${AURORA_MESOS_MASTERS:-zk://127.0.0.1:2181/mesos}
 
 mkdir -p /var/lib/aurora/scheduler/db /var/lib/aurora-backup
-mesos-log initialize --path=/var/lib/aurora/scheduler/db
+mesos-log initialize --path=/var/lib/aurora/scheduler/db && true
 
-aurora-scheduler -mesos_master_address=${AURORA_MESOS_MASTERS} \
+/usr/lib/aurora/bin/aurora-scheduler -mesos_master_address=${AURORA_MESOS_MASTERS} \
   -cluster_name=${AURORA_CLUSTER_NAME:-mesos}                  \
   -serverset_path=/aurora/scheduler                            \
   -native_log_quorum_size=${QUORUM_SIZE:-1}                    \

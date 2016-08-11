@@ -1,0 +1,31 @@
+{
+  "_comment": "Aurora executor",
+  "variables": {
+    "mesos_version": "0.28.2",
+    "aurora_version": "0.15.0",
+    "project": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "{{user `project`}}/mesos-base:{{user `mesos_version`}}",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": ["yum install -y cyrus-sasl",
+                 "rpm -Uvh https://bintray.com/apache/aurora/download_file?file_path=centos-7%2Faurora-executor-{{user `aurora_version`}}-1.el7.centos.aurora.x86_64.rpm"]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `project`}}/aurora-executor",
+        "tag": "{{user `aurora_version`}}"
+      }
+    ]
+  ]
+}
