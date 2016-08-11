@@ -26,7 +26,7 @@
         "yum install -y perl-devel bzip2-devel perl-ExtUtils-Embed",
         "yum install -y bison-devel flex-devel which",
         "yum install -y cmake texinfo freetype-devel libxml2-devel",
-        "yum install -y mesa-libGLU-devel",
+        "yum install -y mesa-libGLU-devel ncurses-devel",
         "yum clean -y all",
         "pip install --upgrade pip six && pip install bernhard",
         "gem install --no-ri --no-rdoc fpm",
