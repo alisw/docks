@@ -3,12 +3,12 @@
   "variables": {
     "mesos_version": "0.28.2",
     "aurora_version": "0.15.0",
-    "project": "alisw"
+    "DOCKER_HUB_REPO": "alisw"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "{{user `project`}}/mesos-base:{{user `mesos_version`}}",
+      "image": "{{user `DOCKER_HUB_REPO`}}/mesos-base:{{user `mesos_version`}}",
       "commit": true
     }
   ],
@@ -23,7 +23,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `project`}}/aurora-executor",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/aurora-executor",
         "tag": "{{user `aurora_version`}}"
       }
     ]
