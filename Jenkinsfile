@@ -8,7 +8,7 @@ node {
   echo "Changeset from " + env.CHANGE_AUTHOR
   if (power_users.contains(env.CHANGE_AUTHOR)) {
     echo "PR comes from power user. Testing"
-  } else if(deployable_branches.containers(env.BRANCH_NAME)) {
+  } else if(deployable_branches.contains(env.BRANCH_NAME)) {
     echo "Building master branch."
   } else {
     input "Do you want to test this change?"
@@ -28,7 +28,7 @@ node {
           sh '''
             set -e
             set -o pipefail
-            IMAGES=`git diff --name-only origin/${CHANGE_TARGET}.. | grep '/' | sed -e 's|/.*||' | uniq`
+            IMAGES=`git diff --name-only origin/${CHANGE_TARGET}.. | (grep / || true) | sed -e 's|/.*||' | uniq`
 
             case $BRANCH_NAME in
               master) DOCKER_HUB_REPO=alisw    ;;
