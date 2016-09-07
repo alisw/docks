@@ -4,12 +4,12 @@
     "mesos_version": "0.28.2",
     "docker_version": "1.11.3",
     "marathon_version": "1.1.1",
-    "project": "alisw"
+    "DOCKER_HUB_REPO": "alisw"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "{{user `project`}}/mesos-base:{{user `mesos_version`}}",
+      "image": "{{user `DOCKER_HUB_REPO`}}/mesos-base:{{user `mesos_version`}}",
       "commit": true
     }
   ],
@@ -22,9 +22,13 @@
     {
       "type": "shell",
       "inline": [
-        "yum search marathon",
-        "yum -y install marathon-{{user `marathon_version`}} nc",
-        "yum clean all -y"
+        "yum -y install marathon-{{user `marathon_version`}} nc git java-1.8.0-openjdk-devel",
+        "yum -y install maven",
+        "yum clean all -y",
+        "mkdir -p /plugins",
+        "git clone https://github.com/alisw/marathon-sso-plugin",
+        "cd /marathon-sso-plugin && mvn compile && mvn package && cp target/marathonsso-1.3.1.jar /plugins",
+        "cp target/classes/ch/cern/marathonsso/plugin-conf.json /plugin-conf.json"
       ]
     }
   ],
@@ -32,7 +36,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `project`}}/marathon",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/marathon",
         "tag": "{{user `marathon_version`}}"
       },
       "docker-push"
