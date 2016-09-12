@@ -34,7 +34,7 @@
         "               apr-devel subversion-devel cyrus-sasl-md5 rubygems  \\",
         "               ruby-devel fpm uuid-devel environment-modules       \\",
         "               python-requests libuuid-devel createrepo            \\",
-        "               protobuf-devel python-pip",
+        "               protobuf-devel python-pip python-devel",
 
         "curl -L https://github.com/cooperative-computing-lab/cctools/archive/release/{{user `CCTOOLS_VERSION`}}.tar.gz -o cctools.tar.gz",
         "mkdir cctools && cd cctools",
@@ -47,7 +47,7 @@
 
         "curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip",
         "unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip",
-        "pip install --upgrade pip six && pip install bernhard",
+        "pip install --upgrade pip six && pip install bernhard && pip install ansible",
         "gem install --no-ri --no-rdoc fpm",
         "curl -L http://repo1.maven.org/maven2/com/madgag/bfg/{{user `BFG_VERSION`}}/bfg-{{user `BFG_VERSION`}}.jar -o /usr/local/lib/bfg.jar",
         "printf '#!/bin/sh\\nexec java -jar /usr/local/lib/bfg.jar\\n' > /usr/local/bin/bfg",
