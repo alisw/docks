@@ -16,4 +16,5 @@ mesos-log initialize --path=/var/lib/aurora/scheduler/db && true
   ${AURORA_SHIRO_AFTER_AUTH_FILTER:+-shiro_after_auth_filter=${AURORA_SHIRO_AFTER_AUTH_FILTER}}                    \
   ${AURORA_SHIRO_REALM_MODULES:+-shiro_realm_modules=${AURORA_SHIRO_REALM_MODULES}}                                \
   ${AURORA_SHIRO_INI_PATH:+-shiro_ini_path=${AURORA_SHIRO_INI_PATH}}                                               \
-  ${AURORA_HTTP_AUTHENTICATION_MECHANISM:+-http_authentication_mechanism=${AURORA_HTTP_AUTHENTICATION_MECHANISM}}
+  ${AURORA_HTTP_AUTHENTICATION_MECHANISM:+-http_authentication_mechanism=${AURORA_HTTP_AUTHENTICATION_MECHANISM}}  \
+  ${AURORA_ALLOWED_CONTAINER_TYPES:+-allowed_container_types $AURORA_ALLOWED_CONTAINER_TYPES}
