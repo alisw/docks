@@ -5,12 +5,13 @@
     "centos_minor": "2",
     "mesos_version": "0.28.2",
     "docker_version": "1.11.2",
-    "project": "alisw"
+    "aurora_version": "0.15.0",
+    "DOCKER_HUB_REPO": "alisw"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "{{user `project`}}/mesos-base:{{user `mesos_version`}}",
+      "image": "{{user `DOCKER_HUB_REPO`}}/mesos-base:{{user `mesos_version`}}",
       "commit": true
     }
   ],
@@ -22,14 +23,16 @@
     },
     {
       "type": "shell",
-      "inline": ["yum install -y iptables ca-certificates lxc e2fsprogs && yum clean all -y"]
+      "inline": ["yum install -y cyrus-sasl",
+                 "rpm -Uvh https://bintray.com/apache/aurora/download_file?file_path=centos-7%2Faurora-executor-{{user `aurora_version`}}-1.el7.centos.aurora.x86_64.rpm",
+                 "yum install -y iptables ca-certificates lxc e2fsprogs && yum clean all -y"]
     }
   ],
   "post-processors": [
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `project`}}/mesos-slave",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/mesos-slave",
         "tag": "{{user `mesos_version`}}"
       },
       "docker-push"
