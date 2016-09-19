@@ -23,7 +23,18 @@
     },
     {
       "type": "shell",
-      "inline": ["yum install -y cyrus-sasl",
+      "inline": [
+                 "groupadd -g 980 mesosalien",
+                 "useradd -u 980 -g 980 mesosalien",
+                 "groupadd -g 981 mesosci",
+                 "useradd -u 981 -g 981 mesosci",
+                 "groupadd -g 982 mesosdaq",
+                 "useradd -u 982 -g 982 mesosdaq",
+                 "groupadd -g 983 mesosuser",
+                 "useradd -u 983 -g 983 mesosuser",
+                 "groupadd -g 984 mesostest",
+                 "useradd -u 984 -g 984 mesostest",
+                 "yum install -y cyrus-sasl",
                  "rpm -Uvh https://bintray.com/apache/aurora/download_file?file_path=centos-7%2Faurora-executor-{{user `aurora_version`}}-1.el7.centos.aurora.x86_64.rpm",
                  "yum install -y iptables ca-certificates lxc e2fsprogs && yum clean all -y"]
     }
