@@ -16,6 +16,16 @@
     {
       "type": "shell",
       "inline": [
+        "groupadd -g 980 mesosalien",
+        "useradd -u 980 -g 980 mesosalien",
+        "groupadd -g 981 mesosci",
+        "useradd -u 981 -g 981 mesosci",
+        "groupadd -g 982 mesosdaq",
+        "useradd -u 982 -g 982 mesosdaq",
+        "groupadd -g 983 mesosuser",
+        "useradd -u 983 -g 983 mesosuser",
+        "groupadd -g 984 mesostest",
+        "useradd -u 984 -g 984 mesostest",
         "rpmdb --rebuilddb",
         "yum clean all",
         "yum install -y http://mirror.switch.ch/ftp/mirror/epel/epel-release-latest-7.noarch.rpm",
