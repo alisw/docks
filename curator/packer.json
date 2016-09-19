@@ -3,12 +3,13 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
+    "mesos_version": "0.28.2",
     "DOCKER_HUB_REPO": "alisw"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "centos:centos{{user `centos_major`}}",
+      "image": "alisw/mesos-slave:{{user `mesos_version`}}",
       "commit": true
     }
   ],
@@ -22,7 +23,6 @@
       "type": "shell",
       "inline": [
                  "rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch",
-                 "yum update -y",
                  "yum install -y python-elasticsearch-curator python-setuptools",
                  "yum clean all -y"]
     }
