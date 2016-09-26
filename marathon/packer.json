@@ -27,7 +27,7 @@
         "yum clean all -y",
         "mkdir -p /plugins",
         "git clone https://github.com/alisw/marathon-sso-plugin",
-        "cd /marathon-sso-plugin && mvn compile && mvn package && cp target/marathonsso-1.3.1.jar /plugins",
+        "cd /marathon-sso-plugin && mvn compile && mvn package && cp target/marathonsso-1.3.1.jar /plugins/plugin.jar",
         "cp target/classes/ch/cern/marathonsso/plugin-conf.json /plugin-conf.json"
       ]
     }
