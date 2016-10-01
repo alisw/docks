@@ -1,0 +1,31 @@
+{
+  "_comment": "Mesos WorkQueue framework",
+  "variables": {
+    "MESOS_WORKQUEUE_VERSION": "0.0.2-f86f6dc944-3",
+    "DOCKER_HUB_REPO": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "alisw/slc7-builder",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "install.sh",
+      "environment_vars": [ "MESOS_WORKQUEUE_VERSION={{user `MESOS_WORKQUEUE_VERSION`}}" ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/workqueue-scheduler",
+        "tag": "latest"
+      },
+      "docker-push"
+    ]
+  ]
+}
