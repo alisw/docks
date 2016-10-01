@@ -50,7 +50,9 @@ node("docker-light") {
                    export HOME=$TMPDIR
                    yes | docker login -u "$DOCK_USER" -p "$DOCK_PASSWORD" || true
                    unset DOCK_USER DOCK_PASSWORD
-                   /usr/bin/packer build -var "DOCKER_HUB_REPO=${DOCKER_HUB_REPO}" "$x/packer.json" || { cat $PACKER_LOG_PATH; false; }
+                   pushd "$x"
+                     /usr/bin/packer build -var "DOCKER_HUB_REPO=${DOCKER_HUB_REPO}" packer.json || { cat $PACKER_LOG_PATH; false; }
+                   popd
                    echo "Image $x built successfully and uploaded as $DOCKER_HUB_REPO/$x"
                 else
                   echo "$x/packer.json does not use DOCKER_HUB_REPO."
