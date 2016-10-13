@@ -1,8 +1,8 @@
 {
   "_comment": "Build an elasticsearch image",
   "variables": {
-    "elasticsearch_version": "2.3",
-    "project": "alisw"
+    "elasticsearch_version": "2.4",
+    "DOCKER_HUB_REPO": "alisw"
   },
   "builders": [
     {
@@ -23,7 +23,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `project`}}/elasticsearch",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/elasticsearch",
         "tag": "{{user `elasticsearch_version`}}"
       },
       "docker-push"
