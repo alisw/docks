@@ -21,9 +21,16 @@
       "destination": "/etc/yum.repos.d/docker.repo"
     },
     {
+      "type": "file",
+      "source": "mesos-base/cdh.repo",
+      "destination": "/etc/yum.repos.d/cdh.repo"
+    },
+    {
       "type": "shell",
       "inline": ["rpm -Uvh http://repos.mesosphere.com/el/{{user `centos_major`}}/noarch/RPMS/mesosphere-el-repo-{{user `centos_major`}}-{{user `centos_minor`}}.noarch.rpm",
-                 "yum update -y && yum install -y mesos-{{user `mesos_version`}} docker-engine-{{user `docker_version`}} && yum clean all -y"]
+                 "rpm --import https://archive.cloudera.com/cdh5/redhat/{{user `centos_major`}}/x86_64/cdh/RPM-GPG-KEY-cloudera",
+                 "yum update -y && yum install -y mesos-{{user `mesos_version`}} docker-engine-{{user `docker_version`}} ",
+                 "yum clean all -y"]
     }
   ],
   "post-processors": [
