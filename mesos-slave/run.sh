@@ -31,11 +31,11 @@ cat <<EOF > /etc/mesos-slave/modules
         "parameters": [
           {
             "key": "load_threshold_5min",
-            "value": "$(nproc)"
+            "value": "$((`nproc` + ${MESOS_EXTRA_CPUS:-0} + 3))"
           },
           {
             "key": "load_threshold_15min",
-            "value": "$((`nproc` - 2))"
+            "value": "$((`nproc` + ${MESOS_EXTRA_CPUS:-0} + 2))"
           }
         ]
       }
