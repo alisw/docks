@@ -1,4 +1,4 @@
-VOLUME=/data/store
+VOLUME=${VOLUME:-/data/store}
 ALLOW=${ALLOW:-192.168.0.0/16 172.16.0.0/12}
 OWNER=${OWNER:-root}
 GROUP=${GROUP:-root}
