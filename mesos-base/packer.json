@@ -3,7 +3,7 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
-    "mesos_version": "0.28.2",
+    "mesos_version": "1.0.1",
     "docker_version": "1.11.2",
     "DOCKER_HUB_REPO": "aliswdev"
   },
