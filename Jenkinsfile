@@ -29,6 +29,7 @@ node("docker-light") {
               sh '''
                 set -e
                 set -o pipefail
+                packer version
                 GIT_DIFF_SRC="origin/$CHANGE_TARGET"
                 [[ $CHANGE_TARGET == null || -z $CHANGE_TARGET ]] && GIT_DIFF_SRC="HEAD^"
                 IMAGES=`git diff --name-only $GIT_DIFF_SRC.. | (grep / || true) | sed -e 's|/.*||' | uniq`
