@@ -3,9 +3,9 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
-    "mesos_version": "0.28.2",
-    "docker_version": "1.11.3",
-    "project": "alisw"
+    "mesos_version": "1.0.1",
+    "docker_version": "1.11.2",
+    "project": "aliswdev"
   },
   "builders": [
     {
@@ -22,7 +22,10 @@
     },
     {
       "type": "shell",
-      "inline": ["yum install -y iptables ca-certificates lxc e2fsprogs && yum clean all -y"]
+      "inline": [
+        "yum install -y iptables ca-certificates lxc e2fsprogs openssl && yum clean all -y",
+        "mkdir -p /etc/grid-security && openssl req -x509 -newkey rsa:4096 -keyout /etc/grid-security/hostkey.pem -out /etc/grid-security/hostcert.pem -days 365 -nodes -subj '/CN=localhost'"
+      ]
     }
   ],
   "post-processors": [
