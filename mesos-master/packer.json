@@ -5,12 +5,12 @@
     "centos_minor": "2",
     "mesos_version": "1.0.1",
     "docker_version": "1.11.2",
-    "project": "aliswdev"
+    "DOCKER_HUB_REPO": "aliswdev"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "{{user `project`}}/mesos-base:{{user `mesos_version`}}",
+      "image": "{{user `DOCKER_HUB_REPO`}}/mesos-base:{{user `mesos_version`}}",
       "commit": true
     }
   ],
@@ -32,7 +32,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `project`}}/mesos-master",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/mesos-master",
         "tag": "{{user `mesos_version`}}"
       },
       "docker-push"
