@@ -3,9 +3,9 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
-    "mesos_version": "0.28.2",
     "docker_version": "1.12.0",
-    "packer_version": "0.10.1"
+    "packer_version": "0.12.1",
+    "DOCKER_HUB_REPO": "aliswdev"
   },
   "builders": [
     {
