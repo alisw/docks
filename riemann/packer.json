@@ -1,0 +1,45 @@
+{
+  "_comment": "Build riemann image",
+  "variables": {
+    "centos_major": "7",
+    "centos_minor": "3",
+    "DOCKER_HUB_REPO": "aliswdev"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "centos:centos{{user `centos_major`}}",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "riemann/run.sh",
+      "destination": "/run.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "yum update -y && yum install -y java-1.8.0-openjdk bzip2 git && yum clean all -y",
+        "curl -L -O https://aphyr.com/riemann/riemann-0.2.10.tar.bz2 && tar xjvf /riemann-0.2.10.tar.bz2",
+        "curl -L -o/usr/bin/lein https://raw.github.com/technomancy/leiningen/stable/bin/lein && chmod +x /usr/bin/lein",
+        "git clone https://github.com/avishai-ish-shalom/riemann-elasticsearch-plugin",
+        "cd riemann-elasticsearch-plugin && LEIN_ROOT=1 lein uberjar",
+        "mkdir -p /jars",
+        "(cd /jars && curl -O https://clojars.org/repo/clj-time/clj-time/0.11.0/clj-time-0.11.0.jar)",
+        "(cd /jars && curl -O https://repo1.maven.org/maven2/joda-time/joda-time/2.8.2/joda-time-2.8.2.jar)"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/riemann",
+        "tag": "latest"
+      },
+      "docker-push"
+    ]
+  ]
+}
