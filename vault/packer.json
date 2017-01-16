@@ -3,7 +3,7 @@
   "variables": {
     "centos_major": "7",
     "centos_minor": "2",
-    "vault_version": "0.6.2",
+    "vault_version": "0.6.4",
     "DOCKER_HUB_REPO": "aliswdev"
   },
   "builders": [
