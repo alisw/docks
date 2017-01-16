@@ -25,7 +25,8 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/aurora-executor",
         "tag": "{{user `aurora_version`}}"
-      }
+      },
+      "docker-push"
     ]
   ]
 }
