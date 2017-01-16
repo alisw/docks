@@ -1,0 +1,33 @@
+{
+  "_comment": "Build a Vault Gatekeeper image",
+  "variables": {
+    "vault_gatekeeper_version": "0.5.3",
+    "DOCKER_HUB_REPO": "aliswdev"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "golang",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+                 "go get -d github.com/alisw/vault-gatekeeper-mesos",
+                 "cd $GOPATH/src/github.com/alisw/vault-gatekeeper-mesos && git checkout tags/0.5.3",
+                 "cd $GOPATH/src/github.com/alisw/vault-gatekeeper-mesos && /bin/bash ./build.bash && cp ./vltgatekeeper /bin/vltgatekeeper"]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/vault-gatekeeper",
+        "tag": "{{user `vault_gatekeeper_version`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
