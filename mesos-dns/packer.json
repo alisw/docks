@@ -2,9 +2,9 @@
   "_comment": "Mesos DNS image",
   "variables": {
     "centos_major": "7",
-    "centos_minor": "2",
-    "mesos_dns_version": "0.5.2",
-    "project": "alisw"
+    "MESOS_DNS_TAG": "0.6.0",
+    "DOCKER_HUB_REPO": "aliswdev",
+    "MESOS_DNS_REPO": "mesosphere"
   },
   "builders": [
     {
@@ -21,11 +21,12 @@
     },
     {
       "type": "shell",
-      "inline": ["yum clean all",
-                 "yum install -y http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm",
+      "inline": ["yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
                  "yum install -y golang git",
+                 "yum clean all",
                  "GOPATH=/usr/local/go go get github.com/miekg/dns",
-                 "GOPATH=/usr/local/go go get github.com/mesosphere/mesos-dns"
+                 "GOPATH=/usr/local/go go get github.com/{{user `MESOS_DNS_REPO`}}/mesos-dns",
+                 "export GOPATH=/usr/local/go ; cd /usr/local/go/src/github.com/{{user `MESOS_DNS_REPO`}}/mesos-dns && git reset --hard v{{user `MESOS_DNS_TAG`}} && git show && go build -o mesos-dns"
       ]
     }
   ],
@@ -33,8 +34,8 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `project`}}/mesos-dns",
-        "tag": "{{user `mesos_dns_version`}}"
+        "repository": "{{user `DOCKER_HUB_REPO`}}/mesos-dns",
+        "tag": "{{user `MESOS_DNS_TAG`}}"
       },
       "docker-push"
     ]
