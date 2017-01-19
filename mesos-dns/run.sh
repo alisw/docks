@@ -23,7 +23,8 @@ cat << EOF > /config.json
   "port": ${MESOS_DNS_PORT-53},
   "resolvers": [${RESOLVERS}],
   "email": "${MESOS_DNS_EMAIL-root.mesos-dns.mesos}",
-  "timeout": ${MESOS_DNS_TIMEOUT-5}
+  "timeout": ${MESOS_DNS_TIMEOUT-5},
+  "IPSources": ["host", "mesos", "netinfo"]
 }
 EOF
 
