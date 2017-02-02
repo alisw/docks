@@ -32,13 +32,11 @@ node("docker-light") {
                 packer version
                 GIT_DIFF_SRC="origin/$CHANGE_TARGET"
                 [[ $CHANGE_TARGET == null || -z $CHANGE_TARGET ]] && GIT_DIFF_SRC="HEAD^"
-                IMAGES=`git diff --name-only $GIT_DIFF_SRC.. | (grep / || true) | sed -e 's|/.*||' | uniq`
 
                 case $BRANCH_NAME in
-                  master) DOCKER_HUB_REPO=alisw    ;;
-                  *)      DOCKER_HUB_REPO=aliswdev ;;
+                  master) DEVMODE=    ;;
+                  *)      DEVMODE=dev ;;
                 esac
-
 
                 export PACKER_LOG=1
                 export PACKER_LOG_PATH=$PWD/packer.log
@@ -48,18 +46,7 @@ node("docker-light") {
                 yes | docker login -u "$DOCK_USER" -p "$DOCK_PASSWORD" || true
                 unset DOCK_USER DOCK_PASSWORD
 
-                for x in $IMAGES ; do
-                  if ! test -f $x/packer.json ; then
-                    echo "Image $x does not use Packer, skipping test."
-                    continue
-                  elif grep DOCKER_HUB_REPO "$x/packer.json" ; then
-                     /usr/bin/packer build -var "DOCKER_HUB_REPO=${DOCKER_HUB_REPO}" $x/packer.json || { cat $PACKER_LOG_PATH; false; }
-                     echo "Image $x built successfully and uploaded as $DOCKER_HUB_REPO/$x"
-                  else
-                    echo "$x/packer.json does not use DOCKER_HUB_REPO."
-                    exit 1
-                  fi
-                done
+                make DEVMODE=$DEVMODE
               '''
             }
           }
