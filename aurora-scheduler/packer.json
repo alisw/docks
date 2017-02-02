@@ -1,7 +1,7 @@
 {
   "_comment": "Aurora scheduler",
   "variables": {
-    "mesos_version": "1.0.1",
+    "mesos_version": "1.1.0",
     "aurora_version": "0.16.0",
     "DOCKER_HUB_REPO": "aliswdev"
   },

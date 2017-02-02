@@ -1,10 +1,7 @@
 {
   "_comment": "Build a Mesos master image",
   "variables": {
-    "centos_major": "7",
-    "centos_minor": "2",
-    "mesos_version": "1.0.1",
-    "docker_version": "1.11.2",
+    "mesos_version": "1.1.0",
     "DOCKER_HUB_REPO": "aliswdev"
   },
   "builders": [

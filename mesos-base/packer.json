@@ -2,15 +2,16 @@
   "_comment": "Build a Mesos base image",
   "variables": {
     "centos_major": "7",
-    "centos_minor": "2",
-    "mesos_version": "1.0.1",
-    "docker_version": "1.11.2",
+    "centos_minor": "3",
+    "centos_patch": "1611",
+    "mesos_version": "1.1.0",
+    "docker_version": "1.13.0",
     "DOCKER_HUB_REPO": "aliswdev"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "centos:centos{{user `centos_major`}}",
+      "image": "centos:centos{{user `centos_major`}}.{{user `centos_minor`}}.{{user `centos_patch`}}",
       "commit": true
     }
   ],
