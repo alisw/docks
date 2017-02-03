@@ -30,7 +30,7 @@
       "type": "shell",
       "inline": ["rpm -Uvh http://repos.mesosphere.com/el/{{user `centos_major`}}/noarch/RPMS/mesosphere-el-repo-{{user `centos_major`}}-{{user `centos_minor`}}.noarch.rpm",
                  "rpm --import https://archive.cloudera.com/cdh5/redhat/{{user `centos_major`}}/x86_64/cdh/RPM-GPG-KEY-cloudera",
-                 "yum update -y && yum install -y mesos-{{user `mesos_version`}} docker-engine-{{user `docker_version`}} ",
+                 "yum update -y && yum install -y mesos-{{user `mesos_version`}} docker-engine-{{user `docker_version`}} java-1.8.0-openjdk-headless",
                  "yum clean all -y"]
     }
   ],
