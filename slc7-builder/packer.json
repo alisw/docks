@@ -58,7 +58,7 @@
         "curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip",
         "unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip",
         "pip install --upgrade pip six && pip install bernhard && pip install ansible",
-        "pip install PyGithub && pip install python-ldap && pip install pytz",
+        "pip install PyGithub && pip install python-ldap && pip install pytz && pip install klein",
         "gem install --no-ri --no-rdoc fpm",
         "curl -L http://repo1.maven.org/maven2/com/madgag/bfg/{{user `BFG_VERSION`}}/bfg-{{user `BFG_VERSION`}}.jar -o /usr/local/lib/bfg.jar",
         "printf '#!/bin/sh\\nexec java -jar /usr/local/lib/bfg.jar\\n' > /usr/local/bin/bfg",
