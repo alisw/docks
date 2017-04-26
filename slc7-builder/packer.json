@@ -44,7 +44,8 @@
         "               apr-devel subversion-devel cyrus-sasl-md5 rubygems  \\",
         "               ruby-devel fpm uuid-devel environment-modules       \\",
         "               python-requests libuuid-devel createrepo            \\",
-        "               protobuf-devel python-pip python-devel",
+        "               protobuf-devel python-pip python-devel              \\",
+        "               mariadb-devel",
 
         "curl -L https://github.com/cooperative-computing-lab/cctools/archive/release/{{user `CCTOOLS_VERSION`}}.tar.gz -o cctools.tar.gz",
         "mkdir cctools && cd cctools",
