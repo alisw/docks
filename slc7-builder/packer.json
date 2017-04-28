@@ -47,6 +47,8 @@
         "               protobuf-devel python-pip python-devel              \\",
         "               mariadb-devel",
 
+        "pip install -U pip && pip install setuptools==33.1.1",
+
         "curl -L https://github.com/cooperative-computing-lab/cctools/archive/release/{{user `CCTOOLS_VERSION`}}.tar.gz -o cctools.tar.gz",
         "mkdir cctools && cd cctools",
         "tar --strip-components=1 -xzf ../cctools.tar.gz",
