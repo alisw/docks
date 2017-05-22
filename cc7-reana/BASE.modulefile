@@ -1,0 +1,9 @@
+#%Module1.0
+set version 1.0
+set base_path [string map "Modules/modulefiles/BASE/$version Packages" $ModulesCurrentModulefile]
+if { $base_path == $ModulesCurrentModulefile } {
+  set base_path /cvmfs/alice.cern.ch/x86_64-2.6-gnu-4.1.2/Packages
+}
+setenv BASEDIR $base_path
+set osname [uname sysname]
+set osarchitecture [uname machine]
