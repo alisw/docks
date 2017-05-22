@@ -17,7 +17,7 @@ RUN yum install -y http://linuxsoft.cern.ch/wlcg/centos7/x86_64/wlcg-repo-1.0.0-
 RUN curl https://cafiles.cern.ch/cafiles/certificates/CERN%20Grid%20Certification%20Authority.crt > /etc/pki/ca-trust/source/anchors/CERN_Grid_CA.pem     && \
     curl https://cafiles.cern.ch/cafiles/certificates/CERN%20Root%20Certification%20Authority%202.crt > /etc/pki/ca-trust/source/anchors/CERN_Root_CA.pem && \
     update-ca-trust enable && update-ca-trust                                                                                                             && \
-    ln -nfs /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem cacert.pem
+    ln -nfs /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem /usr/lib/python2.7/site-packages/requests/cacert.pem
 
 # Base publisher configuration, modulefile, entrypoint
 COPY aliPublish.conf /opt/ali-bot/publish/aliPublish-reana.conf
