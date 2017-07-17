@@ -1,0 +1,35 @@
+{
+  "_comment": "CentOS 7 with ALICE RPMs repo",
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "centos:centos7",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "curl -L https://cafiles.cern.ch/cafiles/certificates/CERN%20Grid%20Certification%20Authority.crt > /etc/pki/ca-trust/source/anchors/CERN_Grid_CA.pem",
+        "update-ca-trust enable",
+        "update-ca-trust",
+        "printf \"[alisw-el7]\\nname=ALICE Software - EL7\\nbaseurl=https://ali-ci.cern.ch/repo/RPMS/el7.x86_64/\\nenabled=1\\ngpgcheck=0\\n\" > /etc/yum.repos.d/alisw-el7.repo",
+        "echo diskspacecheck=0 >> /etc/yum.conf"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/centos7",
+        "tag": "latest"
+      },
+      "docker-push"
+    ]
+  ]
+}
