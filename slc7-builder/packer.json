@@ -45,7 +45,8 @@
         "               ruby-devel fpm uuid-devel environment-modules       \\",
         "               python-requests libuuid-devel createrepo            \\",
         "               protobuf-devel python-pip python-devel              \\",
-        "               mariadb-devel",
+        "               mariadb-devel kernel-devel pciutils-devel           \\",
+        "               kmod-devel",
 
         "pip install -U pip && pip install setuptools==33.1.1",
 
