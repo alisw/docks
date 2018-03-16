@@ -20,6 +20,7 @@ pushd openssl-1.0.2n
   make
   make install
 popd
+hash -r
 
 wget --no-check-certificate https://curl.mirror.anstey.ca/curl-7.58.0.tar.gz
 tar xzf curl*.tar.gz
@@ -28,14 +29,36 @@ pushd curl-7.58.0
   make -j${NJ}
   make install
 popd
+hash -r
 
-wget --no-check-certificate https://www.kernel.org/pub/software/scm/git/git-1.9.5.tar.gz
+curl -LO https://www.kernel.org/pub/software/scm/git/git-1.9.5.tar.gz
 tar xzf git*.tar.gz
 pushd git-1.9.5
   ./configure --prefix=${ALTPREFIX} --with-openssl=${ALTPREFIX} --with-curl=${ALTPREFIX}
   make -j${NJ}
   make install
 popd
+hash -r
+
+curl -LO https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz
+tar xzf Python*.tgz
+pushd Python-2.7.14
+  cat >> Modules/Setup.dist <<EOF
+
+SSL=$ALTPREFIX
+_ssl _ssl.c \
+	-DUSE_SSL -I\$(SSL)/include -I\$(SSL)/include/openssl \
+	-L\$(SSL)/lib -lssl -lcrypto
+EOF
+  ./configure --prefix=${ALTPREFIX}
+  make -j${NJ}
+  make install
+popd
+hash -r
+
+curl -LO curl -LO https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+hash -r
 
 cd /
 rm -rf $TMPPREFIX
