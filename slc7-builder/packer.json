@@ -3,7 +3,7 @@
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
     "BFG_VERSION": "1.12.13",
-    "CCTOOLS_VERSION": "5.4.17"
+    "CCTOOLS_VERSION": "6.2.9"
   },
   "builders": [
     {
@@ -63,7 +63,11 @@
         "unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip",
         "pip install --upgrade pip six && pip install bernhard && pip install ansible",
         "pip install PyGithub && pip install python-ldap && pip install pytz && pip install klein",
-        "gem install --no-ri --no-rdoc fpm",
+
+        "gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3",
+        "curl -L get.rvm.io | bash -s stable",
+        "bash -c 'source /etc/profile.d/rvm.sh && rvm install 2.3.0 && rvm use 2.3.0 --default && gem install --no-ri --no-rdoc fpm'",
+
         "curl -L http://repo1.maven.org/maven2/com/madgag/bfg/{{user `BFG_VERSION`}}/bfg-{{user `BFG_VERSION`}}.jar -o /usr/local/lib/bfg.jar",
         "printf '#!/bin/sh\\nexec java -jar /usr/local/lib/bfg.jar\\n' > /usr/local/bin/bfg",
         "chmod +x /usr/local/bin/bfg"
