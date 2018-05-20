@@ -1,1 +1,0 @@
-Scientific Linux CERN SLC release 6.6 (Carbon)

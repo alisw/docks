@@ -1,15 +1,8 @@
 FROM centos:centos6
 
-# Patch redhat-release: pretend to be SLC6
-COPY mock-redhat-release-slc6.txt /etc/redhat-release
-
-# Patch uname
-COPY mock-uname-slc6.sh /bin/uname
-
-RUN                                                                                         \
-  rpm --rebuilddb                                                                        && \
-  yum clean all                                                                          && \
-  rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt                                      && \
+RUN \
+  rpm --rebuilddb && \
+  yum clean all && \
   yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm                                                 && \
   yum install -y http://mirror1.hs-esslingen.de/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && \
   yum install -y autoconf automake bc bzip2 bzip2-devel                                     \
@@ -33,7 +26,7 @@ RUN                                                                             
 RUN curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip && \
     unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip
 
-ENV CCTOOLS_VER 5.3.0
+ENV CCTOOLS_VER 6.2.9
 RUN curl http://ccl.cse.nd.edu/software/files/cctools-$CCTOOLS_VER-x86_64-redhat6.tar.gz |  \
     tar -C / --strip-components=1 -xzf - &&                                                 \
     ldconfig
@@ -44,6 +37,25 @@ RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && \
       source /etc/profile.d/rvm.sh && rvm install 2.3.0        && \
       rvm use 2.3.0 --default                                  && \
       gem install --no-ri --no-rdoc fpm"
+
+# Install CVMFS
+RUN curl -L http://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM > /etc/pki/rpm-gpg/RPM-GPG-KEY-CernVM && \
+    curl -L http://cvmrepo.web.cern.ch/cvmrepo/yum/cernvm.repo > /etc/yum.repos.d/cernvm.repo && \
+    rpm --rebuilddb && yum install -y cvmfs
+
+# Install XRootD
+RUN curl -L http://xrootd.org/binaries/xrootd-stable-slc6.repo > /etc/yum.repos.d/xrootd.repo && \
+    rpm --rebuilddb && yum install -y xrootd-client
+
+# Install EOS
+COPY eos.repo /etc/yum.repos.d/eos.repo
+RUN rpm --rebuilddb && yum install -y eos-client
+
+# Parrot configuration
+ENV PARROT_ALLOW_SWITCHING_CVMFS_REPOSITORIES=yes \
+    PARROT_CVMFS_REPO=<default-repositories>\ alice-ocdb.cern.ch:url=http://cvmfs-stratum-one.cern.ch/cvmfs/alice-ocdb.cern.ch,pubkey=/etc/cvmfs/keys/cern.ch/cern-it1.cern.ch.pub \
+    HTTP_PROXY=DIRECT; \
+    PARROT_CVMFS_ALIEN_CACHE=/cvmfs_alien_cache
 
 COPY entrypoint.sh /usr/local/bin
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
