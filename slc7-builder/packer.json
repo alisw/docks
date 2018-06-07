@@ -9,10 +9,24 @@
     {
       "type": "docker",
       "image": "centos:centos7",
-      "commit": true
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"/usr/local/bin/entrypoint.sh\"]",
+        "CMD [\"bash\"]"
+      ]
     }
   ],
   "provisioners": [
+    {
+      "type": "file",
+      "source": "entrypoint.sh",
+      "destination": "/usr/local/bin/entrypoint.sh"
+    },
+    {
+      "type": "file",
+      "source": "fpm",
+      "destination": "/usr/local/bin/fpm"
+    },
     {
       "type": "shell",
       "inline": [

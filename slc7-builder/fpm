@@ -1,0 +1,4 @@
+#!/bin/bash -e
+source /etc/profile.d/rvm.sh
+[[ $0 != $(which fpm 2> /dev/null) ]] || exit 42
+exec fpm "$@"
