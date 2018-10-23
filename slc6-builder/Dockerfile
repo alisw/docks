@@ -57,6 +57,23 @@ ENV PARROT_ALLOW_SWITCHING_CVMFS_REPOSITORIES=yes \
     HTTP_PROXY=DIRECT; \
     PARROT_CVMFS_ALIEN_CACHE=/cvmfs_alien_cache
 
+# Install Python 2.7
+RUN mkdir -p /tmp/py                                                    && \
+    cd /tmp/py                                                          && \
+    curl -LO https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz && \
+    tar xzf Python*.tgz                                                 && \
+    cd Python-2.7.15                                                    && \
+    ./configure --prefix=/usr/local                                     && \
+    make -j 16                                                          && \
+    make install                                                        && \
+    curl -LO curl -LO https://bootstrap.pypa.io/get-pip.py              && \
+    /usr/local/bin/python get-pip.py                                    && \
+    cd /                                                                && \
+    rm -rf /tmp/py
+
+# Install Python extras possibly needed
+RUN which pip && pip install requests
+
 COPY entrypoint.sh /usr/local/bin
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 CMD [ "bash" ]
