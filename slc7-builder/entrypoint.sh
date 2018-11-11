@@ -1,3 +1,4 @@
 #!/bin/bash
-source /etc/profile.d/rvm.sh
+export PATH=/root/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
 exec "$@"

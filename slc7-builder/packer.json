@@ -1,14 +1,14 @@
 {
-  "_comment": "CentOS 7 builder with CCTools",
+  "_comment": "CentOS 7 builder X-enabled",
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
-    "BFG_VERSION": "1.12.13",
+    "BFG_VERSION": "1.13.0",
     "CCTOOLS_VERSION": "6.2.9"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "centos:centos7",
+      "image": "centos:7",
       "commit": true,
       "changes": [
         "ENTRYPOINT [\"/usr/local/bin/entrypoint.sh\"]",
@@ -30,6 +30,7 @@
     {
       "type": "shell",
       "inline": [
+
         "groupadd -g 980 mesosalien",
         "useradd -u 980 -g 980 mesosalien",
         "groupadd -g 981 mesosci",
@@ -40,10 +41,14 @@
         "useradd -u 983 -g 983 mesosuser",
         "groupadd -g 984 mesostest",
         "useradd -u 984 -g 984 mesostest",
-        "rpmdb --rebuilddb",
-        "yum clean all",
+
+        "rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum",
         "yum install -y http://mirror.switch.ch/ftp/mirror/epel/epel-release-latest-7.noarch.rpm",
         "yum update -y",
+
+        "yum groupinstall -y 'Development Tools'",
+        "yum groupinstall -y 'X Window System'",
+
         "yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs             \\",
         "               e2fsprogs-libs git java-1.7.0-openjdk libXmu libXpm \\",
         "               perl-ExtUtils-Embed rpm-build screen tcl tcsh tk    \\",
@@ -56,14 +61,21 @@
         "               glibc-devel.x86_64 libgcc.i686 libgcc.x86_64        \\",
         "               ncurses-devel vim-enhanced gdb valgrind swig        \\",
         "               apr-devel subversion-devel cyrus-sasl-md5 rubygems  \\",
-        "               ruby-devel fpm uuid-devel environment-modules       \\",
+        "               ruby-devel uuid-devel environment-modules           \\",
         "               python-requests libuuid-devel createrepo            \\",
         "               protobuf-devel python-pip python-devel              \\",
         "               mariadb-devel kernel-devel pciutils-devel           \\",
         "               kmod-devel motif motif-devel                        \\",
-        "               numactl-devel doxygen graphviz glfw-devel",
+        "               numactl-devel doxygen graphviz glfw-devel           \\",
+        "               zlib-devel readline-devel openssh-server",
 
-        "pip install -U pip && pip install setuptools==33.1.1",
+        "rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum",
+
+        "export PATH=/root/.rbenv/bin:$PATH ; \\",
+        "  curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash || true ; \\",
+        "  which rbenv && rbenv install 2.3.0 && \\",
+        "  eval \"`rbenv init -`\" && rbenv global 2.3.0 && \\",
+        "  gem install --no-ri --no-rdoc fpm",
 
         "curl -L https://github.com/cooperative-computing-lab/cctools/archive/release/{{user `CCTOOLS_VERSION`}}.tar.gz -o cctools.tar.gz",
         "mkdir cctools && cd cctools",
@@ -76,12 +88,6 @@
 
         "curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip",
         "unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip",
-        "pip install --upgrade pip six && pip install bernhard && pip install ansible",
-        "pip install PyGithub && pip install python-ldap && pip install pytz && pip install klein",
-
-        "gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3",
-        "curl -L get.rvm.io | bash -s stable",
-        "bash -c 'source /etc/profile.d/rvm.sh && rvm install 2.3.0 && rvm use 2.3.0 --default && gem install --no-ri --no-rdoc fpm'",
 
         "curl -L http://repo1.maven.org/maven2/com/madgag/bfg/{{user `BFG_VERSION`}}/bfg-{{user `BFG_VERSION`}}.jar -o /usr/local/lib/bfg.jar",
         "printf '#!/bin/sh\\nexec java -jar /usr/local/lib/bfg.jar\\n' > /usr/local/bin/bfg",
