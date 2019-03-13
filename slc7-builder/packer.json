@@ -67,7 +67,8 @@
         "               mariadb-devel kernel-devel pciutils-devel           \\",
         "               kmod-devel motif motif-devel                        \\",
         "               numactl-devel doxygen graphviz glfw-devel           \\",
-        "               zlib-devel readline-devel openssh-server",
+        "               zlib-devel readline-devel openssh-server            \\",
+        "               libglvnd-opengl",
 
         "rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum",
 
