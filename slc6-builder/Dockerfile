@@ -18,7 +18,8 @@ RUN \
       apr-devel subversion-devel cyrus-sasl-md5 file-devel vim-enhanced                     \
       valgrind gdb swig python-pip protobuf-devel glibc-static libxml2-static               \
       openssl-static zlib zlib-static patch readline readline-devel                         \
-      libyaml-devel libffi-devel iconv-devel environment-modules                         && \
+      libyaml-devel libffi-devel iconv-devel environment-modules tk-devel                   \
+      realpath                                                                           && \
   yum install -y git --enablerepo=rpmforge-extras                                        && \
   yum clean all                                                                          && \
   pip install bernhard
@@ -30,13 +31,6 @@ ENV CCTOOLS_VER 6.2.9
 RUN curl http://ccl.cse.nd.edu/software/files/cctools-$CCTOOLS_VER-x86_64-redhat6.tar.gz |  \
     tar -C / --strip-components=1 -xzf - &&                                                 \
     ldconfig
-
-RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && \
-    curl -L get.rvm.io | bash -s stable                        && \
-    bash -c "                                                     \
-      source /etc/profile.d/rvm.sh && rvm install 2.3.0        && \
-      rvm use 2.3.0 --default                                  && \
-      gem install --no-ri --no-rdoc fpm"
 
 # Install CVMFS
 RUN curl -L http://cvmrepo.web.cern.ch/cvmrepo/yum/RPM-GPG-KEY-CernVM > /etc/pki/rpm-gpg/RPM-GPG-KEY-CernVM && \

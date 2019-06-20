@@ -68,7 +68,7 @@
         "               kmod-devel motif motif-devel                        \\",
         "               numactl-devel doxygen graphviz glfw-devel           \\",
         "               zlib-devel readline-devel openssh-server            \\",
-        "               libglvnd-opengl tk-devel libfabric-devel",
+        "               libglvnd-opengl tk-devel libfabric-devel sshpass",
 
         "rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum",
 
