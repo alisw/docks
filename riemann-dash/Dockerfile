@@ -1,4 +1,4 @@
-FROM alisw/slc7-builder
+FROM ruby:2.6
 
 RUN gem install bundler
 ADD run.sh /run.sh
