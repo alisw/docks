@@ -5,7 +5,7 @@ if [ ! -d /config ]; then
 fi
 
 if [ ! -d /riemann-dash ]; then
-  git clone https://github.com/${REPO:-aphyr/riemann-dash} /riemann-dash
+  git clone https://github.com/${REPO:-riemann/riemann-dash} /riemann-dash
 fi
 
 cd /riemann-dash
