@@ -1,6 +1,5 @@
-FROM alisw/slc7-builder
+FROM ruby:2.6
 
-RUN yum update -y && yum install -y rubygems ruby-devel
 RUN gem install riemann-tools
 ADD run.sh /run.sh
 
