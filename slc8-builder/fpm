@@ -1,0 +1,5 @@
+#!/bin/bash -e
+export PATH="/root/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+[[ $0 != $(which fpm 2> /dev/null) ]] || exit 42
+exec fpm "$@"
