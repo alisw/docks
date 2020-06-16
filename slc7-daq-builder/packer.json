@@ -13,29 +13,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "inline": [
-        "rpmdb --rebuilddb",
-        "yum clean all",
-        "yum install -y deltarpm",
-        "yum install -y http://mirror.switch.ch/ftp/mirror/epel/epel-release-latest-7.noarch.rpm",
-        "yum update -y",
-        "yum groupinstall -y 'Development Tools'",
-        "yum install -y environment-modules",
-        "yum install -y python-requests python-pip rubygems ruby-devel",
-        "yum install -y java-1.7.0-openjdk",
-        "yum install -y perl-devel bzip2-devel perl-ExtUtils-Embed",
-        "yum install -y bison-devel flex-devel which",
-        "yum install -y cmake texinfo freetype-devel libxml2-devel",
-        "yum install -y libXext-devel libXpm-devel libXft-devel",
-        "yum install -y mesa-libGLU-devel ncurses-devel",
-        "yum install -y openssl-devel",
-        "yum clean -y all",
-        "pip install --upgrade pip six && pip install bernhard",
-        "pip install pyyaml",
-        "gem install --no-ri --no-rdoc fpm",
-        "curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip",
-        "unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip"
-      ]
+      "script": "provision.sh"
     }
   ],
   "post-processors": [
