@@ -33,7 +33,7 @@ yum install -y bc e2fsprogs                                        \
                python3-requests libuuid-devel createrepo           \
                protobuf-devel python3-pip python3-devel            \
                mariadb-devel kernel-devel pciutils-devel           \
-               kmod-devel motif motif-devel                        \
+               kmod-devel motif motif-devel pigz                   \
                numactl-devel doxygen graphviz glfw-devel           \
                zlib-devel readline-devel openssh-server            \
                libglvnd-opengl tk-devel libfabric-devel sshpass    \

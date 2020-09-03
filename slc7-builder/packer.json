@@ -54,7 +54,7 @@
         "               perl-ExtUtils-Embed rpm-build screen tcl tcsh tk    \\",
         "               wget which zsh gcc gcc-gfortran gcc-c++             \\",
         "               libX11-devel libXpm-devel libXft-devel              \\",
-        "               libXi-devel                                         \\",
+        "               libXi-devel pigz                                    \\",
         "               libXext-devel redhat-lsb libtool automake autoconf  \\",
         "               libxml2-devel openssl-devel libcurl-devel           \\",
         "               bzip2-devel mesa-libGLU-devel zip perl-libwww-perl  \\",
