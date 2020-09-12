@@ -1,0 +1,2 @@
+#!/bin/bash -ex
+java -Djenkins.slaves.DefaultJnlpSlaveReceiver.disableStrictVerification=true -Djava.awt.headless=true -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85 -DJENKINS_HOME=${JENKINS_HOME:-/var/lib/jenkins} -jar /usr/lib/jenkins/jenkins.war --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war --httpPort=8080 --debug=5 --handlerCountMax=100 --handlerCountMaxIdle=20

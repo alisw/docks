@@ -1,0 +1,39 @@
+{
+  "_comment": "Jenkins service",
+  "variables": {
+    "jenkins_version": "2.249.1",
+    "DOCKER_HUB_REPO": "aliswdev"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "centos:centos7",
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"\"]"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "run.sh",
+      "destination": "/run.sh"
+    },
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/jenkins",
+        "tag": "{{user `jenkins_version`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
