@@ -3,6 +3,7 @@ curl -o /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenki
 rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 
 yum update -y
+useradd -u 203 -g 1992 jenkins
 
 yum install -y cyrus-sasl java-1.8.0-headless which bash
 yum install -y mesos-1.0.4 
