@@ -1,8 +1,8 @@
 {
   "_comment": "Jenkins service",
   "variables": {
-    "jenkins_version": "2.249.1",
-    "DOCKER_HUB_REPO": "aliswdev"
+    "jenkins_version": "2.46.3",
+    "DOCKER_HUB_REPO": "alisw"
   },
   "builders": [
     {
