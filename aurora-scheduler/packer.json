@@ -1,26 +1,33 @@
 {
   "_comment": "Aurora scheduler",
   "variables": {
-    "mesos_version": "1.0.1",
     "aurora_version": "0.16.0",
     "DOCKER_HUB_REPO": "aliswdev"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "{{user `DOCKER_HUB_REPO`}}/mesos-base:{{user `mesos_version`}}",
-      "commit": true
+      "image": "centos:centos7",
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"\"]"
+      ]
     }
   ],
   "provisioners": [
     {
       "type": "file",
-      "source": "aurora-scheduler/run.sh",
+      "source": "run.sh",
       "destination": "/run.sh"
     },
     {
       "type": "shell",
-      "inline": ["yum install -y cyrus-sasl java-1.8.0-headless which",
+      "inline": [
+                 "rpm -Uvh http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm",
+                 "yum install -y cyrus-sasl java-1.8.0-headless which bash",
+                 "yum update -y && yum install -y mesos-1.0.4 ",
+                 "yum clean all -y",
                  "rpm -Uvh https://bintray.com/apache/aurora/download_file?file_path=centos-7%2Faurora-scheduler-{{user `aurora_version`}}-1.el7.centos.aurora.x86_64.rpm"]
     }
   ],

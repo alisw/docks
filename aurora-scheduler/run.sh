@@ -30,6 +30,7 @@ AURORA_FLAGS=(
   -max_schedule_penalty=20secs
   -min_offer_hold_time=1mins
   -allow_docker_parameters
+  -populate_discovery_info
   ${AURORA_SHIRO_AFTER_AUTH_FILTER:+-shiro_after_auth_filter=${AURORA_SHIRO_AFTER_AUTH_FILTER}}
   ${AURORA_SHIRO_REALM_MODULES:+-shiro_realm_modules=${AURORA_SHIRO_REALM_MODULES}}
   ${AURORA_SHIRO_INI_PATH:+-shiro_ini_path=${AURORA_SHIRO_INI_PATH}}
