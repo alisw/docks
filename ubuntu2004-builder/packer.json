@@ -1,0 +1,29 @@
+{
+  "_comment": "Ubuntu 20.04 builder X-enabled",
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "ubuntu:20.04",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/ubuntu2004-builder",
+        "tags": ["latest"]
+      },
+      "docker-push"
+    ]
+  ]
+}
