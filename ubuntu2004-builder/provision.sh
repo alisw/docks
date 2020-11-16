@@ -33,11 +33,11 @@ unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip
 # Ubuntu doesn't install python -> python2 links by default.
 cat <<EOF > /usr/local/bin/python
 #!/bin/sh
-exec /usr/bin/env python2 "$@"
+exec /usr/bin/env python2 "\$@"
 EOF
 chmod +x /usr/local/bin/python
 cat <<EOF > /usr/local/bin/pip
 #!/bin/sh
-exec /usr/bin/env pip2 "$@"
+exec /usr/bin/env pip2 "\$@"
 EOF
 chmod +x /usr/local/bin/pip
