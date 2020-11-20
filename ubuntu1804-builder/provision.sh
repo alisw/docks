@@ -18,8 +18,8 @@ apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
     libmysqlclient-dev xorg-dev libglu1-mesa-dev libfftw3-dev libxml2-dev flex \
     bison libperl-dev libbz2-dev liblzma-dev libnanomsg-dev lsb-release rsync  \
     environment-modules libglfw3-dev libtbb-dev libncurses-dev libmotif-dev    \
-    linux-headers-5.4.0-54-generic libkmod-dev libpci-dev                      \
-    ruby-full rubygems-integration python-pip python-virtualenv git
+    linux-headers-5.4.0-54-generic libkmod-dev libpci-dev rubygems-integration \
+    ruby-full git python-pip python-virtualenv python3-dev python3-venv
 pip2 install --upgrade pip
 
 # Don't generate rdoc or ri documentation.
