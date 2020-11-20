@@ -31,10 +31,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install prerequisites
-        run: |
-          sudo -n env DEBIAN_FRONTEND=noninteractive apt install -y docker.io packer
-          sudo -n systemctl unmask docker.service
-          sudo -n systemctl start docker.service
+        run: apt install -y docker.io packer
+        env:
+          DEBIAN_FRONTEND: noninteractive
 
       # Note: we're running under set -eo pipefail here
       - name: Build and push docker image
@@ -44,5 +43,5 @@ jobs:
             exit 1
           fi
           packer validate packer.json
-          sudo -n docker login -u '${{ secrets.DOCKERHUB_USER }}' -p '${{ secrets.DOCKERHUB_PASSWORD }}'
+          docker login -u '${{ secrets.DOCKERHUB_USER }}' -p '${{ secrets.DOCKERHUB_PASSWORD }}'
           packer build packer.json
