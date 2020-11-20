@@ -39,7 +39,8 @@ yum install -y bc e2fsprogs                                        \
                libglvnd-opengl tk-devel libfabric-devel sshpass    \
                xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-apps   \
                python2 python2-devel rsync libXrandr-devel         \
-               libXi-devel libXcursor-devel libXinerama-devel
+               libXi-devel libXcursor-devel libXinerama-devel      \
+               gettext-devel
 
 
 rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum
