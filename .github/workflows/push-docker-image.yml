@@ -16,8 +16,14 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    # We don't specify container: so we run directly on the virtual host
     runs-on: ubuntu-latest
+    # GitHub seems to install an odd version of docker on the host, so run in a
+    # container and only connect to the host's docker daemon.
+    container:
+      image: ubuntu:18.04
+      volumes:
+        # Connect to host's docker daemon so we don't run docker inside docker.
+        - /var/run/docker.sock:/var/run/docker.sock
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
