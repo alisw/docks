@@ -26,7 +26,8 @@ jobs:
 
       - name: Install prerequisites
         run: |
-          sudo -n env DEBIAN_FRONTEND=noninteractive apt install -y docker packer
+          sudo -n env DEBIAN_FRONTEND=noninteractive apt install -y docker.io packer
+          sudo -n systemctl unmask docker.service
           sudo -n systemctl start docker.service
 
       # Note: we're running under set -eo pipefail here
