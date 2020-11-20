@@ -17,6 +17,7 @@ apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
     automake autopoint unzip texinfo gettext libtool libtool-bin pkg-config    \
     libmysqlclient-dev xorg-dev libglu1-mesa-dev libfftw3-dev libxml2-dev flex \
     bison libperl-dev libbz2-dev liblzma-dev libnanomsg-dev lsb-release rsync  \
+    linux-headers-5.4.0-53-generic libkmod-dev libpci-dev libmotif-dev         \
     git environment-modules libglfw3-dev libtbb-dev libncurses-dev ruby-full   \
     rubygems-integration python3-venv python3-pip
 pip3 install --upgrade pip
