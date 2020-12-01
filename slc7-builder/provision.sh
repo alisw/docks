@@ -54,7 +54,7 @@ source scl_source enable rh-git218
 source scl_source enable rh-ruby23
 gem install --no-ri --no-rdoc fpm
 
-curl -L https://github.com/cooperative-computing-lab/cctools/archive/release/{{user `CCTOOLS_VERSION`}}.tar.gz -o cctools.tar.gz
+curl -L "https://github.com/cooperative-computing-lab/cctools/archive/release/$CCTOOLS_VERSION.tar.gz" -o cctools.tar.gz
 mkdir cctools && cd cctools
 tar --strip-components=1 -xzf ../cctools.tar.gz
 ./configure --prefix=/usr/local && make -j10 && make install

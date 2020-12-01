@@ -17,6 +17,9 @@
   "provisioners": [
     {
       "type": "shell",
+      "environment_vars": [
+        "CCTOOLS_VERSION={{user `CCTOOLS_VERSION`}}"
+      ],
       "script": "provision.sh"
     }
   ],
