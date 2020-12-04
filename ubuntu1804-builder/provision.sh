@@ -19,8 +19,10 @@ apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
     bison libperl-dev libbz2-dev liblzma-dev libnanomsg-dev lsb-release rsync  \
     environment-modules libglfw3-dev libtbb-dev libncurses-dev libmotif-dev    \
     linux-headers-5.4.0-54-generic libkmod-dev libpci-dev rubygems-integration \
-    ruby-full git python-pip python-virtualenv python3-dev python3-venv
+    ruby-full git python-pip python-virtualenv python3-dev python3-venv        \
+    python3-pip
 pip2 install --upgrade pip
+pip3 install --upgrade pip
 
 # Don't generate rdoc or ri documentation.
 gem install --document '' fpm
