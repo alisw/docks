@@ -21,7 +21,7 @@
       {
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/ubuntu1804-builder",
-        "tags": ["latest"]
+        "tag": "latest"
       },
       "docker-push"
     ]
