@@ -20,7 +20,7 @@ jobs:
     # GitHub seems to install an odd version of docker on the host, so run in a
     # container and only connect to the host's docker daemon.
     container:
-      image: ubuntu:18.04
+      image: ubuntu:20.04
       volumes:
         # Connect to host's docker daemon so we don't run docker inside docker.
         - /var/run/docker.sock:/var/run/docker.sock
@@ -32,6 +32,7 @@ jobs:
 
       - name: Install prerequisites
         run: |
+          apt update -y
           apt install -y software-properties-common
           add-apt-repository universe
           apt install -y docker.io packer
