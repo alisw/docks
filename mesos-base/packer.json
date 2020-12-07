@@ -17,12 +17,12 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "mesos-base/docker.repo",
+      "source": "docker.repo",
       "destination": "/etc/yum.repos.d/docker.repo"
     },
     {
       "type": "file",
-      "source": "mesos-base/cdh.repo",
+      "source": "cdh.repo",
       "destination": "/etc/yum.repos.d/cdh.repo"
     },
     {

@@ -18,7 +18,7 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "mesos-slave/run.sh",
+      "source": "run.sh",
       "destination": "/run.sh"
     },
     {
