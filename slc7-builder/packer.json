@@ -10,7 +10,8 @@
       "image": "centos:7",
       "commit": true,
       "changes": [
-        "CMD [\"bash\"]"
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/bin/bash\"]"
       ]
     }
   ],
