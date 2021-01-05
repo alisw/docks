@@ -42,6 +42,7 @@ yum install -y bc e2fsprogs                                        \
                libXi-devel libXcursor-devel libXinerama-devel      \
                gettext-devel
 
+alternatives --set python /usr/bin/python3
 
 rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum
 
