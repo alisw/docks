@@ -13,7 +13,7 @@ rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum
 
 yum install -y epel-release
 yum install -y dnf-plugins-core
-yum config-manager --set-enabled PowerTools
+yum config-manager --set-enabled powertools
 yum update -y
 
 dnf group install -y "Development Tools"
