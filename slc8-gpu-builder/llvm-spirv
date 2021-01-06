@@ -1,0 +1,3 @@
+#!/bin/bash
+cat $1 > `echo $2 | sed "s/-o=//"`
+exit 0

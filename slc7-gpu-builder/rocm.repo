@@ -1,5 +1,0 @@
-[ROCm]
-name=ROCm
-baseurl=http://repo.radeon.com/rocm/yum/2.7.2
-enabled=1
-gpgcheck=0
