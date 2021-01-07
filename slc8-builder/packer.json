@@ -9,7 +9,11 @@
     {
       "type": "docker",
       "image": "centos:8",
-      "commit": true
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/bin/bash\"]"
+      ]
     }
   ],
   "provisioners": [
