@@ -46,7 +46,7 @@ yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs             \
                numactl-devel doxygen graphviz glfw-devel           \
                zlib-devel readline-devel openssh-server            \
                libglvnd-opengl tk-devel libfabric-devel sshpass    \
-               gettext-devel
+               gettext-devel gengetopt
 
 rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum
 
