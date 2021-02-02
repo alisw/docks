@@ -1,13 +1,14 @@
-groupadd -g 980 mesosalien
-useradd -u 980 -g 980 mesosalien
-groupadd -g 981 mesosci
-useradd -u 981 -g 981 mesosci
-groupadd -g 982 mesosdaq
-useradd -u 982 -g 982 mesosdaq
-groupadd -g 983 mesosuser
-useradd -u 983 -g 983 mesosuser
-groupadd -g 984 mesostest
-useradd -u 984 -g 984 mesostest
+#!/usr/bin/bash
+set -exo pipefail
+
+# Create users and groups for mesos. -r -U means that the groups created
+# automatically for each user will have the same gid as the uid (so group
+# mesosalien will have gid 980, and so on).
+useradd -rUu 980 mesosalien
+useradd -rUu 981 mesosci
+useradd -rUu 982 mesosdaq
+useradd -rUu 983 mesosuser
+useradd -rUu 984 mesostest
 
 export DEBIAN_FRONTEND=noninteractive
 apt update -y
@@ -18,24 +19,16 @@ apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
     libmysqlclient-dev xorg-dev libglu1-mesa-dev libfftw3-dev libxml2-dev flex \
     bison libperl-dev libbz2-dev liblzma-dev libnanomsg-dev lsb-release rsync  \
     linux-headers-5.4.0-53-generic libkmod-dev libpci-dev libmotif-dev         \
-    git environment-modules libglfw3-dev libtbb-dev libncurses-dev ruby-full   \
-    rubygems-integration python3-dev python3-venv python3-pip rclone
-pip3 install --upgrade pip
+    git environment-modules libglfw3-dev libtbb-dev libncurses-dev rclone      \
+    ruby-full rubygems-integration python3-dev python3-venv python3-pip        \
+    python-is-python3
+# Install pip -> pip3, to match python -> python3 from python-is-python3.
+update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 100
 
 # Don't generate rdoc or ri documentation.
-gem install --document '' fpm
+gem install --no-document fpm
 
 curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip
-unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip
-
-# Ubuntu doesn't install python -> python3 links by default.
-cat <<EOF > /usr/local/bin/python
-#!/bin/sh
-exec /usr/bin/env python3 "$@"
-EOF
-chmod +x /usr/local/bin/python
-cat <<EOF > /usr/local/bin/pip
-#!/bin/sh
-exec /usr/bin/env pip3 "$@"
-EOF
-chmod +x /usr/local/bin/pip
+unzip vault.zip
+mv -nv ./vault /usr/bin/vault
+rm -fv vault.zip
