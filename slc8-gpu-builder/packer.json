@@ -45,7 +45,7 @@
         "# Install requirements for GPU event display",
         "yum install dnf-plugins-core",
         "yum config-manager --set-enabled powertools",
-        "yum install -y glew-devel freeglut-devel",
+        "yum install -y glew-devel freeglut-devel lsof",
 
         "# Install AMD APP Stack",
         "# No longer available from AMD but the newer versions will not work",
