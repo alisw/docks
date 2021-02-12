@@ -4,7 +4,7 @@ NVIDIA_GPGKEY_SUM="d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4
 # Install requirements for GPU event display
 yum install dnf-plugins-core
 yum config-manager --set-enabled powertools
-yum install -y glew-devel freeglut-devel lsof
+yum install -y glew-devel freeglut-devel lsof s3cmd
 
 # Install AMD APP Stack
 # No longer available from AMD but the newer versions will not work
