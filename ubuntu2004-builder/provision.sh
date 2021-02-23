@@ -19,7 +19,7 @@ apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
     bison libperl-dev libbz2-dev liblzma-dev libnanomsg-dev lsb-release rsync  \
     linux-headers-5.4.0-53-generic libkmod-dev libpci-dev libmotif-dev         \
     git environment-modules libglfw3-dev libtbb-dev libncurses-dev ruby-full   \
-    rubygems-integration python3-dev python3-venv python3-pip
+    rubygems-integration python3-dev python3-venv python3-pip rclone
 pip3 install --upgrade pip
 
 # Don't generate rdoc or ri documentation.
