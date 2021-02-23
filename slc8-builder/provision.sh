@@ -40,7 +40,7 @@ yum install -y bc e2fsprogs                                        \
                xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-apps   \
                python2 python2-devel rsync libXrandr-devel         \
                libXi-devel libXcursor-devel libXinerama-devel      \
-               gettext-devel rclone
+               gettext-devel rclone s3cmd
 
 alternatives --set python /usr/bin/python3
 
