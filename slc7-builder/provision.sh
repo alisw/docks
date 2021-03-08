@@ -32,6 +32,7 @@ yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs             \
                libX11-devel libXpm-devel libXft-devel              \
                libXi-devel pigz                                    \
                libXext-devel redhat-lsb libtool automake autoconf  \
+               autoconf-archive                                    \
                libxml2-devel openssl-devel libcurl-devel           \
                bzip2-devel mesa-libGLU-devel zip perl-libwww-perl  \
                svn cvs flex bison texinfo glibc-devel.i686         \
