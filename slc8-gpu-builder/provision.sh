@@ -1,4 +1,4 @@
-CUDA_PKG_VERSION="11-2-11.2.*"
+CUDA_PKG_VERSION="11-3-11.3.*"
 NVIDIA_GPGKEY_SUM="d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5"
 
 # Install requirements for GPU event display
@@ -21,8 +21,8 @@ echo /opt/amd-app/lib/x86_64/ > /etc/ld.so.conf.d/amd-app-sdk.conf
 # Install NVIDIA CUDA Stack
 curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/7fa2af80.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA
 echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
-yum install -y cuda-cudart-${CUDA_PKG_VERSION} cuda-compat-11-2-*
-ln -s cuda-11.2 /usr/local/cuda
+yum install -y cuda-cudart-${CUDA_PKG_VERSION} cuda-compat-11-3-*
+ln -s cuda-11.3 /usr/local/cuda
 rm -rf /var/cache/yum/*
 echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
 echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf

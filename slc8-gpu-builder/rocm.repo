@@ -1,5 +1,5 @@
 [ROCm]
 name=ROCm
-baseurl=http://repo.radeon.com/rocm/yum/4.0
+baseurl=http://repo.radeon.com/rocm/yum/4.1.1
 enabled=1
 gpgcheck=0
