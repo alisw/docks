@@ -1,5 +1,5 @@
 {
-  "_comment": "CentOS 8 GPU builder X-enabled CUDA11.2-enabled AMD ROCm 4.0.0-enabled",
+  "_comment": "CentOS 8 GPU builder X-enabled CUDA11.3-enabled AMD ROCm 4.1.1-enabled",
   "variables": {
     "DOCKER_HUB_REPO": "alisw"
   },
