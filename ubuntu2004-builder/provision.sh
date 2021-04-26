@@ -21,7 +21,7 @@ apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
     linux-headers-5.4.0-53-generic libkmod-dev libpci-dev libmotif-dev         \
     git environment-modules libglfw3-dev libtbb-dev libncurses-dev rclone      \
     ruby-full rubygems-integration python3-dev python3-venv python3-pip        \
-    python-is-python3
+    python-is-python3 python2.7 libpython2.7 libsasl2-dev openjdk-8-jdk  # mesos and jenkins
 # Install pip -> pip3, to match python -> python3 from python-is-python3.
 update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 100
 
