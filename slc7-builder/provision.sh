@@ -41,6 +41,7 @@ yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs             \
                ruby-devel uuid-devel environment-modules           \
                python-requests libuuid-devel createrepo            \
                protobuf-devel python-pip python-devel              \
+               python3-pip python3-devel python3-requests          \
                mariadb-devel kernel-devel pciutils-devel           \
                kmod-devel motif motif-devel                        \
                numactl-devel doxygen graphviz glfw-devel           \
