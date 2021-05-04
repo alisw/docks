@@ -72,4 +72,5 @@ for pyver in "$PYTHON3_VERSION" "$PYTHON2_VERSION"; do
   "/usr/local/bin/python$pymajmin" get-pip.py
   cd /
   rm -rf /tmp/py
+  "pip$pymajor" install requests
 done
