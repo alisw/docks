@@ -51,5 +51,11 @@ tar -jxf clang13.tar.bz2 -C /opt/
 rm clang13.tar.bz2
 ln -s /opt/clang/bin/llvm-spirv /usr/bin/
 
+# Update ROCm with tarball containing all fixes
+rm -Rf /opt/rocm*
+curl -Lo rocm.tar.bz2 https://qon.jwdt.org/nmls/rocm.tar.bz2
+tar -jxf rocm.tar.bz2 -C /opt/
+rm rocm.tar.bz2
+
 export LIBRARY_PATH=/usr/local/cuda/lib64/stubs
 ldconfig
