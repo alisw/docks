@@ -1,0 +1,51 @@
+{
+  "_comment": "CentOS 6 builder X-enabled",
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw",
+    "CCTOOLS_VERSION": "6.2.9",
+    "PYTHON2_VERSION": "2.7.15",
+    "PYTHON3_VERSION": "3.6.8"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "centos:6",
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/bin/bash\"]"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "CentOS-Base.repo",
+      "destination": "/etc/yum.repos.d/CentOS-Base.repo"
+    },
+    {
+      "type": "file",
+      "source": "eos.repo",
+      "destination": "/etc/yum.repos.d/eos.repo"
+    },
+    {
+      "type": "shell",
+      "environment_vars": [
+        "CCTOOLS_VERSION={{user `CCTOOLS_VERSION`}}",
+        "PYTHON2_VERSION={{user `PYTHON2_VERSION`}}",
+        "PYTHON3_VERSION={{user `PYTHON3_VERSION`}}"
+      ],
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/slc6-builder",
+        "tag": "latest"
+      },
+      "docker-push"
+    ]
+  ]
+}
