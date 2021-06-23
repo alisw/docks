@@ -1,10 +1,10 @@
 #!/bin/sh -ex
 
-useradd -rUu 980 mesosalien
-useradd -rUu 981 mesosci
-useradd -rUu 982 mesosdaq
-useradd -rUu 983 mesosuser
-useradd -rUu 984 mesostest
+useradd -rmUu 980 mesosalien
+useradd -rmUu 981 mesosci
+useradd -rmUu 982 mesosdaq
+useradd -rmUu 983 mesosuser
+useradd -rmUu 984 mesostest
 
 rpmdb --rebuilddb
 yum clean all
