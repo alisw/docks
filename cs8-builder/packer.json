@@ -1,0 +1,35 @@
+{
+  "_comment": "CentOS Stream 8 builder X-enabled",
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw",
+    "CCTOOLS_VERSION": "6.2.9",
+    "EPEL_VERSION": "8"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "quay.io/centos/centos:stream8",
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/bin/bash\"]"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `DOCKER_HUB_REPO`}}/cs8-builder",
+        "tag": "latest"
+      },
+      "docker-push"
+    ]
+  ]
+}
