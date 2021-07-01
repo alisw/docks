@@ -59,3 +59,13 @@ rm rocm.tar.bz2
 
 export LIBRARY_PATH=/usr/local/cuda/lib64/stubs
 ldconfig
+
+# A recent git version (>= 2.31.0) is required for specifying git config
+# using environment variables.
+curl -L "https://mirrors.edge.kernel.org/pub/software/scm/git/git-$GIT_VERSION.tar.xz" | tar -xJC /tmp
+cd "/tmp/git-$GIT_VERSION"
+make prefix=/usr/local all
+make prefix=/usr/local install
+cd /
+rm -rf "/tmp/git-$GIT_VERSION"
+[ "$(git --version)" = "git version $GIT_VERSION" ]

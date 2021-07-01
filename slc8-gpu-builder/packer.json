@@ -1,7 +1,8 @@
 {
   "_comment": "CentOS 8 GPU builder X-enabled CUDA11.3-enabled AMD ROCm 4.1.1-enabled",
   "variables": {
-    "DOCKER_HUB_REPO": "alisw"
+    "DOCKER_HUB_REPO": "alisw",
+    "GIT_VERSION": "2.32.0"
   },
   "builders": [
     {
@@ -34,6 +35,9 @@
     },
     {
       "type": "shell",
+      "environment_vars": [
+        "GIT_VERSION={{user `GIT_VERSION`}}"
+      ],
       "script": "provision.sh"
     }
   ],
