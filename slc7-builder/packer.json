@@ -2,7 +2,8 @@
   "_comment": "CentOS 7 builder X-enabled",
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
-    "CCTOOLS_VERSION": "6.2.9"
+    "CCTOOLS_VERSION": "6.2.9",
+    "GIT_VERSION": "2.32.0"
   },
   "builders": [
     {
@@ -19,7 +20,8 @@
     {
       "type": "shell",
       "environment_vars": [
-        "CCTOOLS_VERSION={{user `CCTOOLS_VERSION`}}"
+        "CCTOOLS_VERSION={{user `CCTOOLS_VERSION`}}",
+        "GIT_VERSION={{user `GIT_VERSION`}}"
       ],
       "script": "provision.sh"
     }

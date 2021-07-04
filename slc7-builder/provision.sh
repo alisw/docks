@@ -69,3 +69,13 @@ which work_queue_worker
 curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip
 unzip /tmp/vault.zip vault -d /usr/bin/
 rm -v /tmp/vault.zip
+
+# A recent git version (>= 2.31.0) is required for specifying git config
+# using environment variables.
+curl -L "https://mirrors.edge.kernel.org/pub/software/scm/git/git-$GIT_VERSION.tar.xz" | tar -xJC /tmp
+cd "/tmp/git-$GIT_VERSION"
+make prefix=/usr/local -j 10 all
+make prefix=/usr/local install
+cd /
+rm -rf "/tmp/git-$GIT_VERSION"
+[ "$(git --version)" = "git version $GIT_VERSION" ]
