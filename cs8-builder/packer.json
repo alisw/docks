@@ -1,9 +1,7 @@
 {
   "_comment": "CentOS Stream 8 builder X-enabled",
   "variables": {
-    "DOCKER_HUB_REPO": "alisw",
-    "CCTOOLS_VERSION": "6.2.9",
-    "EPEL_VERSION": "8"
+    "DOCKER_HUB_REPO": "alisw"
   },
   "builders": [
     {

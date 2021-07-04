@@ -1,31 +1,24 @@
-groupadd -g 980 mesosalien
-useradd -u 980 -g 980 mesosalien
-groupadd -g 981 mesosci
-useradd -u 981 -g 981 mesosci
-groupadd -g 982 mesosdaq
-useradd -u 982 -g 982 mesosdaq
-groupadd -g 983 mesosuser
-useradd -u 983 -g 983 mesosuser
-groupadd -g 984 mesostest
-useradd -u 984 -g 984 mesostest
+#!/bin/bash -ex
 
-rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum
-yum install -y http://mirror.switch.ch/ftp/mirror/epel/epel-release-latest-7.noarch.rpm
-yum update -y
+useradd -rmUu 980 mesosalien
+useradd -rmUu 981 mesosci
+useradd -rmUu 982 mesosdaq
+useradd -rmUu 983 mesosuser
+useradd -rmUu 984 mesostest
 
-yum install -y centos-release-scl
+wipeyum () {
+  rpmdb --rebuilddb
+  yum clean all
+  rm -rf /var/cache/yum
+}
+
+wipeyum
+yum install -y centos-release-scl http://mirror.switch.ch/ftp/mirror/epel/epel-release-latest-7.noarch.rpm
 yum-config-manager --enable rhel-server-rhscl-7-rpms
-yum install -y rh-git218 rh-ruby23-ruby-devel
-cat << \EOF > /etc/profile.d/enable-alice.sh
-source scl_source enable rh-git218
-source scl_source enable rh-ruby23
-EOF
-
-
-yum groupinstall -y 'Development Tools'
-yum groupinstall -y 'X Window System'
-
-yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs             \
+yum update -y
+yum groups install -y 'Development Tools' 'X Window System'
+yum install -y rh-git218 rh-ruby23-ruby-devel                      \
+               PyYAML bc compat-libstdc++-33 e2fsprogs             \
                e2fsprogs-libs git java-1.7.0-openjdk libXmu libXpm \
                perl-ExtUtils-Embed rpm-build screen tcl tcsh tk    \
                wget which zsh gcc gcc-gfortran gcc-c++             \
@@ -48,21 +41,31 @@ yum install -y PyYAML bc compat-libstdc++-33 e2fsprogs             \
                zlib-devel readline-devel openssh-server            \
                libglvnd-opengl tk-devel libfabric-devel sshpass    \
                gettext-devel rclone s3cmd
-
-rpmdb --rebuilddb && yum clean all && rm -rf /var/cache/yum
-
+wipeyum
+cat << \EOF > /etc/profile.d/enable-alice.sh
 source scl_source enable rh-git218
 source scl_source enable rh-ruby23
-gem install --no-ri --no-rdoc fpm
+EOF
 
-curl -L "https://github.com/cooperative-computing-lab/cctools/archive/release/$CCTOOLS_VERSION.tar.gz" -o cctools.tar.gz
-mkdir cctools && cd cctools
-tar --strip-components=1 -xzf ../cctools.tar.gz
-./configure --prefix=/usr/local && make -j10 && make install
-cd ..
-rm -rf cctools*
+set +ex  # scl_source doesn't work with `set -e`
+source scl_source enable rh-git218
+source scl_source enable rh-ruby23
+set -ex
+
+gem install --no-document fpm
+
+mkdir /tmp/cctools
+curl -fsSL "https://github.com/cooperative-computing-lab/cctools/archive/release/$CCTOOLS_VERSION.tar.gz" |
+  tar --strip-components=1 -xzC /tmp/cctools
+cd /tmp/cctools
+./configure --prefix=/usr/local
+make -j10
+make install
+cd /
+rm -rf /tmp/cctools
 ldconfig
 which work_queue_worker
 
-curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip
-unzip vault.zip && mv ./vault /usr/bin/vault && rm -f vault.zip
+curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip
+unzip /tmp/vault.zip vault -d /usr/bin/
+rm -v /tmp/vault.zip
