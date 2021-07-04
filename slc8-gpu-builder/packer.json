@@ -3,8 +3,7 @@
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
     "CUDA_PKG_VERSION": "11-3-11.3.*",
-    "NVIDIA_GPGKEY_SUM": "d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5",
-    "GIT_VERSION": "2.32.0"
+    "NVIDIA_GPGKEY_SUM": "d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5"
   },
   "builders": [
     {

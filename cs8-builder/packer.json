@@ -1,7 +1,8 @@
 {
   "_comment": "CentOS Stream 8 builder X-enabled",
   "variables": {
-    "DOCKER_HUB_REPO": "alisw"
+    "DOCKER_HUB_REPO": "alisw",
+    "GIT_VERSION": "2.32.0"
   },
   "builders": [
     {
@@ -17,6 +18,9 @@
   "provisioners": [
     {
       "type": "shell",
+      "environment_vars": [
+        "GIT_VERSION={{user `GIT_VERSION`}}"
+      ],
       "script": "provision.sh"
     }
   ],
