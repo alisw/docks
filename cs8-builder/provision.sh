@@ -6,15 +6,16 @@ useradd -rmUu 982 mesosdaq
 useradd -rmUu 983 mesosuser
 useradd -rmUu 984 mesostest
 
-rpmdb --rebuilddb
-yum clean all
-rm -rf /var/cache/yum
+wipeyum () {
+  rpmdb --rebuilddb
+  yum clean all
+  rm -rf /var/cache/yum
+}
 
-yum install -y epel-release
-yum install -y dnf-plugins-core
+wipeyum
+yum install -y epel-release dnf-plugins-core
 yum config-manager --set-enabled powertools
 yum update -y
-
 dnf group install -y 'Development Tools'
 yum install -y bc e2fsprogs                                        \
                e2fsprogs-libs git java-1.8.0-openjdk libXmu libXpm \
@@ -44,12 +45,10 @@ yum install -y bc e2fsprogs                                        \
 
 alternatives --set python /usr/bin/python3
 
-rpmdb --rebuilddb
-yum clean all
-rm -rf /var/cache/yum
+wipeyum
 
-gem install --no-ri --no-rdoc fpm
+gem install --no-document fpm
 
-curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o /tmp/vault.zip
+curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip
 unzip /tmp/vault.zip vault -d /usr/bin/
-rm -vf vault.zip
+rm -v /tmp/vault.zip
