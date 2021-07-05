@@ -28,7 +28,6 @@ update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 100
 # Don't generate rdoc or ri documentation.
 gem install --no-document fpm
 
-curl -L https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip -o vault.zip
-unzip vault.zip
-mv -nv ./vault /usr/bin/vault
-rm -fv vault.zip
+curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/0.5.0/vault_0.5.0_linux_amd64.zip
+unzip /tmp/vault.zip vault -d /usr/bin/
+rm -v /tmp/vault.zip
