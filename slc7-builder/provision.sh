@@ -17,7 +17,7 @@ yum install -y centos-release-scl http://mirror.switch.ch/ftp/mirror/epel/epel-r
 yum-config-manager --enable rhel-server-rhscl-7-rpms
 yum update -y
 yum groups install -y 'Development Tools' 'X Window System'
-yum install -y rh-git218 rh-ruby23-ruby-devel                      \
+yum install -y rh-ruby23-ruby-devel                                \
                PyYAML bc compat-libstdc++-33 e2fsprogs             \
                e2fsprogs-libs git java-1.7.0-openjdk libXmu libXpm \
                perl-ExtUtils-Embed rpm-build screen tcl tcsh tk    \
@@ -43,12 +43,10 @@ yum install -y rh-git218 rh-ruby23-ruby-devel                      \
                gettext-devel rclone s3cmd
 wipeyum
 cat << \EOF > /etc/profile.d/enable-alice.sh
-source scl_source enable rh-git218
 source scl_source enable rh-ruby23
 EOF
 
 set +ex  # scl_source doesn't work with `set -e`
-source scl_source enable rh-git218
 source scl_source enable rh-ruby23
 set -ex
 
