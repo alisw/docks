@@ -2,8 +2,7 @@
 
 # Install AMD APP Stack
 # No longer available from AMD but the newer versions will not work
-curl -fsSL https://sourceforge.net/projects/nicehashsgminerv5viptools/files/APP%20SDK%20A%20Complete%20Development%20Platform/AMD%20APP%20SDK%203.0%20for%2064-bit%20Linux/AMD-APP-SDKInstaller-v3.0.130.136-GA-linux64.tar.bz2/download |
-  tar -xjv
+curl -fsSL https://s3.cern.ch/swift/v1/alibuild-repo/slc8-gpu-builder-reqs/amdappsdk.tar.bz2 | tar -xjv
 ./AMD-APP-SDK-v3.0.130.136-GA-linux64.sh --noexec --target /opt/amd-app
 rm -v AMD-APP-SDK-v3.0.130.136-GA-linux64.sh
 # Avoid file collisions between AMD APP and AMD ROCm stack
@@ -42,12 +41,12 @@ patch -p0 < /rocm.patch
 rm -v /rocm.patch
 
 # Install clang trunk for OpenCL2 compilation
-curl -fsSL https://qon.jwdt.org/nmls/clang13.tar.bz2 | tar -jxC /opt/
+curl -fsSL https://s3.cern.ch/swift/v1/alibuild-repo/slc8-gpu-builder-reqs/clang13.tar.bz2 | tar -jxvC /opt/
 ln -s /opt/clang/bin/llvm-spirv /usr/bin/
 
 # Update ROCm with tarball containing all fixes
 rm -rf /opt/rocm*
-curl -fsSL https://qon.jwdt.org/nmls/rocm43.tar.bz2 | tar -jxC /opt/
+curl -fsSL https://s3.cern.ch/swift/v1/alibuild-repo/slc8-gpu-builder-reqs/rocm43.tar.bz2 | tar -jxvC /opt/
 
 # Remove clang-ocl binary, since it is currently broken, to avoid automatic pick-up
 rm -v /opt/rocm/bin/clang-ocl /usr/bin/clang-ocl
