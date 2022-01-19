@@ -1,8 +1,8 @@
 {
-  "_comment": "CentOS 8 GPU builder X-enabled CUDA11.4-enabled AMD ROCm 4.3.0-enabled",
+  "_comment": "CentOS 8 GPU builder X-enabled CUDA11.6-enabled AMD ROCm 4.5.2-enabled",
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
-    "CUDA_PKG_VERSION": "11-4-11.4.*",
+    "CUDA_PKG_VERSION": "11-6-11.6.*",
     "NVIDIA_GPGKEY_SUM": "d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5"
   },
   "builders": [
@@ -28,6 +28,11 @@
       "type": "file",
       "source": "rocm.repo",
       "destination": "/etc/yum.repos.d/rocm.repo"
+    },
+    {
+      "type": "file",
+      "source": "amdgpu.repo",
+      "destination": "/etc/yum.repos.d/amdgpu.repo"
     },
     {
       "type": "file",
