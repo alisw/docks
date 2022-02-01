@@ -12,6 +12,11 @@ wipeyum () {
   rm -rf /var/cache/yum
 }
 
+# The base centos:8 image has the wrong mirror URLs; they need to point to
+# vault.centos.org instead. We also need to use baseurl= instead of mirrorlist=.
+sed -i 's/mirror\.centos\.org/vault.centos.org/g;
+        s/^#baseurl=/baseurl=/; s/^mirrorlist=/#mirrorlist=/' \
+          /etc/yum.repos.d/CentOS-Linux-*.repo
 wipeyum
 
 yum install -y epel-release dnf-plugins-core
