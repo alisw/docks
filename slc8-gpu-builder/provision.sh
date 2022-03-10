@@ -22,7 +22,7 @@ yum install -y freeglut-devel lsof "cuda-cudart-$CUDA_PKG_VERSION" 'cuda-compat-
                "cuda-libraries-$CUDA_PKG_VERSION" "cuda-nvtx-$CUDA_PKG_VERSION"                   \
                "cuda-libraries-devel-$CUDA_PKG_VERSION" "cuda-nvml-devel-$CUDA_PKG_VERSION"       \
                "cuda-minimal-build-$CUDA_PKG_VERSION" "cuda-command-line-tools-$CUDA_PKG_VERSION" \
-               hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev
+               hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang
 # ROCm: Notice we do not need the version for ROCM because we target a specific distribution in rocm.repo
 
 rpmdb --rebuilddb
