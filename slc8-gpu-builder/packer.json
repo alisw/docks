@@ -1,9 +1,9 @@
 {
-  "_comment": "CentOS 8 GPU builder X-enabled CUDA11.6-enabled AMD ROCm 4.5.2-enabled",
+  "_comment": "CentOS 8 GPU builder X-enabled CUDA11.7-enabled AMD ROCm 5.1.2-enabled",
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
-    "CUDA_PKG_VERSION": "11-6-11.6.*",
-    "NVIDIA_GPGKEY_SUM": "d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5"
+    "CUDA_PKG_VERSION": "11-7-11.7.*",
+    "NVIDIA_GPGKEY_SUM": "d0664fbbdb8c32356d45de36c5984617217b2d0bef41b93ccecd326ba3b80c87"
   },
   "builders": [
     {
