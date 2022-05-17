@@ -13,7 +13,7 @@ mv -v /opt/amd-app/lib/x86_64/sdk/libamdocl64.so \
 echo /opt/amd-app/lib/x86_64/ > /etc/ld.so.conf.d/amd-app-sdk.conf
 
 # Install NVIDIA GPG key
-curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/7fa2af80.pub |
+curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/D42D0685.pub |
   sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA
 echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
 
@@ -30,7 +30,7 @@ yum clean all
 rm -rf /var/cache/yum
 
 # Set up NVIDIA CUDA stack
-ln -s cuda-11.6 /usr/local/cuda
+ln -s cuda-11.7 /usr/local/cuda
 echo /usr/local/nvidia/lib >> /etc/ld.so.conf.d/nvidia.conf
 echo /usr/local/nvidia/lib64 >> /etc/ld.so.conf.d/nvidia.conf
 export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
