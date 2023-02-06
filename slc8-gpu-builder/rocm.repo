@@ -1,5 +1,5 @@
 [ROCm]
 name=ROCm
-baseurl=http://repo.radeon.com/rocm/centos8/5.1.2/main
+baseurl=http://repo.radeon.com/rocm/rhel8/5.3.3/main/
 enabled=1
 gpgcheck=0
