@@ -1,6 +1,6 @@
---- /opt/rocm-5.1.2/hip/bin/hipcc.pl.old	2022-04-26 00:25:56.000000000 +0000
-+++ /opt/rocm-5.1.2/hip/bin/hipcc.pl	2022-05-17 08:15:50.338358444 +0000
-@@ -687,9 +687,9 @@
+--- /opt/rocm/hip/bin/hipcc.pl.old      2023-02-03 12:45:52.705141525 +0000
++++ /opt/rocm/hip/bin/hipcc.pl  2023-02-03 12:50:57.589161773 +0000
+@@ -694,9 +694,9 @@
          $HIPLDFLAGS .= " -O3";
      }
      if (!$funcSupp and $optArg ne "-O0" and $hasHIP) {
@@ -12,9 +12,10 @@
          }
      }
  
---- /opt/rocm-5.1.2/hip/lib/cmake/hip/hip-config.cmake.old	2022-05-17 08:09:48.607334421 +0000
-+++ /opt/rocm-5.1.2/hip/lib/cmake/hip/hip-config.cmake	2022-05-17 08:09:58.076335050 +0000
-@@ -249,7 +249,7 @@
+sh-4.4# diff -u /opt/rocm/hip/lib/cmake/hip/hip-config.cmake.old /opt/rocm/hip/lib/cmake/hip/hip-config.cmake    
+--- /opt/rocm/hip/lib/cmake/hip/hip-config.cmake.old    2023-02-03 12:51:27.415163754 +0000
++++ /opt/rocm/hip/lib/cmake/hip/hip-config.cmake        2023-02-03 12:51:38.542164492 +0000
+@@ -267,7 +267,7 @@
    get_property(compilePropIsSet TARGET hip::device PROPERTY INTERFACE_COMPILE_OPTIONS SET)
  
    if (NOT compilePropIsSet AND HIP_CXX_COMPILER MATCHES ".*clang\\+\\+")
@@ -23,19 +24,21 @@
    endif()
  
    if (NOT compilePropIsSet)
---- /opt/rocm-5.1.2/hip/lib/cmake/hip-lang/hip-lang-config.cmake.old	2022-05-17 08:10:22.640336681 +0000
-+++ /opt/rocm-5.1.2/hip/lib/cmake/hip-lang/hip-lang-config.cmake	2022-05-17 08:10:29.656337147 +0000
+sh-4.4# diff -u /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake.old /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake    
+--- /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake.old  2023-02-03 12:51:50.164165264 +0000
++++ /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake      2023-02-03 12:51:55.453165616 +0000
 @@ -144,7 +144,7 @@
  )
  
  set_property(TARGET hip-lang::device APPEND PROPERTY
 -  INTERFACE_COMPILE_OPTIONS "$<$<COMPILE_LANGUAGE:HIP>:SHELL:-mllvm;-amdgpu-early-inline-all=true;-mllvm;-amdgpu-function-calls=false>"
-+  INTERFACE_COMPILE_OPTIONS "$<$<COMPILE_LANGUAGE:HIP>:SHELL:-mllvm;-amdgpu-early-inline-all=true;-mllvm;-amdgpu-+function-calls=true>"
++  INTERFACE_COMPILE_OPTIONS "$<$<COMPILE_LANGUAGE:HIP>:SHELL:-mllvm;-amdgpu-early-inline-all=true;-mllvm;-amdgpu-function-calls=true>"
  )
  
  if (NOT EXISTS "${AMD_DEVICE_LIBS_PREFIX}/amdgcn/bitcode")
---- /opt/rocm-5.1.2/rocprim/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp.old	2022-05-17 08:17:20.770364450 +0000
-+++ /opt/rocm-5.1.2/rocprim/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp	2022-05-17 08:18:04.014367322 +0000
+sh-4.4# diff -u /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp.old /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp    
+--- /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp.old  2023-02-03 13:19:30.988275562 +0000
++++ /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp      2023-02-03 13:20:02.523277656 +0000
 @@ -507,7 +507,7 @@
              const unsigned int idx_end = idx_start + thread_reduction_size_;
  

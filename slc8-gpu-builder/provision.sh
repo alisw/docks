@@ -18,7 +18,7 @@ curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64
 echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
 
 # Install requirements for GPU event display, NVIDIA CUDA and AMD ROCm stacks
-yum install -y freeglut-devel lsof "cuda-cudart-$CUDA_PKG_VERSION" 'cuda-compat-11-6-*'           \
+yum install -y freeglut-devel lsof "cuda-cudart-$CUDA_PKG_VERSION" 'cuda-compat-12-0-*'           \
                "cuda-libraries-$CUDA_PKG_VERSION" "cuda-nvtx-$CUDA_PKG_VERSION"                   \
                "cuda-libraries-devel-$CUDA_PKG_VERSION" "cuda-nvml-devel-$CUDA_PKG_VERSION"       \
                "cuda-minimal-build-$CUDA_PKG_VERSION" "cuda-command-line-tools-$CUDA_PKG_VERSION" \
@@ -30,14 +30,14 @@ yum clean all
 rm -rf /var/cache/yum
 
 # Set up NVIDIA CUDA stack
-ln -s cuda-11.7 /usr/local/cuda
+ln -s cuda-12.0 /usr/local/cuda
 echo /usr/local/nvidia/lib >> /etc/ld.so.conf.d/nvidia.conf
 echo /usr/local/nvidia/lib64 >> /etc/ld.so.conf.d/nvidia.conf
 export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
 
 # Fix some errors in current ROCm
-patch -p0 < /rocm.patch
+patch --follow-symlinks -p0 < /rocm.patch
 rm -v /rocm.patch
 
 # Remove clang-ocl binary, since it is currently broken, to avoid automatic pick-up
