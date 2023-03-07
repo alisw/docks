@@ -1,5 +1,5 @@
 {
-  "_comment": "CentOS 8 builder X-enabled",
+  "_comment": "Alma 8.7 builder X-enabled",
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
     "GIT_VERSION": "2.32.0"
@@ -7,7 +7,7 @@
   "builders": [
     {
       "type": "docker",
-      "image": "centos:8",
+      "image": "almalinux:8.7",
       "commit": true,
       "changes": [
         "ENTRYPOINT [\"\"]",
