@@ -1,5 +1,5 @@
 {
-  "_comment": "Alma 8.7 GPU builder X-enabled CUDA12.0-enabled AMD ROCm 5.4.3-enabled",
+  "_comment": "Alma 8.7 GPU builder X-enabled CUDA12.0-enabled AMD ROCm 5.4.2-enabled",
   "variables": {
     "DOCKER_HUB_REPO": "alisw",
     "CUDA_PKG_VERSION": "12-0-12.0.*",
