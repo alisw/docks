@@ -1,0 +1,33 @@
+---
+# Check that declared Packer images are valid.
+name: Validate Packer images
+
+'on':
+  - push
+  - pull_request
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install prerequisites
+        run: |
+          sudo apt update -y
+          sudo apt install -y packer
+
+      - name: Validate Packer images
+        run: |
+          error=0
+          for decl in */packer.json; do
+            pushd "$(dirname "$decl")"
+            if ! packer validate packer.json; then
+              echo -n "::error file=$decl,line=1,title=packer validate failed"
+              echo "::Packer validation failed for $decl."
+              error=1
+            fi
+            popd
+          done
+          exit $error
