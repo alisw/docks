@@ -20,7 +20,7 @@ jobs:
     # GitHub seems to install an odd version of docker on the host, so run in a
     # container and only connect to the host's docker daemon.
     container:
-      image: ubuntu:20.04
+      image: ubuntu:22.04
       volumes:
         # Connect to host's docker daemon so we don't run docker inside docker.
         - /var/run/docker.sock:/var/run/docker.sock
@@ -39,7 +39,15 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
 
-      # Note: we're running under set -eo pipefail here
+      - name: Log in to Docker repos
+        run: |
+          docker login registry.cern.ch -u '${{ secrets.CERN_REGISTRY_USER }}' --password-stdin <<\EOF
+          ${{ secrets.CERN_REGISTRY_PASSWORD }}
+          EOF
+          docker login docker.io -u '${{ secrets.DOCKERHUB_USER }}' --password-stdin <<\EOF
+          ${{ secrets.DOCKERHUB_PASSWORD }}
+          EOF
+
       - name: Build and push docker image
         run: |
           if ! cd "$GITHUB_WORKSPACE/${{ github.event.inputs.image-name }}"; then
@@ -47,5 +55,4 @@ jobs:
             exit 1
           fi
           packer validate packer.json
-          docker login -u '${{ secrets.DOCKERHUB_USER }}' -p '${{ secrets.DOCKERHUB_PASSWORD }}'
           packer build packer.json
