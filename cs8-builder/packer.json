@@ -1,7 +1,8 @@
 {
   "_comment": "CentOS Stream 8 builder X-enabled",
   "variables": {
-    "DOCKER_HUB_REPO": "alisw",
+    "REPO": "registry.cern.ch/alisw/cs8-builder",
+    "TAG": "latest",
     "GIT_VERSION": "2.32.0"
   },
   "builders": [
@@ -28,8 +29,8 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `DOCKER_HUB_REPO`}}/cs8-builder",
-        "tag": "latest"
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
       },
       "docker-push"
     ]

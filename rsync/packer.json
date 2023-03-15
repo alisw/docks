@@ -2,7 +2,8 @@
   "_comment": "Build a rsync image",
   "variables": {
     "centos_major": "7",
-    "DOCKER_HUB_REPO": "aliswdev"
+    "REPO": "registry.cern.ch/alisw/rsync",
+    "TAG": "latest"
   },
   "builders": [
     {
@@ -28,8 +29,8 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `DOCKER_HUB_REPO`}}/rsync",
-        "tag": "latest"
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
       },
       "docker-push"
     ]

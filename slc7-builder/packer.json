@@ -1,7 +1,8 @@
 {
   "_comment": "CentOS 7 builder X-enabled",
   "variables": {
-    "DOCKER_HUB_REPO": "alisw",
+    "REPO": "registry.cern.ch/alisw/slc7-builder",
+    "TAG": "latest",
     "CCTOOLS_VERSION": "6.2.9",
     "GIT_VERSION": "2.32.0"
   },
@@ -30,8 +31,8 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `DOCKER_HUB_REPO`}}/slc7-builder",
-        "tag": "latest"
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
       },
       "docker-push"
     ]
