@@ -1,7 +1,8 @@
 {
   "_comment": "Ubuntu 18.04 builder X-enabled",
   "variables": {
-    "DOCKER_HUB_REPO": "alisw"
+    "REPO": "registry.cern.ch/alisw/ubuntu1804-builder",
+    "TAG": "latest"
   },
   "builders": [
     {
@@ -20,8 +21,8 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `DOCKER_HUB_REPO`}}/ubuntu1804-builder",
-        "tag": "latest"
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
       },
       "docker-push"
     ]

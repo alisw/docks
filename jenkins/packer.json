@@ -2,7 +2,7 @@
   "_comment": "Jenkins service",
   "variables": {
     "jenkins_version": "2.46.3",
-    "DOCKER_HUB_REPO": "alisw"
+    "REPO": "registry.cern.ch/alisw/jenkins"
   },
   "builders": [
     {
@@ -30,7 +30,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `DOCKER_HUB_REPO`}}/jenkins",
+        "repository": "{{user `REPO`}}",
         "tag": "{{user `jenkins_version`}}"
       },
       "docker-push"
