@@ -1,0 +1,30 @@
+{
+  "_comment": "Ubuntu 22.04 builder X-enabled",
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/ubuntu2204-builder",
+    "TAG": "latest"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "ubuntu:22.04",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
