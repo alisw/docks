@@ -37,7 +37,7 @@ export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
 
 # Fix some errors in current ROCm
-patch --follow-symlinks -p0 < /rocm.patch
+patch -p0 < /rocm.patch
 rm -v /rocm.patch
 
 # Remove clang-ocl binary, since it is currently broken, to avoid automatic pick-up

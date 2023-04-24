@@ -1,5 +1,5 @@
---- /opt/rocm/hip/bin/hipcc.pl.old      2023-02-03 12:45:52.705141525 +0000
-+++ /opt/rocm/hip/bin/hipcc.pl  2023-02-03 12:50:57.589161773 +0000
+--- /opt/rocm-5.4.2/bin/hipcc.pl.old      2023-02-03 12:45:52.705141525 +0000
++++ /opt/rocm-5.4.2/bin/hipcc.pl  2023-02-03 12:50:57.589161773 +0000
 @@ -694,9 +694,9 @@
          $HIPLDFLAGS .= " -O3";
      }
@@ -12,9 +12,8 @@
          }
      }
  
-sh-4.4# diff -u /opt/rocm/hip/lib/cmake/hip/hip-config.cmake.old /opt/rocm/hip/lib/cmake/hip/hip-config.cmake    
---- /opt/rocm/hip/lib/cmake/hip/hip-config.cmake.old    2023-02-03 12:51:27.415163754 +0000
-+++ /opt/rocm/hip/lib/cmake/hip/hip-config.cmake        2023-02-03 12:51:38.542164492 +0000
+--- /opt/rocm-5.4.2/lib/cmake/hip/hip-config.cmake.old    2023-02-03 12:51:27.415163754 +0000
++++ /opt/rocm-5.4.2/lib/cmake/hip/hip-config.cmake        2023-02-03 12:51:38.542164492 +0000
 @@ -267,7 +267,7 @@
    get_property(compilePropIsSet TARGET hip::device PROPERTY INTERFACE_COMPILE_OPTIONS SET)
  
@@ -24,9 +23,8 @@ sh-4.4# diff -u /opt/rocm/hip/lib/cmake/hip/hip-config.cmake.old /opt/rocm/hip/l
    endif()
  
    if (NOT compilePropIsSet)
-sh-4.4# diff -u /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake.old /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake    
---- /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake.old  2023-02-03 12:51:50.164165264 +0000
-+++ /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake      2023-02-03 12:51:55.453165616 +0000
+--- /opt/rocm-5.4.2/lib/cmake/hip-lang/hip-lang-config.cmake.old  2023-02-03 12:51:50.164165264 +0000
++++ /opt/rocm-5.4.2/lib/cmake/hip-lang/hip-lang-config.cmake      2023-02-03 12:51:55.453165616 +0000
 @@ -144,7 +144,7 @@
  )
  
@@ -36,24 +34,3 @@ sh-4.4# diff -u /opt/rocm/hip/lib/cmake/hip-lang/hip-lang-config.cmake.old /opt/
  )
  
  if (NOT EXISTS "${AMD_DEVICE_LIBS_PREFIX}/amdgcn/bitcode")
-sh-4.4# diff -u /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp.old /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp    
---- /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp.old  2023-02-03 13:19:30.988275562 +0000
-+++ /opt/rocm/include/rocprim/block/detail/block_scan_reduce_then_scan.hpp      2023-02-03 13:20:02.523277656 +0000
-@@ -507,7 +507,7 @@
-             const unsigned int idx_end = idx_start + thread_reduction_size_;
- 
-             T thread_reduction = storage_.threads[idx_start];
--            ROCPRIM_UNROLL
-+            //ROCPRIM_UNROLL
-             for(unsigned int i = idx_start + 1; i < idx_end; i++)
-             {
-                 thread_reduction = scan_op(
-@@ -527,7 +527,7 @@
-             }
- 
-             storage_.threads[idx_start] = thread_reduction;
--            ROCPRIM_UNROLL
-+            //ROCPRIM_UNROLL
-             for(unsigned int i = idx_start + 1; i < idx_end; i++)
-             {
-                 thread_reduction = scan_op(
