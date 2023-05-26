@@ -20,7 +20,7 @@ apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
     environment-modules libglfw3-dev libtbb-dev libncurses-dev libmotif-dev    \
     linux-headers-5.4.0-54-generic libkmod-dev libpci-dev rubygems-integration \
     ruby-full git python-pip python-virtualenv python3-dev python3-venv        \
-    python3-pip rclone
+    python3-pip rclone patchelf
 pip2 install --upgrade pip
 pip3 install --upgrade pip
 

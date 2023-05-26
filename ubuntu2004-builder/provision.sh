@@ -14,13 +14,13 @@ export DEBIAN_FRONTEND=noninteractive
 apt update -y
 apt upgrade -y
 apt install -y apt-utils
-apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf \
-    automake autopoint unzip texinfo gettext libtool libtool-bin pkg-config    \
-    libmysqlclient-dev xorg-dev libglu1-mesa-dev libfftw3-dev libxml2-dev flex \
-    bison libperl-dev libbz2-dev liblzma-dev libnanomsg-dev lsb-release rsync  \
-    linux-headers-5.4.0-53-generic libkmod-dev libpci-dev libmotif-dev ed      \
-    git environment-modules libglfw3-dev libtbb-dev libncurses-dev rclone      \
-    ruby-full rubygems-integration python3-dev python3-venv python3-pip        \
+apt install -y build-essential curl libcurl4-gnutls-dev gfortran swig autoconf     \
+    automake autopoint unzip texinfo gettext libtool libtool-bin pkg-config        \
+    libmysqlclient-dev xorg-dev libglu1-mesa-dev libfftw3-dev libxml2-dev flex     \
+    bison libperl-dev libbz2-dev liblzma-dev libnanomsg-dev lsb-release rsync      \
+    linux-headers-5.4.0-53-generic libkmod-dev libpci-dev libmotif-dev ed          \
+    git environment-modules libglfw3-dev libtbb-dev libncurses-dev rclone patchelf \
+    ruby-full rubygems-integration python3-dev python3-venv python3-pip            \
     python-is-python3 python2.7 libpython2.7 libsasl2-dev openjdk-8-jdk  # mesos and jenkins
 # Install pip -> pip3, to match python -> python3 from python-is-python3.
 update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 100

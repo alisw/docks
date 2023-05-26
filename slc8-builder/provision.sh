@@ -33,7 +33,7 @@ yum install -y bc e2fsprogs                                        \
                ruby-devel uuid-devel environment-modules           \
                python3-requests libuuid-devel createrepo           \
                protobuf-devel python3-pip python3-devel            \
-               mariadb-devel kernel-devel pciutils-devel           \
+               mariadb-devel kernel-devel pciutils-devel patchelf  \
                kmod-devel motif motif-devel pigz glew-devel        \
                numactl-devel doxygen graphviz glfw-devel           \
                zlib-devel readline-devel openssh-server            \

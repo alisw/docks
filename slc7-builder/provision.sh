@@ -40,7 +40,7 @@ yum install -y rh-ruby23-ruby-devel python{27,36}-PyYAML           \
                numactl-devel doxygen graphviz glfw-devel           \
                zlib-devel readline-devel openssh-server            \
                libglvnd-opengl tk-devel libfabric-devel sshpass    \
-               gettext-devel rclone s3cmd
+               patchelf gettext-devel rclone s3cmd
 wipeyum
 cat << \EOF > /etc/profile.d/enable-alice.sh
 source scl_source enable rh-ruby23

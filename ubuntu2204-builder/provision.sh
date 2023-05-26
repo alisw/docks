@@ -19,7 +19,7 @@ apt install -y build-essential autoconf automake autopoint bison flex \
     texinfo libbz2-dev libcurl4-gnutls-dev libfftw3-dev libglfw3-dev \
     libglu1-mesa-dev libkmod-dev liblzma-dev libmotif-dev \
     libmysqlclient-dev libnanomsg-dev libncurses-dev libpci-dev \
-    libperl-dev libtbb-dev libxml2-dev linux-headers-generic \
+    libperl-dev libtbb-dev libxml2-dev linux-headers-generic patchelf \
     lsb-release swig xorg-dev unzip curl rsync ed git pigz rclone \
     environment-modules ruby-full rubygems-integration python3-dev \
     python3-venv python3-pip python-is-python3 \
