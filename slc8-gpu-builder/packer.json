@@ -1,9 +1,9 @@
 {
-  "_comment": "Alma 8.7 GPU builder X-enabled CUDA12.0-enabled AMD ROCm 5.4.2-enabled",
+  "_comment": "Alma 8.7 GPU builder X-enabled CUDA12.2-enabled AMD ROCm 5.5.3-enabled",
   "variables": {
     "REPO": "registry.cern.ch/alisw/slc8-gpu-builder",
     "TAG": "latest",
-    "CUDA_PKG_VERSION": "12-0-12.0.*",
+    "CUDA_PKG_VERSION": "12-2-12.2.*",
     "NVIDIA_GPGKEY_SUM": "d0664fbbdb8c32356d45de36c5984617217b2d0bef41b93ccecd326ba3b80c87"
   },
   "builders": [

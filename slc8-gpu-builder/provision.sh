@@ -30,7 +30,7 @@ yum clean all
 rm -rf /var/cache/yum
 
 # Set up NVIDIA CUDA stack
-ln -s cuda-12.0 /usr/local/cuda
+ln -s cuda-12.2 /usr/local/cuda
 echo /usr/local/nvidia/lib >> /etc/ld.so.conf.d/nvidia.conf
 echo /usr/local/nvidia/lib64 >> /etc/ld.so.conf.d/nvidia.conf
 export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
