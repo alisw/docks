@@ -1,5 +1,5 @@
---- /opt/rocm-5.4.2/bin/hipcc.pl.old      2023-02-03 12:45:52.705141525 +0000
-+++ /opt/rocm-5.4.2/bin/hipcc.pl  2023-02-03 12:50:57.589161773 +0000
+--- /opt/rocm-5.5.3/bin/hipcc.pl.old      2023-02-03 12:45:52.705141525 +0000
++++ /opt/rocm-5.5.3/bin/hipcc.pl  2023-02-03 12:50:57.589161773 +0000
 @@ -694,9 +694,9 @@
          $HIPLDFLAGS .= " -O3";
      }
@@ -12,8 +12,8 @@
          }
      }
  
---- /opt/rocm-5.4.2/lib/cmake/hip/hip-config.cmake.old    2023-02-03 12:51:27.415163754 +0000
-+++ /opt/rocm-5.4.2/lib/cmake/hip/hip-config.cmake        2023-02-03 12:51:38.542164492 +0000
+--- /opt/rocm-5.5.3/lib/cmake/hip/hip-config.cmake.old    2023-02-03 12:51:27.415163754 +0000
++++ /opt/rocm-5.5.3/lib/cmake/hip/hip-config.cmake        2023-02-03 12:51:38.542164492 +0000
 @@ -267,7 +267,7 @@
    get_property(compilePropIsSet TARGET hip::device PROPERTY INTERFACE_COMPILE_OPTIONS SET)
  
@@ -23,8 +23,8 @@
    endif()
  
    if (NOT compilePropIsSet)
---- /opt/rocm-5.4.2/lib/cmake/hip-lang/hip-lang-config.cmake.old  2023-02-03 12:51:50.164165264 +0000
-+++ /opt/rocm-5.4.2/lib/cmake/hip-lang/hip-lang-config.cmake      2023-02-03 12:51:55.453165616 +0000
+--- /opt/rocm-5.5.3/lib/cmake/hip-lang/hip-lang-config.cmake.old  2023-02-03 12:51:50.164165264 +0000
++++ /opt/rocm-5.5.3/lib/cmake/hip-lang/hip-lang-config.cmake      2023-02-03 12:51:55.453165616 +0000
 @@ -144,7 +144,7 @@
  )
  
