@@ -1,0 +1,34 @@
+{
+  "_comment": "ALICE publisher",
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/publisher",
+    "TAG": "latest"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "almalinux:8-minimal",
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/bin/bash\"]"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
