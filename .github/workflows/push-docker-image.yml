@@ -1,15 +1,19 @@
+---
 # Build and push the selected docker image from a packer config.
 
 name: Push Docker image
 
 # Controls when the action will run: manual trigger with a parameter
-on:
+'on':
   workflow_dispatch:
     inputs:
       image-name:
         description: Docker image to build
         required: true
         default: slc8-builder
+
+permissions:
+  contents: read
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,6 +40,7 @@ jobs:
           apt install -y software-properties-common
           add-apt-repository universe
           apt install -y docker.io packer
+          packer plugins install github.com/hashicorp/docker
         env:
           DEBIAN_FRONTEND: noninteractive
 
