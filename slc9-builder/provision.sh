@@ -15,6 +15,11 @@ wipednf () {
 wipednf
 
 dnf install -y epel-release dnf-plugins-core
+
+# Formerly "powertools"; contains some dev tools we need.
+# See also: https://wiki.almalinux.org/repos/AlmaLinux.html
+dnf config-manager --set-enabled crb
+
 dnf update -y
 dnf groups install -y 'Development Tools'
 # python3-{pip,setuptools} and s3cmd needed for Jenkins builds.
