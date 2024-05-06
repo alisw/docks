@@ -1,0 +1,5 @@
+[alice-system-deps]
+name=ALICE System Dependencies - EL9
+baseurl=https://s3.cern.ch/swift/v1/alibuild-repo/RPMS/o2-full-deps_el9.aarch64/
+enabled=0
+gpgcheck=0
