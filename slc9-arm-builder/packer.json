@@ -1,0 +1,39 @@
+{
+  "_comment": "Alma 9 builder",
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/slc9-arm-builder",
+    "TAG": "latest"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "gitlab-registry.cern.ch/linuxsupport/alma9-base",
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/bin/bash\"]"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "alice-system-deps.repo",
+      "destination": "/etc/yum.repos.d/alice-system-deps.repo"
+    },
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
+      },
+      "docker-push"
+    ]
+  ]
+}
