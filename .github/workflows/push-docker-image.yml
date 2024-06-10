@@ -40,7 +40,7 @@ jobs:
           apt install -y software-properties-common
           add-apt-repository universe
           apt install -y docker.io packer
-          packer plugins install github.com/hashicorp/docker
+          # packer plugins install github.com/hashicorp/docker
         env:
           DEBIAN_FRONTEND: noninteractive
 
