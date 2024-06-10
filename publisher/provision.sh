@@ -8,7 +8,7 @@ microdnf install -y shadow-utils git which s3cmd rpm-build make gcc createrepo r
 gem install --no-document fpm
 
 useradd -rmUu 981 alipublish
-microdnf remove shadow-utils
+microdnf remove -y shadow-utils
 
 rpmdb --rebuilddb
 microdnf clean all
