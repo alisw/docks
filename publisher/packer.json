@@ -7,7 +7,7 @@
   "builders": [
     {
       "type": "docker",
-      "image": "almalinux:8-minimal",
+      "image": "almalinux:9-minimal",
       "commit": true,
       "changes": [
         "ENTRYPOINT [\"\"]",
