@@ -25,4 +25,6 @@ dnf groups install -y 'Development Tools'
 # python3-{pip,setuptools} and s3cmd needed for Jenkins builds.
 dnf install -y alice-o2-full-deps python3-pip python3-setuptools s3cmd
 
+dnf install -y readline-devel
+
 wipednf
