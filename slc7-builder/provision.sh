@@ -13,6 +13,13 @@ wipeyum () {
 }
 
 wipeyum
+
+sed -i.bak -e 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+sed -i.bak -r -e 's|# ?baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+find /etc/yum.repos.d -name "*.bak" -delete
+yum clean all
+yum update -y
+
 yum install -y centos-release-scl http://mirror.switch.ch/ftp/mirror/epel/epel-release-latest-7.noarch.rpm
 yum-config-manager --enable rhel-server-rhscl-7-rpms
 yum update -y
