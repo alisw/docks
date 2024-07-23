@@ -22,28 +22,28 @@ yum update -y
 
 yum groups install -y 'Development Tools' 'X Window System'
 yum install -y python{27,36}-PyYAML           \
-               bc compat-libstdc++-33 e2fsprogs e2fsprogs-libs git \
-               python2-futures java-1.7.0-openjdk libXmu libXpm    \
-               perl-ExtUtils-Embed rpm-build screen tcl tcsh tk    \
-               wget which zsh gcc gcc-gfortran gcc-c++             \
-               libX11-devel libXpm-devel libXft-devel              \
-               libXi-devel libXrandr-devel pigz                    \
-               libXext-devel redhat-lsb libtool automake autoconf  \
-               libxml2-devel openssl-devel libcurl-devel           \
-               bzip2-devel mesa-libGLU-devel zip perl-libwww-perl  \
-               svn cvs flex bison texinfo glibc-devel.i686         \
-               glibc-devel.x86_64 libgcc.i686 libgcc.x86_64        \
-               ncurses-devel vim-enhanced gdb valgrind swig        \
-               apr-devel subversion-devel cyrus-sasl-md5           \
-               ruby-devel uuid-devel environment-modules           \
-               python-requests libuuid-devel createrepo            \
-               protobuf-devel python-pip python-devel              \
-               python3-pip python3-devel python3-requests          \
-               mariadb-devel kernel-devel pciutils-devel           \
-               kmod-devel motif motif-devel                        \
-               numactl-devel doxygen graphviz glfw-devel           \
-               zlib-devel readline-devel openssh-server            \
-               libglvnd-opengl tk-devel libfabric-devel sshpass    \
+               bc compat-libstdc++-33 e2fsprogs e2fsprogs-libs git        \
+               python2-futures java-1.7.0-openjdk libXmu libXpm           \
+               perl-ExtUtils-Embed rpm-build screen tcl tcsh tk           \
+               wget which zsh gcc gcc-gfortran gcc-c++                    \
+               libX11-devel libXpm-devel libXft-devel libXinerama-devel   \
+               libXi-devel libXrandr-devel pigz                           \
+               libXext-devel redhat-lsb libtool automake autoconf         \
+               libxml2-devel openssl-devel libcurl-devel                  \
+               bzip2-devel mesa-libGLU-devel zip perl-libwww-perl         \
+               svn cvs flex bison texinfo glibc-devel.i686                \
+               glibc-devel.x86_64 libgcc.i686 libgcc.x86_64               \
+               ncurses-devel vim-enhanced gdb valgrind swig               \
+               apr-devel subversion-devel cyrus-sasl-md5                  \
+               ruby-devel uuid-devel environment-modules                  \
+               python-requests libuuid-devel createrepo                   \
+               protobuf-devel python-pip python-devel                     \
+               python3-pip python3-devel python3-requests                 \
+               mariadb-devel kernel-devel pciutils-devel                  \
+               kmod-devel motif motif-devel                               \
+               numactl-devel doxygen graphviz glfw-devel                  \
+               zlib-devel readline-devel openssh-server                   \
+               libglvnd-opengl tk-devel libfabric-devel sshpass           \
                gettext-devel rclone s3cmd
 wipeyum
 
