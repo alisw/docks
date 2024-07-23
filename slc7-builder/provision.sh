@@ -27,7 +27,7 @@ yum install -y python{27,36}-PyYAML           \
                perl-ExtUtils-Embed rpm-build screen tcl tcsh tk           \
                wget which zsh gcc gcc-gfortran gcc-c++                    \
                libX11-devel libXpm-devel libXft-devel libXinerama-devel   \
-               libXi-devel libXrandr-devel pigz                           \
+               libXi-devel libXrandr-devel libXcursor-devel pigz          \
                libXext-devel redhat-lsb libtool automake autoconf         \
                libxml2-devel openssl-devel libcurl-devel                  \
                bzip2-devel mesa-libGLU-devel zip perl-libwww-perl         \
