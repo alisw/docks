@@ -1,5 +1,5 @@
 {
-  "_comment": "Alma 8.7 GPU builder X-enabled CUDA12.6-enabled AMD ROCm 5.5.3-enabled",
+  "_comment": "Alma 9.4 GPU builder X-enabled CUDA12.6-enabled AMD ROCm 6.2.0-enabled",
   "variables": {
     "REPO": "registry.cern.ch/alisw/slc8-gpu-builder",
     "TAG": "latest",
@@ -9,7 +9,7 @@
   "builders": [
     {
       "type": "docker",
-      "image": "registry.cern.ch/alisw/slc8-builder:latest",
+      "image": "registry.cern.ch/alisw/slc9-builder:latest",
       "commit": true,
       "changes": [
         "ENV CMAKE_PREFIX_PATH=/opt/rocm/lib/cmake:/opt/clang/lib/cmake",
@@ -34,11 +34,6 @@
       "type": "file",
       "source": "amdgpu.repo",
       "destination": "/etc/yum.repos.d/amdgpu.repo"
-    },
-    {
-      "type": "file",
-      "source": "rocm.patch",
-      "destination": "/rocm.patch"
     },
     {
       "type": "shell",

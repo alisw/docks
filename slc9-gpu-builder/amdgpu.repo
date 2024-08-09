@@ -1,0 +1,5 @@
+[amdgpu]
+name=amdgpu
+baseurl=http://repo.radeon.com/amdgpu/6.2/rhel/9.4/main/x86_64/
+enabled=1
+gpgcheck=0
