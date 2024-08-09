@@ -1,7 +1,13 @@
 #!/bin/sh -ex
 
+wipednf () {
+  rpmdb --rebuilddb
+  dnf clean all
+  rm -rf /var/cache/yum
+}
+
 # Install AMD APP Stack
-# No longer available from AMD but the newer versions will not work
+# Old version no longer available from AMD but the newer versions will not work
 curl -fsSL https://s3.cern.ch/swift/v1/alibuild-repo/slc8-gpu-builder-reqs/amdappsdk.tar.bz2 | tar -xjv
 ./AMD-APP-SDK-v3.0.130.136-GA-linux64.sh --noexec --target /opt/amd-app
 rm -v AMD-APP-SDK-v3.0.130.136-GA-linux64.sh
@@ -17,18 +23,15 @@ curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64
   sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA
 echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
 
-rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
+# rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
+dnf update -y
 # Install requirements for GPU event display, NVIDIA CUDA and AMD ROCm stacks
-yum install -y freeglut-devel lsof "cuda-cudart-$CUDA_PKG_VERSION" 'cuda-compat-12-0-*'           \
+dnf install -y freeglut-devel lsof "cuda-cudart-$CUDA_PKG_VERSION" 'cuda-compat-12-0-*'           \
                "cuda-libraries-$CUDA_PKG_VERSION" "cuda-nvtx-$CUDA_PKG_VERSION"                   \
                "cuda-libraries-devel-$CUDA_PKG_VERSION" "cuda-nvml-devel-$CUDA_PKG_VERSION"       \
                "cuda-minimal-build-$CUDA_PKG_VERSION" "cuda-command-line-tools-$CUDA_PKG_VERSION" \
                hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang
 # ROCm: Notice we do not need the version for ROCM because we target a specific distribution in rocm.repo
-
-rpmdb --rebuilddb
-yum clean all
-rm -rf /var/cache/yum
 
 # Set up NVIDIA CUDA stack
 ln -s cuda-12.6 /usr/local/cuda
@@ -36,12 +39,12 @@ echo /usr/local/nvidia/lib >> /etc/ld.so.conf.d/nvidia.conf
 echo /usr/local/nvidia/lib64 >> /etc/ld.so.conf.d/nvidia.conf
 export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+LIBRARY_PATH=/usr/local/cuda/lib64/stubs ldconfig
 
 # Fix some errors in current ROCm
-patch -p0 < /rocm.patch
-rm -v /rocm.patch
+sed -i "s/amdgpu-function-calls=false/amdgpu-function-calls=true/g" /opt/rocm/bin/hipcc* /opt/rocm/lib/cmake/hip/*.cmake
 
 # Remove clang-ocl binary, since it is currently broken, to avoid automatic pick-up
 rm -fv /opt/rocm/bin/clang-ocl /usr/bin/clang-ocl
 
-LIBRARY_PATH=/usr/local/cuda/lib64/stubs ldconfig
+wipednf
