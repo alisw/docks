@@ -26,11 +26,15 @@ echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c 
 # rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
 dnf update -y
 # Install requirements for GPU event display, NVIDIA CUDA and AMD ROCm stacks
-dnf install -y freeglut-devel lsof "cuda-cudart-$CUDA_PKG_VERSION" 'cuda-compat-12-0-*'           \
-               "cuda-libraries-$CUDA_PKG_VERSION" "cuda-nvtx-$CUDA_PKG_VERSION"                   \
-               "cuda-libraries-devel-$CUDA_PKG_VERSION" "cuda-nvml-devel-$CUDA_PKG_VERSION"       \
-               "cuda-minimal-build-$CUDA_PKG_VERSION" "cuda-command-line-tools-$CUDA_PKG_VERSION" \
-               hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang
+CUV=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.*
+dnf install -y freeglut-devel lsof                                                            \
+               "cuda-cudart-$CUV" 'cuda-compat-12-0-*' "cuda-libraries-$CUV" "cuda-nvtx-$CUV" \
+               "cuda-libraries-devel-$CUV" "cuda-nvml-devel-$CUV" "cuda-minimal-build-$CUV"   \
+               "cuda-command-line-tools-$CUV"                                                 \
+               "cudnn9-cuda-$CUDA_PKG_VERSION"                                                \
+               hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang        \
+               hiprand-devel hipblas-devel hipsparse-devel rocblas-devel rocrand-devel        \
+               miopen-hip-devel hipfft-devel rccl-devel migraphx-devel
 # ROCm: Notice we do not need the version for ROCM because we target a specific distribution in rocm.repo
 
 # Set up NVIDIA CUDA stack
