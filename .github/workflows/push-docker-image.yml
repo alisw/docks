@@ -44,13 +44,10 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
 
-      - name: Log in to Docker repos
+      - name: Log in to Docker repo
         run: |
           docker login registry.cern.ch -u '${{ secrets.CERN_REGISTRY_USER }}' --password-stdin <<\EOF
           ${{ secrets.CERN_REGISTRY_PASSWORD }}
-          EOF
-          docker login docker.io -u '${{ secrets.DOCKERHUB_USER }}' --password-stdin <<\EOF
-          ${{ secrets.DOCKERHUB_PASSWORD }}
           EOF
 
       - name: Build and push docker image
