@@ -1,4 +1,0 @@
-[apache-aurora-wfarner]
-name=Apache Aurora distribution maintained by wfarner
-baseurl=http://people.apache.org/~wfarner/aurora/distributions/0.10.0-1/rpm/centos-7/
-gpgcheck = 0
