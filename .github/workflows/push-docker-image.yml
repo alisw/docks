@@ -10,7 +10,7 @@ name: Push Docker image
       image-name:
         description: Docker image to build
         required: true
-        default: slc8-builder
+        default: slc9-builder
 
 permissions:
   contents: read
@@ -20,27 +20,40 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    # GitHub seems to install an odd version of docker on the host, so run in a
-    # container and only connect to the host's docker daemon.
-    container:
-      image: ubuntu:22.04
-      volumes:
-        # Connect to host's docker daemon so we don't run docker inside docker.
-        - /var/run/docker.sock:/var/run/docker.sock
+    runs-on: ubuntu-22.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      # Some images are too large and we run out of disk space, so try to free some
+      - name: Free disk space
+        run: |
+          # https://github.com/jlumbroso/free-disk-space
+          set -ex
+          sudo rm -rf /usr/local/lib/android || true
+          sudo rm -rf /usr/share/dotnet || true
+          sudo rm -rf /opt/ghc || true
+          sudo rm -rf /usr/local/.ghcup || true
+          sudo docker image prune --all --force || true
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY" || true
+
       - name: Install prerequisites
         run: |
-          apt update -y
-          apt install -y software-properties-common
-          add-apt-repository universe
-          apt install -y docker.io packer
-          # packer plugins install github.com/hashicorp/docker
+          sudo apt update -y
+          sudo apt install -y software-properties-common
+          sudo add-apt-repository universe
+
+          # containerd.io conflicts with docker.io
+          sudo apt-get remove containerd.io
+          sudo apt install -y docker.io
+
+          # The packer provided by Ubuntu repos is ancient
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt-get update && sudo apt-get install packer
+          packer plugins install github.com/hashicorp/docker
         env:
           DEBIAN_FRONTEND: noninteractive
 
