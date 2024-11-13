@@ -10,7 +10,7 @@ name: Push Docker image
       image-name:
         description: Docker image to build
         required: true
-        default: slc8-builder
+        default: slc9-builder
 
 permissions:
   contents: read
