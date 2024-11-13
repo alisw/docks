@@ -43,6 +43,7 @@ jobs:
           sudo apt update -y
           sudo apt install -y software-properties-common
           sudo add-apt-repository universe
+          sudo apt-get remove containerd.io
           sudo apt install -y docker.io packer
           # packer plugins install github.com/hashicorp/docker
         env:
