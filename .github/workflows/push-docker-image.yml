@@ -37,6 +37,7 @@ jobs:
           sudo rm -rf /opt/ghc || true
           sudo rm -rf /usr/local/.ghcup || true
           sudo docker image prune --all --force || true
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY" || true
 
       - name: Install prerequisites
         run: |
