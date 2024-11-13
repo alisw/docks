@@ -45,7 +45,7 @@ jobs:
           sudo add-apt-repository universe
           sudo apt-get remove containerd.io
           sudo apt install -y docker.io packer
-          # packer plugins install github.com/hashicorp/docker
+          packer plugins install docker
         env:
           DEBIAN_FRONTEND: noninteractive
 
