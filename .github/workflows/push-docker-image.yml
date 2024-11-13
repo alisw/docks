@@ -43,8 +43,15 @@ jobs:
           sudo apt update -y
           sudo apt install -y software-properties-common
           sudo add-apt-repository universe
+
+          # containerd.io conflicts with docker.io
           sudo apt-get remove containerd.io
-          sudo apt install -y docker.io packer
+          sudo apt install -y docker.io
+
+          # The packer provided by Ubuntu repos is ancient
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt-get update && sudo apt-get install packer
           packer plugins install docker
         env:
           DEBIAN_FRONTEND: noninteractive
