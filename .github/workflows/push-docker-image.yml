@@ -20,19 +20,18 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    # GitHub seems to install an odd version of docker on the host, so run in a
-    # container and only connect to the host's docker daemon.
-    container:
-      image: ubuntu:22.04
-      volumes:
-        # Connect to host's docker daemon so we don't run docker inside docker.
-        - /var/run/docker.sock:/var/run/docker.sock
+    runs-on: ubuntu-22.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
+      # Some images are too large and we run out of disk space, so try to free some
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
 
       - name: Install prerequisites
         run: |
