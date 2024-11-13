@@ -35,10 +35,10 @@ jobs:
 
       - name: Install prerequisites
         run: |
-          apt update -y
-          apt install -y software-properties-common
-          add-apt-repository universe
-          apt install -y docker.io packer
+          sudo apt update -y
+          sudo apt install -y software-properties-common
+          sudo add-apt-repository universe
+          sudo apt install -y docker.io packer
           # packer plugins install github.com/hashicorp/docker
         env:
           DEBIAN_FRONTEND: noninteractive
