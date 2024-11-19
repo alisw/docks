@@ -6,6 +6,8 @@ wipednf () {
   rm -rf /var/cache/yum
 }
 
+wipednf
+
 # Install AMD APP Stack
 # Old version no longer available from AMD but the newer versions will not work
 curl -fsSL https://s3.cern.ch/swift/v1/alibuild-repo/slc8-gpu-builder-reqs/amdappsdk.tar.bz2 | tar -xjv
@@ -24,7 +26,7 @@ curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64
 echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
 
 # rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
-dnf update -y
+dnf update -y --refresh
 # Install requirements for GPU event display, NVIDIA CUDA and AMD ROCm stacks
 CUV=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.*
 dnf install -y freeglut-devel lsof                                                            \
