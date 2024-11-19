@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/sh -x
 
 wipednf () {
   rpmdb --rebuilddb
@@ -25,6 +25,12 @@ echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c 
 
 # rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
 dnf update -y
+
+# print dnf metadata file to debug
+curl -v http://repo.radeon.com/rocm/rhel9/6.2.4/main/repodata/repomd.xml
+dnf repolist -v
+
+exit 1
 # Install requirements for GPU event display, NVIDIA CUDA and AMD ROCm stacks
 CUV=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.*
 dnf install -y freeglut-devel lsof                                                            \
