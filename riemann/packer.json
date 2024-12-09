@@ -38,8 +38,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/riemann",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

@@ -22,8 +22,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/slc7-daq-builder",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

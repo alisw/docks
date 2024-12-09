@@ -26,8 +26,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/vault-gatekeeper",
         "tag": "{{user `vault_gatekeeper_version`}}"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

@@ -28,8 +28,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/centos7",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

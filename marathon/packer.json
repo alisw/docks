@@ -38,8 +38,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/marathon",
         "tag": "{{user `marathon_version`}}"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

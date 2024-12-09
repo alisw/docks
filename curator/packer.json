@@ -33,8 +33,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/curator",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

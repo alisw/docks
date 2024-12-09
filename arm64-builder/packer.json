@@ -32,8 +32,7 @@
         "type": "docker-tag",
         "repository": "{{user `project`}}/arm64-builder",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }
