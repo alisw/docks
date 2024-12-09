@@ -18,6 +18,11 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "alice-system-deps.repo",
+      "destination": "/etc/yum.repos.d/alice-system-deps.repo"
+    },
+    {
       "type": "shell",
       "environment_vars": [
         "GIT_VERSION={{user `GIT_VERSION`}}"
