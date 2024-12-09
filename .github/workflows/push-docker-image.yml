@@ -69,5 +69,6 @@ jobs:
             echo 'error: requested docker image not defined in this repo' >&2
             exit 1
           fi
+          export PACKER_LOG=1
           packer validate packer.json
           packer build packer.json
