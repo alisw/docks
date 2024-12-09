@@ -33,8 +33,7 @@
         "type": "docker-tag",
         "repository": "{{user `project`}}/power8-builder",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

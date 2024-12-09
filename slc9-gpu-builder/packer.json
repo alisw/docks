@@ -51,8 +51,7 @@
         "type": "docker-tag",
         "repository": "{{user `REPO`}}",
         "tag": "{{user `TAG`}}"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

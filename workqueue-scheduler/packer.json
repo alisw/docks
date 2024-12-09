@@ -24,8 +24,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/workqueue-scheduler",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

@@ -39,8 +39,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/mesos-base",
         "tag": "{{user `mesos_version`}}"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

@@ -36,8 +36,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/mesos-dns",
         "tag": "{{user `MESOS_DNS_TAG`}}"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

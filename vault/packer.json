@@ -35,8 +35,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/vault",
         "tag": "{{user `vault_version`}}"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

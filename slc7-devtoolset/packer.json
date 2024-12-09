@@ -27,8 +27,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/slc7-devtoolset",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

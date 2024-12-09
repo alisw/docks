@@ -39,8 +39,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/docker-builder",
         "tag": "latest"
-      },
-      "docker-push"
+      }
     ]
   ]
 }

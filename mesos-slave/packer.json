@@ -47,8 +47,7 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/mesos-slave",
         "tag": "{{user `mesos_version`}}"
-      },
-      "docker-push"
+      }
     ]
   ]
 }
