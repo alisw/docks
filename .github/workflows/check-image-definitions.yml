@@ -19,7 +19,11 @@ jobs:
       - name: Install prerequisites
         run: |
           sudo apt update -y
-          sudo apt install -y packer
+
+          # The packer provided by Ubuntu repos is ancient
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt-get update && sudo apt-get install packer
           packer plugins install github.com/hashicorp/docker
 
       - name: Validate Packer images
