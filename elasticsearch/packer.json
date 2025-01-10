@@ -26,7 +26,11 @@
         "repository": "{{user `DOCKER_HUB_REPO`}}/elasticsearch",
         "tag": "{{user `elasticsearch_version`}}"
       },
-      "docker-push"
+      {
+        "type": "shell-local",
+        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+      }
+
     ]
   ]
 }

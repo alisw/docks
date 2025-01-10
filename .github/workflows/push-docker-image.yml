@@ -71,3 +71,4 @@ jobs:
           fi
           packer validate packer.json
           packer build packer.json
+          docker push registry.cern.ch/alisw/${{ github.event.inputs.image-name }}
