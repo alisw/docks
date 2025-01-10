@@ -1,5 +1,5 @@
 {
-  "_comment": "Alma 9.4 GPU builder X-enabled CUDA12.6-enabled AMD ROCm 6.2.4-enabled",
+  "_comment": "Alma 9.4 GPU builder X-enabled CUDA12.6-enabled AMD ROCm 6.3.1-enabled",
   "variables": {
     "REPO": "registry.cern.ch/alisw/slc9-gpu-builder",
     "TAG": "latest",

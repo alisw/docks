@@ -46,7 +46,7 @@ export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
 LIBRARY_PATH=/usr/local/cuda/lib64/stubs ldconfig
 
 # Fix some errors in current ROCm
-sed -i "s/amdgpu-function-calls=false/amdgpu-function-calls=true/g" /opt/rocm/bin/hipcc* /opt/rocm/lib/cmake/hip/*.cmake
+sed -i "s/amdgpu-function-calls=false/amdgpu-function-calls=true /g" /opt/rocm/bin/hipcc* /opt/rocm/lib/cmake/hip/*.cmake
 
 # Remove clang-ocl binary, since it is currently broken, to avoid automatic pick-up
 rm -fv /opt/rocm/bin/clang-ocl /usr/bin/clang-ocl
