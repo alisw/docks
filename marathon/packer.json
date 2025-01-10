@@ -38,7 +38,12 @@
         "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/marathon",
         "tag": "{{user `marathon_version`}}"
+      },
+      {
+        "type": "shell-local",
+        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
       }
+
     ]
   ]
 }

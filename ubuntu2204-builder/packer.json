@@ -23,7 +23,12 @@
         "type": "docker-tag",
         "repository": "{{user `REPO`}}",
         "tag": "{{user `TAG`}}"
+      },
+      {
+        "type": "shell-local",
+        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
       }
+
     ]
   ]
 }
