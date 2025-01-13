@@ -39,6 +39,13 @@ jobs:
           sudo docker image prune --all --force || true
           sudo rm -rf "$AGENT_TOOLSDIRECTORY" || true
 
+          sudo apt-get remove -y '^aspnetcore-.*' '^dotnet-.*' '^llvm-.*'    \
+          'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-chrome-stable   \
+          firefox powershell mono-devel libgl1-mesa-dri google-cloud-sdk     \
+          google-cloud-cl || echo "::warning::[sudo apt-get remove] failed, proceeding anyway"
+          sudo apt-get autoremove -y || echo "::warning::[sudo apt-get autoremove] failed, proceeding anyway"
+          sudo apt-get clean
+
       - name: Install prerequisites
         run: |
           sudo apt update -y
