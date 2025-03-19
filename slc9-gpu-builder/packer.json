@@ -12,8 +12,7 @@
       "image": "registry.cern.ch/alisw/slc9-builder:latest",
       "commit": true,
       "changes": [
-        "ENV CMAKE_PREFIX_PATH=/opt/rocm/lib/cmake:/opt/clang/lib/cmake",
-        "ENV AMDAPPSDKROOT=/opt/amd-app/",
+        "ENV CMAKE_PREFIX_PATH=/opt/rocm/lib/cmake",
         "ENV PATH=\"${PATH}:/usr/local/cuda/bin\"",
         "ENV ALIBUILD_O2_FORCE_GPU=1"
       ]
