@@ -18,7 +18,7 @@ CUV=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.*
 dnf install -y freeglut-devel lsof                                                            \
                "cuda-cudart-$CUV" 'cuda-compat-12-0-*' "cuda-libraries-$CUV" "cuda-nvtx-$CUV" \
                "cuda-libraries-devel-$CUV" "cuda-nvml-devel-$CUV" "cuda-minimal-build-$CUV"   \
-               "cuda-command-line-tools-$CUV"                                                 \
+               "cuda-command-line-tools-$CUV tensorrt-devel tensorrt-libs"                    \
                "cudnn9-cuda-$CUDA_PKG_VERSION"                                                \
                hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang        \
                hiprand-devel hipblas-devel hipsparse-devel rocblas-devel rocrand-devel        \
