@@ -34,3 +34,4 @@ export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
 LIBRARY_PATH=/usr/local/cuda/lib64/stubs ldconfig
 
+wipednf
