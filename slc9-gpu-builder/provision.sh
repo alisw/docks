@@ -23,7 +23,7 @@ dnf install -y freeglut-devel lsof                                              
                hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang        \
                hiprand-devel hipblas-devel hipsparse-devel rocblas-devel rocrand-devel        \
                miopen-hip-devel hipfft-devel rccl-devel migraphx-devel rdma-core-devel        \
-               hipblaslt-devel
+               hipblaslt-devel rocprim-devel
 # ROCm: Notice we do not need the version for ROCM because we target a specific distribution in rocm.repo
 
 # Set up NVIDIA CUDA stack
