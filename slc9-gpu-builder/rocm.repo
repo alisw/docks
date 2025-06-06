@@ -1,5 +1,5 @@
 [ROCm]
 name=ROCm
-baseurl=http://repo.radeon.com/rocm/rhel9/6.3.2/main/
+baseurl=http://repo.radeon.com/rocm/rhel9/6.4.1/main/
 enabled=1
 gpgcheck=0
