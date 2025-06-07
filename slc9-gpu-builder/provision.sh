@@ -15,7 +15,7 @@ echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c 
 dnf update -y
 # Install requirements for GPU event display, NVIDIA CUDA and AMD ROCm stacks
 CUV=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.*
-dnf install -y freeglut-devel lsof cmake                                                      \
+dnf install -y freeglut-devel lsof cmake libdrm-devel                                         \
                "cuda-cudart-$CUV" 'cuda-compat-12-0-*' "cuda-libraries-$CUV" "cuda-nvtx-$CUV" \
                "cuda-libraries-devel-$CUV" "cuda-nvml-devel-$CUV" "cuda-minimal-build-$CUV"   \
                "cuda-command-line-tools-$CUV" tensorrt-devel tensorrt-libs                    \
