@@ -1,0 +1,38 @@
+{
+  "_comment": "Jenkins builde image. This image builds the aliBuild stack using docker in docker.",
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/jenkins-builder",
+    "TAG": "latest"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "gitlab-registry.cern.ch/linuxsupport/alma9-base",
+      "commit": true,
+      "changes": [
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/bin/bash\"]"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
+      },
+      {
+        "type": "shell-local",
+        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+      }
+    ]
+  ]
+}
+
