@@ -7,7 +7,9 @@ useradd -rmUu 983 mesosuser
 useradd -rmUu 984 mesostest
 
 wipednf () {
-  rpmdb --rebuilddb
+  cp -r /var/lib/rpm /tmp/safe-rpm
+  RPM_DBPATH=/tmp/safe-rpm rpmdb --rebuilddb
+  rm -Rf /tmp/safe-rpm
   dnf clean all
   rm -rf /var/cache/yum
 }
