@@ -15,14 +15,15 @@ echo "${NVIDIA_GPGKEY_SUM}  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c 
 dnf update -y
 # Install requirements for GPU event display, NVIDIA CUDA and AMD ROCm stacks
 CUV=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.*
-dnf install -y freeglut-devel lsof cmake libdrm-devel                                         \
-               "cuda-cudart-$CUV" 'cuda-compat-12-0-*' "cuda-libraries-$CUV" "cuda-nvtx-$CUV" \
-               "cuda-libraries-devel-$CUV" "cuda-nvml-devel-$CUV" "cuda-minimal-build-$CUV"   \
-               "cuda-command-line-tools-$CUV" tensorrt-devel tensorrt-libs                    \
-               "cudnn9-cuda-$CUDA_PKG_VERSION"                                                \
-               hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang        \
-               hiprand-devel hipblas-devel hipsparse-devel rocblas-devel rocrand-devel        \
-               miopen-hip-devel hipfft-devel rccl-devel migraphx-devel rdma-core-devel        \
+dnf install -y freeglut-devel lsof cmake libdrm-devel                                             \
+               vulkan-loader-devel glslc wayland-devel wayland-protocols-devel libxkbcommon-devel \
+               "cuda-cudart-$CUV" 'cuda-compat-12-0-*' "cuda-libraries-$CUV" "cuda-nvtx-$CUV"     \
+               "cuda-libraries-devel-$CUV" "cuda-nvml-devel-$CUV" "cuda-minimal-build-$CUV"       \
+               "cuda-command-line-tools-$CUV" tensorrt-devel tensorrt-libs                        \
+               "cudnn9-cuda-$CUDA_PKG_VERSION"                                                    \
+               hip-rocclr ocl-icd ocl-icd-devel hipcub rocthrust rocm-dev hipify-clang            \
+               hiprand-devel hipblas-devel hipsparse-devel rocblas-devel rocrand-devel            \
+               miopen-hip-devel hipfft-devel rccl-devel migraphx-devel rdma-core-devel            \
                hipblaslt-devel rocprim-devel
 # ROCm: Notice we do not need the version for ROCM because we target a specific distribution in rocm.repo
 
