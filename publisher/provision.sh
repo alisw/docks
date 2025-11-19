@@ -3,7 +3,9 @@
 microdnf install -y epel-release  # for s3cmd
 microdnf update -y
 microdnf install -y shadow-utils git which s3cmd rpm-build make gcc createrepo rubygems ruby-devel \
-         python3 python3-pip python3-setuptools python3-requests python3-pyyaml python3-boto3
+         python3 python3-pip
+
+python3 -m pip install --upgrade git+https://github.com/alisw/ali-bot.git
 
 gem install --no-document fpm
 
