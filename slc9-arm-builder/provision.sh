@@ -14,4 +14,4 @@ dnf config-manager --set-enabled crb
 
 dnf update -y
 dnf groups install -y 'Development Tools'
-dnf install -y alice-o2-full-deps python3-pip python3-setuptools s3cmd time
+dnf install -y alice-o2-full-deps python3-pip python3-setuptools s3cmd time bc
