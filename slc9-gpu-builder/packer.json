@@ -13,8 +13,7 @@
       "commit": true,
       "changes": [
         "ENV CMAKE_PREFIX_PATH=/opt/rocm/lib/cmake",
-        "ENV PATH=\"${PATH}:/usr/local/cuda/bin\"",
-        "ENV ALIBUILD_O2_FORCE_GPU=1"
+        "ENV PATH=\"${PATH}:/usr/local/cuda/bin\""
       ]
     }
   ],
