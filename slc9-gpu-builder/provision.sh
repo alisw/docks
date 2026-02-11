@@ -18,7 +18,7 @@ CUV=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.${CUDA_PKG_MINOR_VERSION}
 CUV2=${CUDA_PKG_VERSION}-${CUDA_PKG_VERSION/-/.}.*
 dnf install -y freeglut-devel lsof cmake libdrm-devel                                             \
                vulkan-loader-devel glslc wayland-devel wayland-protocols-devel libxkbcommon-devel \
-               "cuda-cudart-$CUV2" "cuda-libraries-$CUV" "cuda-nvtx-$CUV2"                        \
+               "cuda-cudart-$CUV2" 'cuda-compat-13-0-*' "cuda-libraries-$CUV" "cuda-nvtx-$CUV2"   \
                "cuda-libraries-devel-$CUV" "cuda-nvml-devel-$CUV2" "cuda-minimal-build-$CUV"      \
                "cuda-command-line-tools-$CUV" tensorrt-devel tensorrt-libs                        \
                "cudnn9-cuda-$CUDA_PKG_VERSION"                                                    \
