@@ -7,7 +7,7 @@
   "builders": [
     {
       "type": "docker",
-      "image": "gitlab-registry.cern.ch/linuxsupport/alma9-base",
+      "image": "gitlab-registry.cern.ch/linuxsupport/alma9-base:9.7",
       "commit": true,
       "changes": [
         "ENTRYPOINT [\"\"]",
