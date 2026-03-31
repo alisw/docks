@@ -1,0 +1,62 @@
+{
+  "_comment": "Alma 10 GPU builder X-enabled CUDA13.1.1-enabled AMD ROCm 6.3.2-enabled",
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/slc10-gpu-builder",
+    "TAG": "latest",
+    "CUDA_PKG_VERSION": "13-1",
+    "CUDA_PKG_MINOR_VERSION": "1",
+    "NVIDIA_GPGKEY_SUM": "afbea87d3b979b3788ef34223aeeb323ade481128e2c133723ae99b8a51368bb"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "registry.cern.ch/alisw/slc10-builder:latest",
+      "commit": true,
+      "changes": [
+        "ENV CMAKE_PREFIX_PATH=/opt/rocm/lib/cmake",
+        "ENV PATH=\"${PATH}:/usr/local/cuda/bin\""
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "cuda.repo",
+      "destination": "/etc/yum.repos.d/cuda.repo"
+    },
+    {
+      "type": "file",
+      "source": "rocm.repo",
+      "destination": "/etc/yum.repos.d/rocm.repo"
+    },
+    {
+      "type": "file",
+      "source": "amdgpu.repo",
+      "destination": "/etc/yum.repos.d/amdgpu.repo"
+    },
+    {
+      "type": "shell",
+      "environment_vars": [
+        "CUDA_PKG_VERSION={{user `CUDA_PKG_VERSION`}}",
+        "CUDA_PKG_MINOR_VERSION={{user `CUDA_PKG_MINOR_VERSION`}}",
+        "NVIDIA_GPGKEY_SUM={{user `NVIDIA_GPGKEY_SUM`}}",
+        "GIT_VERSION={{user `GIT_VERSION`}}"
+      ],
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
+      },
+      {
+        "type": "shell-local",
+        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+      }
+
+    ]
+  ]
+}
