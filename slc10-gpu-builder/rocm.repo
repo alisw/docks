@@ -1,0 +1,5 @@
+[ROCm]
+name=ROCm
+baseurl=http://repo.radeon.com/rocm/rhel10/6.3.2/main/
+enabled=1
+gpgcheck=0
