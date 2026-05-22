@@ -1,36 +1,40 @@
 {
   "_comment": "Build an elasticsearch image",
-  "variables": {
-    "elasticsearch_version": "2.4",
-    "DOCKER_HUB_REPO": "alisw"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "elasticsearch:{{user `elasticsearch_version`}}",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "inline": [
-                  "/usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head/latest"
-                ]
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/elasticsearch",
-        "tag": "{{user `elasticsearch_version`}}"
+        "tags": [
+          "{{user `elasticsearch_version`}}"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "/usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head/latest"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw",
+    "elasticsearch_version": "2.4"
+  }
 }
+

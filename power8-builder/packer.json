@@ -1,44 +1,55 @@
 {
   "_comment": "POWER8 Docker image",
-  "variables": {
-    "centos_major": "6",
-    "project": "alisw"
-  },
   "builders": [
     {
-      "type": "docker",
-      "image": "centos:centos{{user `centos_major`}}",
       "commit": true,
-      "run_command": ["--privileged=true","-d", "-i", "-t", "{{.Image}}", "/bin/bash"]
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "inline": [
-                 "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/qemu-ppc64le",
-                 "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/fedora-22-ppc64le-rootfs.tar.bz2",
-                 "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/proot",
-                 "tar xjf fedora-22-ppc64le-rootfs.tar.bz2",
-                 "rm -fr fedora-22-ppc64le-rootfs.tar*",
-                 "chmod +x /qemu-ppc64le",
-                 "mkdir -p /cvmfs /build",
-                 "chmod +x /proot"
-      ]
+      "image": "centos:centos{{user `centos_major`}}",
+      "run_command": [
+        "--privileged=true",
+        "-d",
+        "-i",
+        "-t",
+        "{{.Image}}",
+        "/bin/bash"
+      ],
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `project`}}/power8-builder",
-        "tag": "latest"
+        "tags": [
+          "latest"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/qemu-ppc64le",
+        "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/fedora-22-ppc64le-rootfs.tar.bz2",
+        "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/proot",
+        "tar xjf fedora-22-ppc64le-rootfs.tar.bz2",
+        "rm -fr fedora-22-ppc64le-rootfs.tar*",
+        "chmod +x /qemu-ppc64le",
+        "mkdir -p /cvmfs /build",
+        "chmod +x /proot"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "centos_major": "6",
+    "project": "alisw"
+  }
 }
+

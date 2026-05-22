@@ -1,34 +1,38 @@
 {
   "_comment": "Ubuntu 20.04 builder X-enabled",
-  "variables": {
-    "REPO": "registry.cern.ch/alisw/ubuntu2004-builder",
-    "TAG": "latest"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "ubuntu:20.04",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "script": "provision.sh"
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `REPO`}}",
-        "tag": "{{user `TAG`}}"
+        "tags": [
+          "{{user `TAG`}}"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "script": "provision.sh",
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/ubuntu2004-builder",
+    "TAG": "latest"
+  }
 }
+

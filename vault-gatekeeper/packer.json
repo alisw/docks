@@ -1,37 +1,42 @@
 {
   "_comment": "Build a Vault Gatekeeper image",
-  "variables": {
-    "vault_gatekeeper_version": "0.5.3",
-    "DOCKER_HUB_REPO": "aliswdev"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "golang",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "inline": [
-                 "go get -d github.com/alisw/vault-gatekeeper-mesos",
-                 "cd $GOPATH/src/github.com/alisw/vault-gatekeeper-mesos && git checkout tags/0.5.3",
-                 "cd $GOPATH/src/github.com/alisw/vault-gatekeeper-mesos && /bin/bash ./build.bash && cp ./vltgatekeeper /bin/vltgatekeeper"]
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/vault-gatekeeper",
-        "tag": "{{user `vault_gatekeeper_version`}}"
+        "tags": [
+          "{{user `vault_gatekeeper_version`}}"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "go get -d github.com/alisw/vault-gatekeeper-mesos",
+        "cd $GOPATH/src/github.com/alisw/vault-gatekeeper-mesos \u0026\u0026 git checkout tags/0.5.3",
+        "cd $GOPATH/src/github.com/alisw/vault-gatekeeper-mesos \u0026\u0026 /bin/bash ./build.bash \u0026\u0026 cp ./vltgatekeeper /bin/vltgatekeeper"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "DOCKER_HUB_REPO": "aliswdev",
+    "vault_gatekeeper_version": "0.5.3"
+  }
 }
+

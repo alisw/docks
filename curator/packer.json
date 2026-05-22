@@ -1,44 +1,49 @@
 {
   "_comment": "Build a Mesos slave image",
-  "variables": {
-    "centos_major": "7",
-    "centos_minor": "2",
-    "mesos_version": "0.28.2",
-    "DOCKER_HUB_REPO": "alisw"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "alisw/mesos-slave:{{user `mesos_version`}}",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "file",
-      "source": "curator.repo",
-      "destination": "/etc/yum.repos.d/curator.repo"
-    },
-    {
-      "type": "shell",
-      "inline": [
-                 "rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch",
-                 "yum install -y python-elasticsearch-curator python-setuptools",
-                 "yum clean all -y"]
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/curator",
-        "tag": "latest"
+        "tags": [
+          "latest"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "destination": "/etc/yum.repos.d/curator.repo",
+      "source": "curator.repo",
+      "type": "file"
+    },
+    {
+      "inline": [
+        "rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch",
+        "yum install -y python-elasticsearch-curator python-setuptools",
+        "yum clean all -y"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw",
+    "centos_major": "7",
+    "centos_minor": "2",
+    "mesos_version": "0.28.2"
+  }
 }
+

@@ -1,42 +1,46 @@
 {
   "_comment": "Build a rsync image",
-  "variables": {
-    "centos_major": "7",
-    "REPO": "registry.cern.ch/alisw/rsync",
-    "TAG": "latest"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "centos:centos{{user `centos_major`}}",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "file",
-      "source": "run.sh",
-      "destination": "/run.sh"
-    },
-    {
-      "type": "shell",
-      "inline": [
-        "yum update -y && yum install -y rsync nc && yum clean all"
-      ]
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `REPO`}}",
-        "tag": "{{user `TAG`}}"
+        "tags": [
+          "{{user `TAG`}}"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "destination": "/run.sh",
+      "source": "run.sh",
+      "type": "file"
+    },
+    {
+      "inline": [
+        "yum update -y \u0026\u0026 yum install -y rsync nc \u0026\u0026 yum clean all"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/rsync",
+    "TAG": "latest",
+    "centos_major": "7"
+  }
 }
+

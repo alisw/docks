@@ -1,42 +1,46 @@
 {
   "_comment": "CentOS Stream 8 builder X-enabled",
-  "variables": {
-    "REPO": "registry.cern.ch/alisw/cs8-builder",
-    "TAG": "latest",
-    "GIT_VERSION": "2.32.0"
-  },
   "builders": [
     {
-      "type": "docker",
-      "image": "quay.io/centos/centos:stream8",
-      "commit": true,
       "changes": [
         "ENTRYPOINT [\"\"]",
         "CMD [\"/bin/bash\"]"
-      ]
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "environment_vars": [
-        "GIT_VERSION={{user `GIT_VERSION`}}"
       ],
-      "script": "provision.sh"
+      "commit": true,
+      "image": "quay.io/centos/centos:stream8",
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `REPO`}}",
-        "tag": "{{user `TAG`}}"
+        "tags": [
+          "{{user `TAG`}}"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "GIT_VERSION={{user `GIT_VERSION`}}"
+      ],
+      "script": "provision.sh",
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "GIT_VERSION": "2.32.0",
+    "REPO": "registry.cern.ch/alisw/cs8-builder",
+    "TAG": "latest"
+  }
 }
+

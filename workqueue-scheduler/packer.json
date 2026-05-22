@@ -1,35 +1,41 @@
 {
   "_comment": "Mesos WorkQueue framework",
-  "variables": {
-    "MESOS_WORKQUEUE_VERSION": "0.0.2-f86f6dc944-3",
-    "DOCKER_HUB_REPO": "alisw"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "alisw/slc7-builder",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "script": "install.sh",
-      "environment_vars": [ "MESOS_WORKQUEUE_VERSION={{user `MESOS_WORKQUEUE_VERSION`}}" ]
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/workqueue-scheduler",
-        "tag": "latest"
+        "tags": [
+          "latest"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "MESOS_WORKQUEUE_VERSION={{user `MESOS_WORKQUEUE_VERSION`}}"
+      ],
+      "script": "install.sh",
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw",
+    "MESOS_WORKQUEUE_VERSION": "0.0.2-f86f6dc944-3"
+  }
 }
+
