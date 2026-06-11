@@ -1,42 +1,47 @@
 {
   "_comment": "ARM64 Docker image",
-  "variables": {
-    "centos_major": "6",
-    "project": "alisw"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "centos:centos{{user `centos_major`}}",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "inline": [
-                 "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/qemu-aarch64",
-                 "curl -O http://eulisse.web.cern.ch/eulisse/centos-7.2.1511-aarch64-rootfs.tgz",
-                 "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/proot",
-                 "tar xzvf centos-7.2.1511-aarch64-rootfs.tgz",
-                 "rm -fr centos-7.2.1511-aarch64-rootfs.tar*",
-                 "chmod +x /qemu-aarch64",
-                 "mkdir -p /cvmfs /build",
-                 "chmod +x /proot"
-      ]
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `project`}}/arm64-builder",
-        "tag": "latest"
+        "tags": [
+          "latest"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/qemu-aarch64",
+        "curl -O http://eulisse.web.cern.ch/eulisse/centos-7.2.1511-aarch64-rootfs.tgz",
+        "curl -O http://davidlt.web.cern.ch/davidlt/vault/proot/proot",
+        "tar xzvf centos-7.2.1511-aarch64-rootfs.tgz",
+        "rm -fr centos-7.2.1511-aarch64-rootfs.tar*",
+        "chmod +x /qemu-aarch64",
+        "mkdir -p /cvmfs /build",
+        "chmod +x /proot"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "centos_major": "6",
+    "project": "alisw"
+  }
 }
+

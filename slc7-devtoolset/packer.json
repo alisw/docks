@@ -1,38 +1,42 @@
 {
   "_comment": "CentOS 7 with devtoolset-6",
-  "variables": {
-    "DOCKER_HUB_REPO": "alisw"
-  },
   "builders": [
     {
-      "type": "docker",
+      "commit": true,
       "image": "alisw/slc7-builder",
-      "commit": true
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "inline": [
-        "yum clean all",
-        "rpm --rebuilddb",
-        "yum install -y centos-release-scl",
-        "yum install -y devtoolset-6"
-      ]
+      "type": "docker"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "docker-tag",
         "repository": "{{user `DOCKER_HUB_REPO`}}/slc7-devtoolset",
-        "tag": "latest"
+        "tags": [
+          "latest"
+        ],
+        "type": "docker-tag"
       },
       {
-        "type": "shell-local",
-        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+        "inline": [
+          "echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"
+        ],
+        "type": "shell-local"
       }
-
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "yum clean all",
+        "rpm --rebuilddb",
+        "yum install -y centos-release-scl",
+        "yum install -y devtoolset-6"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "DOCKER_HUB_REPO": "alisw"
+  }
 }
+
