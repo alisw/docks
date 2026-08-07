@@ -6,12 +6,12 @@ useradd -rmUu 982 mesosdaq
 useradd -rmUu 983 mesosuser
 useradd -rmUu 984 mesostest
 
+# No "rpmdb --rebuilddb" here: it only compacted the old Berkeley DB backend, and
+# on EL10 (rpmdb at /usr/lib/sysimage/rpm, sqlite backend) it fails outright with
+# "failed to replace old database with new database!".
 wipednf () {
-  cp -r /var/lib/rpm /tmp/safe-rpm
-  RPM_DBPATH=/tmp/safe-rpm rpmdb --rebuilddb
-  rm -Rf /tmp/safe-rpm
   dnf clean all
-  rm -rf /var/cache/yum
+  rm -rf /var/cache/yum /var/cache/dnf
 }
 
 wipednf

@@ -1,9 +1,11 @@
 #!/bin/sh -ex
 
+# No "rpmdb --rebuilddb" here: it only compacted the old Berkeley DB backend, and
+# on EL10 (rpmdb at /usr/lib/sysimage/rpm, sqlite backend) it fails outright with
+# "failed to replace old database with new database!".
 wipednf () {
-  rpmdb --rebuilddb
   dnf clean all
-  rm -rf /var/cache/yum
+  rm -rf /var/cache/yum /var/cache/dnf
 }
 
 # Install NVIDIA GPG key
