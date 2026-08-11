@@ -1,0 +1,42 @@
+{
+  "_comment": "ALICE security-proxy credential broker (Nomad sidecar / system job)",
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/security-proxy",
+    "TAG": "latest",
+    "ALI_BOT_REF": "master"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "python:3.12-slim-bookworm",
+      "commit": true,
+      "changes": [
+        "USER securityproxy",
+        "ENTRYPOINT [\"\"]",
+        "CMD [\"/usr/local/lib/security-proxy/venv/bin/security-proxy\"]"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh",
+      "environment_vars": [
+        "ALI_BOT_REF={{user `ALI_BOT_REF`}}"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
+      },
+      {
+        "type": "shell-local",
+        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+      }
+    ]
+  ]
+}
