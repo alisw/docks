@@ -1,0 +1,72 @@
+#!/bin/sh -ex
+
+# security-proxy image: a credential broker run as a Nomad sidecar (one per job,
+# holding only that job's secrets) or as a per-node system job.
+#
+# The source lives in alisw/ali-bot, not here, so it is cloned at build time.
+# ALI_BOT_REF pins which revision goes into the image.
+
+: "${ALI_BOT_REF:=master}"
+PREFIX=/usr/local/lib/security-proxy
+
+# The UID/GIDs are PINNED. In the system-job deployment the agent socket lands on
+# a host volume, so these numbers must match the securityproxy user/groups on the
+# Nomad clients or the socket gets the wrong owner. A sidecar keeps its sockets in
+# the allocation, where the numbers matter only against the task that connects --
+# but keeping them fixed means one image serves both deployments.
+groupadd --system --gid 8484 securityproxy
+groupadd --system --gid 8485 securityproxy_clients
+groupadd --system --gid 8486 securityproxy_provisioners
+useradd  --system --uid 8484 --gid securityproxy \
+         --groups securityproxy_clients,securityproxy_provisioners \
+         --home-dir /nonexistent --no-create-home --shell /usr/sbin/nologin \
+         securityproxy
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install -y --no-install-recommends git ca-certificates
+
+mkdir -p /etc/security-proxy "$PREFIX"
+git clone --depth 1 --branch "$ALI_BOT_REF" https://github.com/alisw/ali-bot /tmp/ali-bot
+cp /tmp/ali-bot/security-proxy/security_proxy.py \
+   /tmp/ali-bot/security-proxy/pyproject.toml \
+   "$PREFIX/"
+cp /tmp/ali-bot/security-proxy/requirements-linux.lock "$PREFIX/" || true
+
+cd "$PREFIX"
+python3 -m venv venv
+
+# --require-hashes is the supply-chain gate: the lock, not the resolver, decides
+# what lands in the image. It must be the LINUX lock -- requirements.lock is
+# generated for macOS/arm64 and its hashes do not verify here.
+#
+# That lock does not exist in ali-bot yet, and cannot be generated honestly on
+# macOS. Until it is committed, fall back to the exact versions pinned in
+# pyproject.toml: those are still exact, but their transitive dependencies are
+# resolved at build time and unverified. The freeze printed below is what the
+# lock should be built from. This branch tightens by itself the moment the lock
+# lands -- no second edit needed.
+if [ -f requirements-linux.lock ]; then
+  ./venv/bin/pip install --no-cache-dir --disable-pip-version-check \
+      --require-hashes -r requirements-linux.lock
+else
+  echo "WARNING: requirements-linux.lock absent -- installing UNVERIFIED transitive deps" >&2
+  ./venv/bin/pip install --no-cache-dir --disable-pip-version-check --only-binary=:all: .
+  echo "=== resolved set; commit this as requirements-linux.lock (with hashes) ==="
+  ./venv/bin/pip freeze
+  echo "=== end resolved set ==="
+fi
+# The dependencies are already installed and hash-verified above; installing the
+# package itself must not be allowed to pull anything more.
+./venv/bin/pip install --no-cache-dir --disable-pip-version-check \
+    --no-deps --no-build-isolation .
+
+# git was only needed to fetch the source. Leaving it in a credential broker's
+# image is gratuitous reach for anything that gets code execution in here.
+apt-get purge -y git
+apt-get autoremove -y
+apt-get clean
+rm -rf /tmp/ali-bot /var/lib/apt/lists/*
+
+chown -R root:root "$PREFIX" /etc/security-proxy
+find "$PREFIX" ! -type l -exec chmod go-w {} +
