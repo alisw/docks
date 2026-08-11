@@ -27,7 +27,15 @@ apt-get update
 apt-get install -y --no-install-recommends git ca-certificates
 
 mkdir -p /etc/security-proxy "$PREFIX"
-git clone --depth 1 --branch "$ALI_BOT_REF" https://github.com/alisw/ali-bot /tmp/ali-bot
+# fetch-by-ref rather than `clone --branch`, which only accepts a branch or tag.
+# This way ALI_BOT_REF can be a commit SHA, so the image is reproducible: what
+# went in is recorded below and pinned in packer.json, rather than being whatever
+# master happened to say at build time.
+git init -q /tmp/ali-bot
+git -C /tmp/ali-bot remote add origin https://github.com/alisw/ali-bot
+git -C /tmp/ali-bot fetch -q --depth 1 origin "$ALI_BOT_REF"
+git -C /tmp/ali-bot checkout -q FETCH_HEAD
+echo "ali-bot at $(git -C /tmp/ali-bot rev-parse HEAD)"
 cp /tmp/ali-bot/security-proxy/security_proxy.py \
    /tmp/ali-bot/security-proxy/pyproject.toml \
    "$PREFIX/"
@@ -73,6 +81,12 @@ else
   ./venv/bin/pip freeze
   echo "=== end resolved set ==="
 fi
+
+# No CA material is baked into this image on purpose. alivault.cern.ch is issued
+# by the CERN Grid CA, which no public trust store carries, so a CA *is* needed --
+# but the consuming job fetches it with a checksum-pinned Nomad `artifact` stanza
+# instead. Keeping it out of the image means a CA change never requires rebuilding
+# and republishing a container that holds the AC signing key.
 
 # git was only needed to fetch the source. Leaving it in a credential broker's
 # image is gratuitous reach for anything that gets code execution in here.
