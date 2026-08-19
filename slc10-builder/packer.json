@@ -11,7 +11,8 @@
       "commit": true,
       "changes": [
         "ENTRYPOINT [\"\"]",
-        "CMD [\"/bin/bash\"]"
+        "CMD [\"/bin/bash\"]",
+        "ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
       ]
     }
   ],
