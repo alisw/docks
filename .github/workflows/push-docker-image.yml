@@ -11,6 +11,23 @@ name: Push Docker image
         description: Docker image to build
         required: true
         default: slc9-builder
+      arch:
+        description: >-
+          Architecture to build for. Packer's docker builder produces an image
+          for the host it runs on, so this selects the runner rather than any
+          build flag -- there is no cross-compilation and no QEMU.
+        required: false
+        type: choice
+        default: amd64
+        options: [amd64, arm64]
+      image-tag:
+        description: >-
+          Tag to publish. Leave empty for the default: "latest" on amd64 and
+          "latest-arm64" on arm64. An arm build MUST NOT be pushed to "latest"
+          -- that tag is a single-arch amd64 manifest which several Nomad jobs
+          pin by digest, and overwriting it would break every one of them.
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -20,7 +37,9 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-22.04
+    # ubuntu-24.04-arm is a native arm64 runner, free for public repos.
+    runs-on: >-
+      ${{ inputs.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-22.04' }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -51,7 +70,8 @@ jobs:
 
           # The packer provided by Ubuntu repos is ancient
           curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt-add-repository \
+            "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
           sudo apt-get update && sudo apt-get install packer
           packer plugins install github.com/hashicorp/docker
         env:
@@ -69,6 +89,14 @@ jobs:
             echo 'error: requested docker image not defined in this repo' >&2
             exit 1
           fi
-          packer validate packer.json
-          packer build packer.json
-          docker push registry.cern.ch/alisw/${{ github.event.inputs.image-name }}
+          TAG="${{ inputs.image-tag }}"
+          if [ -z "$TAG" ]; then
+            case "${{ inputs.arch }}" in
+              arm64) TAG=latest-arm64 ;;
+              *)     TAG=latest       ;;
+            esac
+          fi
+          echo "publishing ${{ inputs.image-name }}:$TAG for ${{ inputs.arch }}"
+          packer validate -var "TAG=$TAG" packer.json
+          packer build    -var "TAG=$TAG" packer.json
+          docker push "registry.cern.ch/alisw/${{ inputs.image-name }}:$TAG"
