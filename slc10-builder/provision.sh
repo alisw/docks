@@ -26,7 +26,9 @@ dnf update -y
 dnf groups install -y 'Development Tools'
 # python3-{pip,setuptools} and s3cmd needed for Jenkins builds.
 # pigz: aliBuild uses it in place of gzip for package tarballs when present.
-dnf install -y alice-o2-full-deps python3-pip python3-setuptools s3cmd time pigz
+# freeglut ... libxkbcommon are used for the O2 GPU Standalone build with event display
+dnf install -y alice-o2-full-deps python3-pip python3-setuptools s3cmd time pigz \
+  freeglut-devel libdrm-devel vulkan-loader-devel glslc wayland-devel wayland-protocols-devel libxkbcommon-devel
 
 curl https://s3.cern.ch/swift/v1/alibuild-repo/bin/recc -L -o /usr/bin/recc
 chmod +x /usr/bin/recc
