@@ -30,6 +30,11 @@ dnf groups install -y 'Development Tools'
 dnf install -y alice-o2-full-deps python3-pip python3-setuptools s3cmd time pigz \
   freeglut-devel libdrm-devel vulkan-loader-devel glslc wayland-devel wayland-protocols-devel libxkbcommon-devel
 
+# Jenkins' slave.jar needs a JRE. On EL9 one arrived as a dependency; EL10 ships
+# only OpenJDK 21 and 25, so nothing pulls one and the agent died with
+# "java: command not found". 21 is what this Jenkins supports; 25 is untested.
+dnf install -y java-21-openjdk-headless
+
 curl https://s3.cern.ch/swift/v1/alibuild-repo/bin/recc -L -o /usr/bin/recc
 chmod +x /usr/bin/recc
 
