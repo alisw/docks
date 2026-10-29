@@ -1,0 +1,34 @@
+{
+  "_comment": "Ubuntu 26.04 builder X-enabled",
+  "variables": {
+    "REPO": "registry.cern.ch/alisw/ubuntu2604-builder",
+    "TAG": "latest"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "ubuntu:26.04",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `REPO`}}",
+        "tag": "{{user `TAG`}}"
+      },
+      {
+        "type": "shell-local",
+        "inline": ["echo 'The image was built successfully. To push the image to the registry, you can run: docker push {{user `REPO`}}:{{user `TAG`}}'"]
+      }
+
+    ]
+  ]
+}
