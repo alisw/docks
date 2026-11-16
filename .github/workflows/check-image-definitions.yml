@@ -20,10 +20,14 @@ jobs:
         run: |
           sudo apt update -y
 
-          # The packer provided by Ubuntu repos is ancient
-          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-          sudo apt-get update && sudo apt-get install packer
+          # The packer provided by Ubuntu repos is ancient. apt-key is gone
+          # from Ubuntu 26.04 (ubuntu-latest since November 2026), so the
+          # HashiCorp key goes into a keyring the source names with signed-by.
+          curl -fsSL https://apt.releases.hashicorp.com/gpg |
+            sudo gpg --dearmor --yes -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" |
+            sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt-get update && sudo apt-get install -y packer
           packer plugins install github.com/hashicorp/docker
 
       - name: Validate Packer images
